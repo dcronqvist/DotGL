@@ -24,6 +24,7 @@ SOFTWARE.
 
 */
 
+using System;
 using System.Text;
 using System.Security;
 using System.Runtime.InteropServices;
