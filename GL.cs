@@ -30,6 +30,9 @@ using System.Security;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+#pragma warning disable CS8603 // Possible null reference return.
+
 #if !OGL_WRAPPER_API_BOTH && !OGL_WRAPPER_API_UNSAFE && !OGL_WRAPPER_API_SAFE
 #error You must define one of OGL_WRAPPER_API_BOTH, OGL_WRAPPER_API_UNSAFE, or OGL_WRAPPER_API_SAFE
 #endif
@@ -8548,3 +8551,6 @@ public unsafe static class GL
     }
 #endif
 }
+
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+#pragma warning disable CS8603 // Possible null reference return.
