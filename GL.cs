@@ -1858,21 +1858,43 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDFUNCSEPARATEPROC(GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
     private static PFNGLBLENDFUNCSEPARATEPROC _glBlendFuncSeparate;
+    /// <summary>
+    /// Specify pixel arithmetic for RGB and alpha components separately. Refer to <see href="https://docs.gl/gl4/glBlendFuncSeparate" /> for all possible values for the functions.
+    /// </summary>
+    /// <param name="sfactorRGB">Specifies how the red, green, and blue blending factors are computed. The initial value is <see cref="GL_ONE" />.</param>
+    /// <param name="dfactorRGB">Specifies how the red, green, and blue destination blending factors are computed. The initial value is <see cref="GL_ZERO" />.</param>
+    /// <param name="sfactorAlpha">Specifies how the alpha source blending factor is computed. The initial value is <see cref="GL_ONE" />.</param>
+    /// <param name="dfactorAlpha">Specifies how the alpha destination blending factor is computed. The initial value is <see cref="GL_ZERO" />.</param>
     public static void glBlendFuncSeparate(GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha) => _glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLMULTIDRAWARRAYSPROC(GLenum mode, GLint* first, GLsizei* count, GLsizei drawcount);
     private static PFNGLMULTIDRAWARRAYSPROC _glMultiDrawArrays;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render multiple sets of primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="first">Specifies an array of starting indices in the enabled arrays.</param>
+    /// <param name="count">Specifies an array of the number of indices to be rendered.</param>
+    /// <param name="drawcount">Specifies the size of the <paramref name="first" /> and <paramref name="count" /> arrays.</param>
     public static void glMultiDrawArrays(GLenum mode, GLint* first, GLsizei* count, GLsizei drawcount) => _glMultiDrawArrays(mode, first, count, drawcount);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glMultiDrawArrays(GLenum mode, GLint[] first, GLsizei[] count, GLsizei drawcount)
+    /// <summary>
+    /// Render multiple sets of primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="first">Specifies an array of starting indices in the enabled arrays.</param>
+    /// <param name="count">Specifies an array of the number of indices to be rendered.</param>
+    public static void glMultiDrawArrays(GLenum mode, GLint[] first, GLsizei[] count)
     {
+        if (first.Length != count.Length)
+            throw new ArgumentException("first and count arrays must be of the same length");
         fixed (GLint* p1 = &first[0])
         fixed (GLsizei* p2 = &count[0])
         {
-            _glMultiDrawArrays(mode, p1, p2, drawcount);
+            _glMultiDrawArrays(mode, p1, p2, count.Length);
         }
     }
 #endif
@@ -1881,9 +1903,24 @@ public unsafe static class GL
     private delegate void PFNGLMULTIDRAWELEMENTSPROC(GLenum mode, GLsizei* count, GLenum type, void** indices, GLsizei drawcount);
     private static PFNGLMULTIDRAWELEMENTSPROC _glMultiDrawElements;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render multiple sets of primitives by specifying indices of array data elements.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="count">Specifies an array of the elements counts.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices" />. Must be one of <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, or <see cref="GL_UNSIGNED_INT" />.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param name="drawcount">Specifies the size of the <paramref name="count" /> and <paramref name="indices" /> arrays.</param>
     public static void glMultiDrawElements(GLenum mode, GLsizei* count, GLenum type, void** indices, GLsizei drawcount) => _glMultiDrawElements(mode, count, type, indices, drawcount);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render multiple sets of primitives by specifying indices of array data elements.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="count">Specifies an array of the elements counts.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices" />. Must be one of <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, or <see cref="GL_UNSIGNED_INT" />.</param>
+    /// <param name="indices">Specifies a two-dimensional array of indices of the vertices that are to be rendered.</param>
     public static void glMultiDrawElements<T>(GLenum mode, GLsizei[] count, GLenum type, T[][] indices) where T : unmanaged, IUnsignedNumber<T>
     {
         void*[] indexPtrs = new void*[indices.Length];
@@ -1906,41 +1943,82 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPOINTPARAMETERFPROC(GLenum pname, GLfloat param);
     private static PFNGLPOINTPARAMETERFPROC _glPointParameterf;
+    /// <summary>
+    /// Specify point parameters.
+    /// </summary>
+    /// <param name="pname">Specifies the symbolic name of the parameter to be set. <see cref="GL_POINT_FADE_THRESHOLD_SIZE" /> and <see cref="GL_POINT_SPRITE_COORD_ORIGIN" /> are accepted.</param>
+    /// <param name="param">Specifies the value that parameter <paramref name="pname" /> will be set to.</param>
     public static void glPointParameterf(GLenum pname, GLfloat param) => _glPointParameterf(pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPOINTPARAMETERFVPROC(GLenum pname, GLfloat* @params);
     private static PFNGLPOINTPARAMETERFVPROC _glPointParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify point parameters.
+    /// </summary>
+    /// <param name="pname">Specifies the symbolic name of the parameter to be set. <see cref="GL_POINT_FADE_THRESHOLD_SIZE" /> and <see cref="GL_POINT_SPRITE_COORD_ORIGIN" /> are accepted.</param>
+    /// <param name="params">Specifies a pointer to an array where the value or values to be assigned to <paramref name="pname" /> are currently stored.</param> 
     public static void glPointParameterfv(GLenum pname, GLfloat* @params) => _glPointParameterfv(pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glPointParameterfv(GLenum pname, ref GLfloat[] @params) { fixed (GLfloat* p = &@params[0]) { _glPointParameterfv(pname, p); } }
+    /// <summary>
+    /// Specify point parameters.
+    /// </summary>
+    /// <param name="pname">Specifies the symbolic name of the parameter to be set. <see cref="GL_POINT_FADE_THRESHOLD_SIZE" /> and <see cref="GL_POINT_SPRITE_COORD_ORIGIN" /> are accepted.</param>
+    /// <param name="params">Specifies an array of values that will be used to update the current point parameters.</param>
+    public static void glPointParameterfv(GLenum pname, GLfloat[] @params) { fixed (GLfloat* p = &@params[0]) { _glPointParameterfv(pname, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPOINTPARAMETERIPROC(GLenum pname, GLint param);
     private static PFNGLPOINTPARAMETERIPROC _glPointParameteri;
+    /// <summary>
+    /// Specify point parameters.
+    /// </summary>
+    /// <param name="pname">Specifies the symbolic name of the parameter to be set. <see cref="GL_POINT_FADE_THRESHOLD_SIZE" /> and <see cref="GL_POINT_SPRITE_COORD_ORIGIN" /> are accepted.</param>
+    /// <param name="param">Specifies the value that parameter <paramref name="pname" /> will be set to.</param>
     public static void glPointParameteri(GLenum pname, GLint param) => _glPointParameteri(pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPOINTPARAMETERIVPROC(GLenum pname, GLint* @params);
     private static PFNGLPOINTPARAMETERIVPROC _glPointParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify point parameters.
+    /// </summary>
+    /// <param name="pname">Specifies the symbolic name of the parameter to be set. <see cref="GL_POINT_FADE_THRESHOLD_SIZE" /> and <see cref="GL_POINT_SPRITE_COORD_ORIGIN" /> are accepted.</param>
+    /// <param name="params">Specifies a pointer to an array where the value or values to be assigned to <paramref name="pname" /> are currently stored.</param>
     public static void glPointParameteriv(GLenum pname, GLint* @params) => _glPointParameteriv(pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glPointParameteriv(GLenum pname, ref GLint[] @params) { fixed (GLint* p = &@params[0]) { _glPointParameteriv(pname, p); } }
+    /// <summary>
+    /// Specify point parameters.
+    /// </summary>
+    /// <param name="pname">Specifies the symbolic name of the parameter to be set. <see cref="GL_POINT_FADE_THRESHOLD_SIZE" /> and <see cref="GL_POINT_SPRITE_COORD_ORIGIN" /> are accepted.</param>
+    /// <param name="params">Specifies an array of values that will be used to update the current point parameters.</param>
+    public static void glPointParameteriv(GLenum pname, GLint[] @params) { fixed (GLint* p = &@params[0]) { _glPointParameteriv(pname, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDCOLORPROC(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
     private static PFNGLBLENDCOLORPROC _glBlendColor;
+    /// <summary>
+    /// Set the blend color.
+    /// </summary>
+    /// <param name="red">Specify the red value to use as the blend color.</param>
+    /// <param name="green">Specify the green value to use as the blend color.</param>
+    /// <param name="blue">Specify the blue value to use as the blend color.</param>
+    /// <param name="alpha">Specify the alpha value to use as the blend color.</param>
     public static void glBlendColor(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha) => _glBlendColor(red, green, blue, alpha);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDEQUATIONPROC(GLenum mode);
     private static PFNGLBLENDEQUATIONPROC _glBlendEquation;
+    /// <summary>
+    /// Specify the equation used for both the RGB blend equation and the Alpha blend equation.
+    /// </summary>
+    /// <param name="mode">Specifies how source and destination colors are combined. Must be <see cref="GL_FUNC_ADD" />, <see cref="GL_FUNC_SUBTRACT" />, <see cref="GL_FUNC_REVERSE_SUBTRACT" />, <see cref="GL_MIN" />, <see cref="GL_MAX" />.</param>
     public static void glBlendEquation(GLenum mode) => _glBlendEquation(mode);
 
 #endif
