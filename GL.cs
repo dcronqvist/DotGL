@@ -1591,80 +1591,233 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLACTIVETEXTUREPROC(GLenum texture);
     private static PFNGLACTIVETEXTUREPROC _glActiveTexture;
+    /// <summary>
+    /// Select active texture unit
+    /// </summary>
+    /// <param name="texture">Specifies which texture unit to make active. The number of texture units is implementation dependent, but must be at least 80. <paramref name="texture"/> must be one of <see cref="GL_TEXTURE0"/>+i, where i ranges from 0 to the value of <see cref="GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS"/> minus one. The initial value is <see cref="GL_TEXTURE0"/>.</param>
     public static void glActiveTexture(GLenum texture) => _glActiveTexture(texture);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSAMPLECOVERAGEPROC(GLfloat value, GLboolean invert);
     private static PFNGLSAMPLECOVERAGEPROC _glSampleCoverage;
+    /// <summary>
+    /// Specify multisample coverage parameters
+    /// </summary>
+    /// <param name="value">Specify a single floating-point sample coverage value. The value is clamped to the range [0,1]. The initial value is 1.</param>
+    /// <param name="invert">Specify a single boolean value representing if the coverage masks should be inverted. The intial value is <see langword="false" />.</param>
     public static void glSampleCoverage(GLfloat value, GLboolean invert) => _glSampleCoverage(value, invert);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOMPRESSEDTEXIMAGE3DPROC(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXIMAGE3DPROC _glCompressedTexImage3D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a three-dimensional texture image in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D"/>, <see cref="GL_PROXY_TEXTURE_3D"/>, <see cref="GL_TEXTURE_2D_ARRAY"/> or <see cref="GL_PROXY_TEXTURE_2D_ARRAY"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 3D texture images that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture image. All implementations support 3D texture images that are at least 16 texels high.</param>
+    /// <param name="depth">Specifies the depth of the texture image. All implementations support 3D texture images that are at least 16 texels deep.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of image data starting at the address specified by <paramref name="data"/>.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, void* data) => _glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, p); } }
+    /// <summary>
+    /// Specify a three-dimensional texture image in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D"/>, <see cref="GL_PROXY_TEXTURE_3D"/>, <see cref="GL_TEXTURE_2D_ARRAY"/> or <see cref="GL_PROXY_TEXTURE_2D_ARRAY"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 3D texture images that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture image. All implementations support 3D texture images that are at least 16 texels high.</param>
+    /// <param name="depth">Specifies the depth of the texture image. All implementations support 3D texture images that are at least 16 texels deep.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="data">Specifies an array of bytes containing the compressed image data.</param>
+    public static void glCompressedTexImage3D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOMPRESSEDTEXIMAGE2DPROC(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXIMAGE2DPROC _glCompressedTexImage2D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a two-dimensional texture image in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_2D"/>, <see cref="GL_PROXY_TEXTURE_2D"/>, <see cref="GL_TEXTURE_1D_ARRAY"/>, <see cref="GL_PROXY_TEXTURE_1D_ARRAY"/>, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_PROXY_TEXTURE_CUBE_MAP"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 2D texture images that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture image. All implementations support 2D texture images that are at least 16 texels high.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of image data starting at the address specified by <paramref name="data"/>.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, void* data) => _glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, p); } }
+    /// <summary>
+    /// Specify a two-dimensional texture image in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_2D"/>, <see cref="GL_PROXY_TEXTURE_2D"/>, <see cref="GL_TEXTURE_1D_ARRAY"/>, <see cref="GL_PROXY_TEXTURE_1D_ARRAY"/>, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_PROXY_TEXTURE_CUBE_MAP"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 2D texture images that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture image. All implementations support 2D texture images that are at least 16 texels high.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="data">Specifies an array of bytes containing the compressed image data.</param>
+    public static void glCompressedTexImage2D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexImage2D(target, level, internalformat, width, height, border, data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOMPRESSEDTEXIMAGE1DPROC(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXIMAGE1DPROC _glCompressedTexImage1D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a one-dimensional texture image in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D"/> or <see cref="GL_PROXY_TEXTURE_1D"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 2D texture images that are at least 64 texels wide.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of image data starting at the address specified by <paramref name="data"/>.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, void* data) => _glCompressedTexImage1D(target, level, internalformat, width, border, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexImage1D(target, level, internalformat, width, border, imageSize, p); } }
+    /// <summary>
+    /// Specify a one-dimensional texture image in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D"/> or <see cref="GL_PROXY_TEXTURE_1D"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 2D texture images that are at least 64 texels wide.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="data">Specifies an array of bytes containing the compressed image data.</param>
+    public static void glCompressedTexImage1D(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexImage1D(target, level, internalformat, width, border, data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC _glCompressedTexSubImage3D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D"/>, <see cref="GL_TEXTURE_2D_ARRAY" /> or <see cref="GL_TEXTURE_CUBE_MAP_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage. All implementations support 3D texture subimages that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture subimage. All implementations support 3D texture subimages that are at least 16 texels high.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage. All implementations support 3D texture subimages that are at least 16 texels deep.</param>
+    /// <param name="format">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of image data starting at the address specified by <paramref name="data"/>.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, void* data) => _glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, p); } }
+    /// <summary>
+    /// Specify a three-dimensional texture subimage in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D"/>, <see cref="GL_TEXTURE_2D_ARRAY" /> or <see cref="GL_TEXTURE_CUBE_MAP_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage. All implementations support 3D texture subimages that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture subimage. All implementations support 3D texture subimages that are at least 16 texels high.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage. All implementations support 3D texture subimages that are at least 16 texels deep.</param>
+    /// <param name="format">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="data">Specifies an array of bytes containing the compressed image data.</param>
+    public static void glCompressedTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC _glCompressedTexSubImage2D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D_ARRAY" />, <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" /> or <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage. All implementations support 2D texture subimages that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture subimage. All implementations support 2D texture subimages that are at least 16 texels high.</param>
+    /// <param name="format">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of image data starting at the address specified by <paramref name="data"/>.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, void* data) => _glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glCompressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, p); } }
+    /// <summary>
+    /// Specify a two-dimensional texture subimage in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D_ARRAY" />, <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" /> or <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage. All implementations support 2D texture subimages that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture subimage. All implementations support 2D texture subimages that are at least 16 texels high.</param>
+    /// <param name="format">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="data">Specifies an array of bytes containing the compressed image data.</param>
+    public static void glCompressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC _glCompressedTexSubImage1D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage. All implementations support 1D texture subimages that are at least 16 texels wide.</param>
+    /// <param name="format">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of image data starting at the address specified by <paramref name="data"/>.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, void* data) => _glCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, p); } }
+    /// <summary>
+    /// Specify a one-dimensional texture subimage in a compressed format
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage. All implementations support 1D texture subimages that are at least 16 texels wide.</param>
+    /// <param name="format">Specifies the color components in the texture. Must be one of <see cref="GL_COMPRESSED_RED" />, <see cref="GL_COMPRESSED_RG" />, <see cref="GL_COMPRESSED_RGB" />, <see cref="GL_COMPRESSED_RGBA" />, <see cref="GL_COMPRESSED_SRGB" />, <see cref="GL_COMPRESSED_SRGB_ALPHA" />.</param>
+    /// <param name="data">Specifies an array of bytes containing the compressed image data.</param>
+    public static void glCompressedTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, byte[] data) { fixed (byte* p = &data[0]) { _glCompressedTexSubImage1D(target, level, xoffset, width, format, data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETCOMPRESSEDTEXIMAGEPROC(GLenum target, GLint level, void* img);
     private static PFNGLGETCOMPRESSEDTEXIMAGEPROC _glGetCompressedTexImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a compressed texture image
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D" />, <see cref="GL_TEXTURE_1D_ARRAY" />, <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_2D_ARRAY" />, <see cref="GL_TEXTURE_3D" />, <see cref="GL_TEXTURE_CUBE_MAP_ARRAY" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X"/>, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_TEXTURE_RECTANGLE" />.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="img">Specifies a pointer to a buffer into which the compressed image data will be placed.</param>
     public static void glGetCompressedTexImage(GLenum target, GLint level, void* img) => _glGetCompressedTexImage(target, level, img);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a compressed texture image
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D" />, <see cref="GL_TEXTURE_1D_ARRAY" />, <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_2D_ARRAY" />, <see cref="GL_TEXTURE_3D" />, <see cref="GL_TEXTURE_CUBE_MAP_ARRAY" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X"/>, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_TEXTURE_RECTANGLE" />.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="img">Specifies a <see langword="ref" /> byte array into which the compressed image data will be placed.</param>
     public static void glGetCompressedTexImage(GLenum target, GLint level, ref byte[] img) { fixed (byte* p = &img[0]) { _glGetCompressedTexImage(target, level, p); } }
 #endif
 
