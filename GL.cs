@@ -2060,10 +2060,24 @@ public unsafe static class GL
     private delegate void PFNGLGENQUERIESPROC(GLsizei n, GLuint* ids);
     private static PFNGLGENQUERIESPROC _glGenQueries;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate query object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of query object names to generate.</param>
+    /// <param name="ids">Specifies an array in which the generated query object names are to be stored.</param>
     public static void glGenQueries(GLsizei n, GLuint* ids) => _glGenQueries(n, ids);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate query object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of query object names to generate.</param>
+    /// <returns>Array of generated query object names.</returns>
     public static GLuint[] glGenQueries(GLsizei n) { GLuint[] ret = new GLuint[n]; fixed (GLuint* p = &ret[0]) { _glGenQueries(n, p); } return ret; }
+    /// <summary>
+    /// Generate a single query object name.
+    /// </summary>
+    /// <returns>Generated query object name.</returns>
     public static GLuint glGenQuery() => glGenQueries(1)[0];
 #endif
 
@@ -2071,34 +2085,69 @@ public unsafe static class GL
     private delegate void PFNGLDELETEQUERIESPROC(GLsizei n, GLuint* ids);
     private static PFNGLDELETEQUERIESPROC _glDeleteQueries;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Delete named query objects.
+    /// </summary>
+    /// <param name="n">Specifies the number of query objects to be deleted.</param>
+    /// <param name="ids">Specifies an array of query objects to be deleted.</param>
     public static void glDeleteQueries(GLsizei n, GLuint* ids) => _glDeleteQueries(n, ids);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Delete named query objects.
+    /// </summary>
+    /// <param name="ids">Specifies an array of query objects to be deleted.</param>
     public static void glDeleteQueries(params GLuint[] ids) { fixed (GLuint* p = &ids[0]) { _glDeleteQueries(ids.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLISQUERYPROC(GLuint id);
     private static PFNGLISQUERYPROC _glIsQuery;
+    /// <summary>
+    /// Determine if a name corresponds to a query object.
+    /// </summary>
+    /// <param name="id">Specifies a value that may be the name of a query object.</param>
+    /// <returns><see langword="true"/> if <paramref name="id"/> is query object name, otherwise <see langword="false"/>.</returns>
     public static GLboolean glIsQuery(GLuint id) => _glIsQuery(id);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBEGINQUERYPROC(GLenum target, GLuint id);
     private static PFNGLBEGINQUERYPROC _glBeginQuery;
+    /// <summary>
+    /// Delimit the boundaries of a query object.
+    /// </summary>
+    /// <param name="target">Specifies the target type of query object established between <see cref="glBeginQuery"/> and the subsequent <see cref="glEndQuery"/>. The symbol constant must be one of <see cref="GL_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED_CONSERVATIVE"/>, <see cref="GL_PRIMITIVES_GENERATED"/>, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN"/> or <see cref="GL_TIME_ELAPSED"/>.</param>
+    /// <param name="id">Specifies the name of a query object.</param>
     public static void glBeginQuery(GLenum target, GLuint id) => _glBeginQuery(target, id);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLENDQUERYPROC(GLenum target);
     private static PFNGLENDQUERYPROC _glEndQuery;
+    /// <summary>
+    /// Delimit the boundaries of a query object.
+    /// </summary>
+    /// <param name="target">Specifies the target type of query object established between <see cref="glBeginQuery"/> and the subsequent <see cref="glEndQuery"/>. The symbol constant must be one of <see cref="GL_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED_CONSERVATIVE"/>, <see cref="GL_PRIMITIVES_GENERATED"/>, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN"/> or <see cref="GL_TIME_ELAPSED"/>.</param>
     public static void glEndQuery(GLenum target) => _glEndQuery(target);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYIVPROC(GLenum target, GLenum pname, GLint* @params);
     private static PFNGLGETQUERYIVPROC _glGetQueryiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a query object target.
+    /// </summary>
+    /// <param name="target">Specifies the target parameter of the query object being queried. The symbolic constant must be one of <see cref="GL_SAMPLES_PASSED" />, <see cref="GL_ANY_SAMPLES_PASSED" />, <see cref="GL_ANY_SAMPLES_PASSED_CONSERVATIVE" />, <see cref="GL_PRIMITIVES_GENERATED" />, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN" />, <see cref="GL_TIME_ELAPSED" /> or <see cref="GL_TIMESTAMP" />.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object target parameter. <see cref="GL_CURRENT_QUERY" /> and <see cref="GL_QUERY_COUNTER_BITS" /> are accepted.</param>
+    /// <param name="params">A pointer to the location where the integer value or values are to be returned.</param>
     public static void glGetQueryiv(GLenum target, GLenum pname, GLint* @params) => _glGetQueryiv(target, pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a query object target.
+    /// </summary>
+    /// <param name="target">Specifies the target parameter of the query object being queried. The symbolic constant must be one of <see cref="GL_SAMPLES_PASSED" />, <see cref="GL_ANY_SAMPLES_PASSED" />, <see cref="GL_ANY_SAMPLES_PASSED_CONSERVATIVE" />, <see cref="GL_PRIMITIVES_GENERATED" />, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN" />, <see cref="GL_TIME_ELAPSED" /> or <see cref="GL_TIMESTAMP" />.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object target parameter. <see cref="GL_CURRENT_QUERY" /> and <see cref="GL_QUERY_COUNTER_BITS" /> are accepted.</param>
+    /// <param name="params">A <see langword="ref" /> to an integer array where the integer value or values are to be returned.</param>
     public static void glGetQueryiv(GLenum target, GLenum pname, ref GLint[] @params) { fixed (GLint* p = &@params[0]) { _glGetQueryiv(target, pname, (GLint*)p); } }
 #endif
 
@@ -2106,9 +2155,21 @@ public unsafe static class GL
     private delegate void PFNGLGETQUERYOBJECTIVPROC(GLuint id, GLenum pname, GLint* @params);
     private static PFNGLGETQUERYOBJECTIVPROC _glGetQueryObjectiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a query object.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object parameter. <see cref="GL_QUERY_RESULT" />, <see cref="GL_QUERY_RESULT_NO_WAIT" /> or <see cref="GL_QUERY_RESULT_AVAILABLE" /> are accepted.</param>
+    /// <param name="params">A pointer to the location where the integer value or values are to be returned.</param>
     public static void glGetQueryObjectiv(GLuint id, GLenum pname, GLint* @params) => _glGetQueryObjectiv(id, pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a query object.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object parameter. <see cref="GL_QUERY_RESULT" />, <see cref="GL_QUERY_RESULT_NO_WAIT" /> or <see cref="GL_QUERY_RESULT_AVAILABLE" /> are accepted.</param>
+    /// <param name="params">A <see langword="ref" /> to an integer array where the integer value or values are to be returned.</param>
     public static void glGetQueryObjectiv(GLuint id, GLenum pname, ref GLint[] @params) { fixed (GLint* p = &@params[0]) { _glGetQueryObjectiv(id, pname, (GLint*)p); } }
 #endif
 
@@ -2116,24 +2177,50 @@ public unsafe static class GL
     private delegate void PFNGLGETQUERYOBJECTUIVPROC(GLuint id, GLenum pname, GLuint* @params);
     private static PFNGLGETQUERYOBJECTUIVPROC _glGetQueryObjectuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a query object.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object parameter. <see cref="GL_QUERY_RESULT" />, <see cref="GL_QUERY_RESULT_NO_WAIT" /> or <see cref="GL_QUERY_RESULT_AVAILABLE" /> are accepted.</param>
+    /// <param name="params">A pointer to the location where the unsigned integer value or values are to be returned.</param>
     public static void glGetQueryObjectuiv(GLuint id, GLenum pname, GLuint* @params) => _glGetQueryObjectuiv(id, pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a query object.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object parameter. <see cref="GL_QUERY_RESULT" />, <see cref="GL_QUERY_RESULT_NO_WAIT" /> or <see cref="GL_QUERY_RESULT_AVAILABLE" /> are accepted.</param>
+    /// <param name="params">A <see langword="ref" /> to an unsigned integer array where the integer value or values are to be returned.</param>
     public static void glGetQueryObjectuiv(GLuint id, GLenum pname, ref GLuint[] @params) { fixed (GLuint* p = &@params[0]) { _glGetQueryObjectuiv(id, pname, (GLuint*)p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDBUFFERPROC(GLenum target, GLuint buffer);
     private static PFNGLBINDBUFFERPROC _glBindBuffer;
+    /// <summary>
+    /// Bind a named buffer object.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffer object is bound. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="buffer">Specifies the name of a buffer object.</param>
     public static void glBindBuffer(GLenum target, GLuint buffer) => _glBindBuffer(target, buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDELETEBUFFERSPROC(GLsizei n, GLuint* buffers);
     private static PFNGLDELETEBUFFERSPROC _glDeleteBuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Delete named buffer objects.
+    /// </summary>
+    /// <param name="n">Specifies the number of buffer objects to be deleted.</param>
+    /// <param name="buffers">A pointer to an array of buffer objects to be deleted.</param>
     public static void glDeleteBuffers(GLsizei n, GLuint* buffers) => _glDeleteBuffers(n, buffers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Delete named buffer objects.
+    /// </summary>
+    /// <param name="buffers">An array of buffer objects to be deleted.</param>
     public static void glDeleteBuffers(params GLuint[] buffers) { fixed (GLuint* p = &buffers[0]) { _glDeleteBuffers(buffers.Length, p); } }
 #endif
 
@@ -2141,25 +2228,58 @@ public unsafe static class GL
     private delegate void PFNGLGENBUFFERSPROC(GLsizei n, GLuint* buffers);
     private static PFNGLGENBUFFERSPROC _glGenBuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate buffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of buffer object names to generate.</param>
+    /// <param name="buffers">A pointer to an array in which the generated buffer object names are to be stored.</param>
     public static void glGenBuffers(GLsizei n, GLuint* buffers) => _glGenBuffers(n, buffers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate buffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of buffer object names to generate.</param>
+    /// <returns>An array of generated buffer object names.</returns>
     public static GLuint[] glGenBuffers(GLsizei n) { GLuint[] ret = new GLuint[n]; fixed (GLuint* p = &ret[0]) { _glGenBuffers(n, p); } return ret; }
+    /// <summary>
+    /// Generate a single buffer object name.
+    /// </summary>
+    /// <returns>The generated buffer object name.</returns>
     public static GLuint glGenBuffer() => glGenBuffers(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLISBUFFERPROC(GLuint buffer);
     private static PFNGLISBUFFERPROC _glIsBuffer;
+    /// <summary>
+    /// Determine if a name corresponds to a buffer object.
+    /// </summary>
+    /// <param name="buffer">A value that may be the name of a buffer object.</param>
+    /// <returns><see langword="true" /> if <paramref name="buffer" /> is a buffer object name. <see langword="false" /> otherwise.</returns>
     public static GLboolean glIsBuffer(GLuint buffer) => _glIsBuffer(buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBUFFERDATAPROC(GLenum target, GLsizeiptr size, void* data, GLenum usage);
     private static PFNGLBUFFERDATAPROC _glBufferData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer object's new data store.</param>
+    /// <param name="data">Specifies a pointer to data that will be copied into the data store for initialization, or <see cref="NULL" /> if no data is to be copied.</param>
+    /// <param name="usage">Specifies the expected usage pattern of the data store. The symbolic constant must be <see cref="GL_STREAM_DRAW" />, <see cref="GL_STREAM_READ" />, <see cref="GL_STREAM_COPY" />, <see cref="GL_STATIC_DRAW" />, <see cref="GL_STATIC_READ" />, <see cref="GL_STATIC_COPY" />, <see cref="GL_DYNAMIC_DRAW" />, <see cref="GL_DYNAMIC_READ" /> or <see cref="GL_DYNAMIC_COPY" />.</param>
     public static void glBufferData(GLenum target, GLsizeiptr size, void* data, GLenum usage) => _glBufferData(target, size, data, usage);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to be copied.</typeparam>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="data">An array of <typeparamref name="T" />s that will be copied into the data store for initialization.</param>
+    /// <param name="usage">Specifies the expected usage pattern of the data store. The symbolic constant must be <see cref="GL_STREAM_DRAW" />, <see cref="GL_STREAM_READ" />, <see cref="GL_STREAM_COPY" />, <see cref="GL_STATIC_DRAW" />, <see cref="GL_STATIC_READ" />, <see cref="GL_STATIC_COPY" />, <see cref="GL_DYNAMIC_DRAW" />, <see cref="GL_DYNAMIC_READ" /> or <see cref="GL_DYNAMIC_COPY" />.</param>
     public static void glBufferData<T>(GLenum target, T[] data, GLenum usage) where T : unmanaged { fixed (T* p = &data[0]) { _glBufferData(target, sizeof(T) * data.Length, p, usage); } }
 #endif
 
@@ -2167,29 +2287,70 @@ public unsafe static class GL
     private delegate void PFNGLBUFFERSUBDATAPROC(GLenum target, GLintptr offset, GLsizeiptr size, void* data);
     private static PFNGLBUFFERSUBDATAPROC _glBufferSubData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Update a subset of a buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data store region being replaced.</param>
+    /// <param name="data">Specifies a pointer to the new data that will be copied into the data store.</param>
     public static void glBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, void* data) => _glBufferSubData(target, offset, size, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glBufferSubData<T>(GLenum target, GLintptr offset, T[] data) where T : unmanaged { fixed (T* p = &data[0]) { _glBufferSubData(target, offset, sizeof(T) * data.Length, p); } }
+    /// <summary>
+    /// Update a subset of a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to be copied.</typeparam>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="offsetCount">Specifies the offset into the buffer object's data store where data replacement will begin.</param>
+    /// <param name="data">An array of <typeparamref name="T" />s that will be copied into the data store for replacement.</param>
+    public static void glBufferSubData<T>(GLenum target, GLintptr offsetCount, T[] data) where T : unmanaged { fixed (T* p = &data[0]) { _glBufferSubData(target, offsetCount * sizeof(T), sizeof(T) * data.Length, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETBUFFERSUBDATAPROC(GLenum target, GLintptr offset, GLsizeiptr size, void* data);
     private static PFNGLGETBUFFERSUBDATAPROC _glGetBufferSubData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a subset of a buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store from which data will be returned, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data store region being returned.</param>
+    /// <param name="data">Specifies a pointer to the location where buffer object data is returned.</param>
     public static void glGetBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, void* data) => _glGetBufferSubData(target, offset, size, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glGetBufferSubData<T>(GLenum target, GLintptr offset, GLsizei count, ref T[] data) where T : unmanaged { fixed (T* p = &data[0]) { _glGetBufferSubData(target, offset, sizeof(T) * count, p); } }
+    /// <summary>
+    /// Return a subset of a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to be returned.</typeparam>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="offsetCount">Specifies the offset into the buffer object's data store from which data will be returned.</param>
+    /// <param name="count">Specifies the number of <typeparamref name="T" />s to be returned.</param>
+    /// <param name="data">An array of <typeparamref name="T" />s that will be filled with the data from the buffer object.</param>
+    public static void glGetBufferSubData<T>(GLenum target, GLintptr offsetCount, GLsizei count, ref T[] data) where T : unmanaged { fixed (T* p = &data[0]) { _glGetBufferSubData(target, offsetCount * sizeof(T), sizeof(T) * count, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void* PFNGLMAPBUFFERPROC(GLenum target, GLenum access);
     private static PFNGLMAPBUFFERPROC _glMapBuffer;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Map a buffer object's data store into the client's address space.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="access">Specifies a combination of access flags indicating the desired access to the range of the buffer object's data store. One of <see cref="GL_READ_ONLY" />, <see cref="GL_WRITE_ONLY" /> or <see cref="GL_READ_WRITE" />.</param>
+    /// <returns>Returns a pointer to the beginning of the mapped range.</returns>
     public static void* glMapBuffer(GLenum target, GLenum access) => _glMapBuffer(target, access);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Map a buffer object's data store into the client's address space.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="access">Specifies a combination of access flags indicating the desired access to the range of the buffer object's data store. One of <see cref="GL_READ_ONLY" />, <see cref="GL_WRITE_ONLY" /> or <see cref="GL_READ_WRITE" />.</param>
+    /// <returns>Returns a type-safe and memory-safe <see cref="System.Span{T}" /> of the buffers data.</returns>
     public static System.Span<T> glMapBuffer<T>(GLenum target, GLenum access) where T : unmanaged
     {
         GLint size;
@@ -2203,15 +2364,32 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLUNMAPBUFFERPROC(GLenum target);
     private static PFNGLUNMAPBUFFERPROC _glUnmapBuffer;
+    /// <summary>
+    /// Release a mapped buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object being unmapped. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <returns><see langword="true" /> unless the data store contents have become corrupt during the time the data store was mapped. This can occur for system-specific reasons that affect the availability of graphics memory, such as screen mode changes. In such situations, <see cref="glUnmapBuffer" /> may return <see langword="false" /> to indicate that the contents of the buffer have become corrupt and should be considered undefined. An application must detect this rare condition and reinitialize the data store.</returns>
     public static GLboolean glUnmapBuffer(GLenum target) => _glUnmapBuffer(target);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETBUFFERPARAMETERIVPROC(GLenum target, GLenum pname, GLint* @params);
     private static PFNGLGETBUFFERPARAMETERIVPROC _glGetBufferParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a buffer object.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter. Accepted values are <see cref="GL_BUFFER_ACCESS" />, <see cref="GL_BUFFER_MAPPED" />, <see cref="GL_BUFFER_SIZE" />, <see cref="GL_BUFFER_USAGE" />.</param>
+    /// <param name="params">A pointer to a memory location where the returned data will be placed.</param>
     public static void glGetBufferParameteriv(GLenum target, GLenum pname, GLint* @params) => _glGetBufferParameteriv(target, pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a buffer object.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter. Accepted values are <see cref="GL_BUFFER_ACCESS" />, <see cref="GL_BUFFER_MAPPED" />, <see cref="GL_BUFFER_SIZE" />, <see cref="GL_BUFFER_USAGE" />.</param>
+    /// <param name="params">A <see langword="ref" /> to an integer array where the returned data will be placed.</param>
     public static void glGetBufferParameteriv(GLenum target, GLenum pname, ref GLint[] @params) { fixed (GLint* p = &@params[0]) { _glGetBufferParameteriv(target, pname, p); } }
 #endif
 
@@ -2219,9 +2397,21 @@ public unsafe static class GL
     private delegate void PFNGLGETBUFFERPOINTERVPROC(GLenum target, GLenum pname, void** @params);
     private static PFNGLGETBUFFERPOINTERVPROC _glGetBufferPointerv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the pointer to a mapped buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object being mapped. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="pname">Specifies the pointer to be returned. Accepted values are <see cref="GL_BUFFER_MAP_POINTER" />.</param>
+    /// <param name="params">A pointer to a memory location where the returned data will be placed.</param>
     public static void glGetBufferPointerv(GLenum target, GLenum pname, void** @params) => _glGetBufferPointerv(target, pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the pointer to a mapped buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target buffer object being mapped. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" /> or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="pname">Specifies the pointer to be returned. Accepted values are <see cref="GL_BUFFER_MAP_POINTER" />.</param>
+    /// <param name="params">A <see langword="ref" /> to an array of <see cref="IntPtr" />s where the returned pointer(s) will be placed.</param>
     public static void glGetBufferPointerv(GLenum target, GLenum pname, ref IntPtr[] @params) { fixed (IntPtr* p = &@params[0]) { _glGetBufferPointerv(target, pname, (void**)p); } }
 #endif
 
