@@ -4205,60 +4205,138 @@ public unsafe static class GL
     private delegate void PFNGLUNIFORMMATRIX2X3FVPROC(GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLUNIFORMMATRIX2X3FVPROC _glUniformMatrix2x3fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified. This should be 1 if the targeted uniform variable is not an array of matrices, and 1 or more if it is an array of matrices</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies a pointer to an array of values that will be used to update the specified uniform variable</param>
     public static void glUniformMatrix2x3fv(GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glUniformMatrix2x3fv(location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix2x3fv(GLint location, GLsizei count, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix2x3fv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 6 values per matrix.</param>
+    public static void glUniformMatrix2x3fv(GLint location, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix2x3fv(location, value.Length / 6, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX3X2FVPROC(GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLUNIFORMMATRIX3X2FVPROC _glUniformMatrix3x2fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified. This should be 1 if the targeted uniform variable is not an array of matrices, and 1 or more if it is an array of matrices</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies a pointer to an array of values that will be used to update the specified uniform variable</param>
     public static void glUniformMatrix3x2fv(GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glUniformMatrix3x2fv(location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix3x2fv(GLint location, GLsizei count, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix3x2fv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 6 values per matrix.</param>
+    public static void glUniformMatrix3x2fv(GLint location, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix3x2fv(location, value.Length / 6, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX2X4FVPROC(GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLUNIFORMMATRIX2X4FVPROC _glUniformMatrix2x4fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified. This should be 1 if the targeted uniform variable is not an array of matrices, and 1 or more if it is an array of matrices</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies a pointer to an array of values that will be used to update the specified uniform variable</param>
     public static void glUniformMatrix2x4fv(GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glUniformMatrix2x4fv(location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix2x4fv(GLint location, GLsizei count, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix2x4fv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 8 values per matrix.</param>
+    public static void glUniformMatrix2x4fv(GLint location, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix2x4fv(location, value.Length / 8, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX4X2FVPROC(GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLUNIFORMMATRIX4X2FVPROC _glUniformMatrix4x2fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified. This should be 1 if the targeted uniform variable is not an array of matrices, and 1 or more if it is an array of matrices</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies a pointer to an array of values that will be used to update the specified uniform variable</param>
     public static void glUniformMatrix4x2fv(GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glUniformMatrix4x2fv(location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix4x2fv(GLint location, GLsizei count, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix4x2fv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 8 values per matrix.</param>
+    public static void glUniformMatrix4x2fv(GLint location, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix4x2fv(location, value.Length / 8, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX3X4FVPROC(GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLUNIFORMMATRIX3X4FVPROC _glUniformMatrix3x4fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified. This should be 1 if the targeted uniform variable is not an array of matrices, and 1 or more if it is an array of matrices</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies a pointer to an array of values that will be used to update the specified uniform variable</param>
     public static void glUniformMatrix3x4fv(GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glUniformMatrix3x4fv(location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix3x4fv(GLint location, GLsizei count, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix3x4fv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 12 values per matrix.</param>
+    public static void glUniformMatrix3x4fv(GLint location, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix3x4fv(location, value.Length / 12, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX4X3FVPROC(GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLUNIFORMMATRIX4X3FVPROC _glUniformMatrix4x3fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified. This should be 1 if the targeted uniform variable is not an array of matrices, and 1 or more if it is an array of matrices</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies a pointer to an array of values that will be used to update the specified uniform variable</param>
     public static void glUniformMatrix4x3fv(GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glUniformMatrix4x3fv(location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix4x3fv(GLint location, GLsizei count, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix4x3fv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 12 values per matrix.</param>
+    public static void glUniformMatrix4x3fv(GLint location, GLboolean transpose, params GLfloat[] value) { fixed (GLfloat* p = &value[0]) _glUniformMatrix4x3fv(location, value.Length / 12, transpose, p); }
 #endif
 
 #endif
