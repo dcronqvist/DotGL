@@ -1129,65 +1129,136 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWARRAYSPROC(GLenum mode, GLint first, GLsizei count);
     private static PFNGLDRAWARRAYSPROC _glDrawArrays;
+    /// <summary>
+    /// Render primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="first">Specifies the starting index in the enabled arrays.</param>
+    /// <param name="count">Specifies the number of indices to be rendered.</param>
     public static void glDrawArrays(GLenum mode, GLint first, GLsizei count) => _glDrawArrays(mode, first, count);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWELEMENTSPROC(GLenum mode, GLsizei count, GLenum type, void* indices);
     private static PFNGLDRAWELEMENTSPROC _glDrawElements;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an offset of the first index in the array in the data store of the buffer currently bound to the <see cref="GL_ELEMENT_ARRAY_BUFFER"/> target.</param>
     public static void glDrawElements(GLenum mode, GLsizei count, GLenum type, void* indices) => _glDrawElements(mode, count, type, indices);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glDrawElements<T>(GLenum mode, GLsizei count, GLenum type, T[] indices) where T : unmanaged, IUnsignedNumber<T> { fixed (void* p = &indices[0]) _glDrawElements(mode, count, type, p); }
-#endif
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    private delegate void PFNGLGETPOINTERVPROC(GLenum pname, void** @params);
-    private static PFNGLGETPOINTERVPROC _glGetPointerv;
-#if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
-    public static void glGetPointerv(GLenum pname, void** @params) => _glGetPointerv(pname, @params);
-#endif
-#if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glGetPointerv(GLenum pname, ref IntPtr[] @params)
-    {
-        void* ptr = @params[0].ToPointer();
-        void** p = &ptr;
-        _glGetPointerv(pname, p);
-    }
+    /// <summary>
+    /// Render primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an offset of the first index in the array in the data store of the buffer currently bound to the <see cref="GL_ELEMENT_ARRAY_BUFFER"/> target.</param>
+    public static void glDrawElements(GLenum mode, GLsizei count, GLenum type, uint indices) => _glDrawElements(mode, count, type, (void*)indices);
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPOLYGONOFFSETPROC(GLfloat factor, GLfloat units);
     private static PFNGLPOLYGONOFFSETPROC _glPolygonOffset;
+    /// <summary>
+    /// Set the scale and units used to calculate depth values.
+    /// </summary>
+    /// <param name="factor">Specifies a scale factor that is used to create a variable depth offset for each polygon. The initial value is 0.</param>
+    /// <param name="units">Is multiplied by an implementation-specific value to create a constant depth offset. The initial value is 0.</param>
     public static void glPolygonOffset(GLfloat factor, GLfloat units) => _glPolygonOffset(factor, units);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXIMAGE1DPROC(GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border);
     private static PFNGLCOPYTEXIMAGE1DPROC _glCopyTexImage1D;
+    /// <summary>
+    /// Copy pixels into a 1D texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the internal format of the texture. Refer to <see href="https://docs.gl/gl4/glCopyTexImage1D" /> for a list of supported formats.</param>
+    /// <param name="x">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture image.</param>
+    /// <param name="border">This value must be 0.</param>
     public static void glCopyTexImage1D(GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border) => _glCopyTexImage1D(target, level, internalformat, x, y, width, border);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXIMAGE2DPROC(GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
     private static PFNGLCOPYTEXIMAGE2DPROC _glCopyTexImage2D;
+    /// <summary>
+    /// Copy pixels into a 2D texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_2D"/>, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" /> or <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the internal format of the texture. Refer to <see href="https://docs.gl/gl4/glCopyTexImage2D" /> for a list of supported formats.</param>
+    /// <param name="x">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture image.</param>
+    /// <param name="height">Specifies the height of the texture image.</param>
+    /// <param name="border">This value must be 0.</param>
     public static void glCopyTexImage2D(GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border) => _glCopyTexImage2D(target, level, internalformat, x, y, width, height, border);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXSUBIMAGE1DPROC(GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
     private static PFNGLCOPYTEXSUBIMAGE1DPROC _glCopyTexSubImage1D;
+    /// <summary>
+    /// Copy a one-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="x">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
     public static void glCopyTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width) => _glCopyTexSubImage1D(target, level, xoffset, x, y, width);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXSUBIMAGE2DPROC(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
     private static PFNGLCOPYTEXSUBIMAGE2DPROC _glCopyTexSubImage2D;
+    /// <summary>
+    /// Copy a two-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D_ARRAY" />, <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_TEXTURE_RECTANGLE" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="x">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
     public static void glCopyTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height) => _glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXSUBIMAGE1DPROC(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXSUBIMAGE1DPROC _glTexSubImage1D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_DEPTH_COMPONENT" /> and <see cref="GL_STENCIL_INDEX" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" /> and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTexSubImage1D(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, void* pixels) => _glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_1D"/>.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_DEPTH_COMPONENT" /> and <see cref="GL_STENCIL_INDEX" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" /> and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies an array of <typeparamref name="T" />s containing the image data. Make sure to match this with the type specified in <paramref name="type" />.</param>
     public static void glTexSubImage1D<T>(GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (void* p = &pixels[0]) _glTexSubImage1D(target, level, xoffset, width, format, type, p); }
 #endif
 
@@ -1195,24 +1266,62 @@ public unsafe static class GL
     private delegate void PFNGLTEXSUBIMAGE2DPROC(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXSUBIMAGE2DPROC _glTexSubImage2D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be one of <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_TEXTURE_1D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_DEPTH_COMPONENT" /> and <see cref="GL_STENCIL_INDEX" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" /> and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, void* pixels) => _glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be one of <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_X" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Y" />, <see cref="GL_TEXTURE_CUBE_MAP_POSITIVE_Z" />, <see cref="GL_TEXTURE_CUBE_MAP_NEGATIVE_Z" /> or <see cref="GL_TEXTURE_1D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_DEPTH_COMPONENT" /> and <see cref="GL_STENCIL_INDEX" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" /> and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies an array of <typeparamref name="T" />s containing the image data. Make sure to match this with the type specified in <paramref name="type" />.</param>
     public static void glTexSubImage2D<T>(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (void* p = &pixels[0]) _glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDTEXTUREPROC(GLenum target, GLuint texture);
     private static PFNGLBINDTEXTUREPROC _glBindTexture;
+    /// <summary>
+    /// Bind a named texture to a texturing target.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the texture is bound. Must be one of <see cref="GL_TEXTURE_1D" />, <see cref="GL_TEXTURE_2D" />, <see cref="GL_TEXTURE_3D" />, <see cref="GL_TEXTURE_1D_ARRAY" />, <see cref="GL_TEXTURE_2D_ARRAY" />, <see cref="GL_TEXTURE_RECTANGLE" />, <see cref="GL_TEXTURE_CUBE_MAP" />, <see cref="GL_TEXTURE_CUBE_MAP_ARRAY" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TEXTURE_2D_MULTISAMPLE" /> or <see cref="GL_TEXTURE_2D_MULTISAMPLE_ARRAY" />.</param>
+    /// <param name="texture">Specifies the name of a texture.</param>
     public static void glBindTexture(GLenum target, GLuint texture) => _glBindTexture(target, texture);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDELETETEXTURESPROC(GLsizei n, GLuint* textures);
     private static PFNGLDELETETEXTURESPROC _glDeleteTextures;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Delete named textures.
+    /// </summary>
+    /// <param name="n">Specifies the number of textures to be deleted.</param>
+    /// <param name="textures">Specifies a pointer to an array of textures to be deleted.</param>
     public static void glDeleteTextures(GLsizei n, GLuint* textures) => _glDeleteTextures(n, textures);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Delete named textures.
+    /// </summary>
+    /// <param name="textures">Specifies an array of textures to be deleted.</param>
     public static void glDeleteTextures(params GLuint[] textures) { fixed (void* p = &textures[0]) _glDeleteTextures(textures.Length, (GLuint*)p); }
 #endif
 
@@ -1220,16 +1329,35 @@ public unsafe static class GL
     private delegate void PFNGLGENTEXTURESPROC(GLsizei n, GLuint* textures);
     private static PFNGLGENTEXTURESPROC _glGenTextures;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate texture names.
+    /// </summary>
+    /// <param name="n">Specifies the number of texture names to be generated.</param>
+    /// <param name="textures">Specifies an array in which the generated texture names are stored.</param>
     public static void glGenTextures(GLsizei n, GLuint* textures) => _glGenTextures(n, textures);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate texture names.
+    /// </summary>
+    /// <param name="n">Specifies the number of texture names to be generated.</param>
+    /// <returns>An array containing the generated texture names.</returns>
     public static GLuint[] glGenTextures(GLsizei n) { GLuint[] textures = new GLuint[n]; fixed (void* p = &textures[0]) _glGenTextures(n, (GLuint*)p); return textures; }
+    /// <summary>
+    /// Generate a single texture name.
+    /// </summary>
+    /// <returns>The generated texture name.</returns>
     public static GLuint glGenTexture() => glGenTextures(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLISTEXTUREPROC(GLuint texture);
     private static PFNGLISTEXTUREPROC _glIsTexture;
+    /// <summary>
+    /// Determine if a name corresponds to a texture.
+    /// </summary>
+    /// <param name="texture">Specifies a value that may be the name of a texture.</param>
+    /// <returns><see langword="true" /> if <paramref name="texture" /> is currently the name of a texture. Otherwise, <see langword="false" /> is returned.</returns>
     public static GLboolean glIsTexture(GLuint texture) => _glIsTexture(texture);
 
 #endif
@@ -6267,6 +6395,39 @@ public unsafe static class GL
     public const int GL_VERTEX_BINDING_BUFFER = 0x8F4F;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void PFNGLGETPOINTERVPROC(GLenum pname, void** @params);
+    private static PFNGLGETPOINTERVPROC _glGetPointerv;
+#if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the address of the specified pointer.
+    /// </summary>
+    /// <param name="pname">Specifies the pointer to be returned. Must be one of <see cref="GL_DEBUG_CALLBACK_FUNCTION" /> or <see cref="GL_DEBUG_CALLBACK_USER_PARAM" />.</param>
+    /// <param name="params">Returns the address of the specified pointer.</param>
+    public static void glGetPointerv(GLenum pname, void** @params) => _glGetPointerv(pname, @params);
+#endif
+#if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the address of the specified pointer.
+    /// </summary>
+    /// <param name="pname">Specifies the pointer to be returned. Must be one of <see cref="GL_DEBUG_CALLBACK_FUNCTION" /> or <see cref="GL_DEBUG_CALLBACK_USER_PARAM" />.</param>
+    /// <param name="params">A <see langword="ref" /> to an array of <see cref="IntPtr" />s to receive the address of the specified pointer.</param>
+    public static void glGetPointerv(GLenum pname, ref IntPtr[] @params)
+    {
+        int length = @params.Length;
+
+        void* ptr = @params[0].ToPointer();
+        void** p = &ptr;
+        _glGetPointerv(pname, p);
+
+        for (int i = 0; i < length; i++)
+        {
+            @params[i] = new IntPtr(*p);
+            p++;
+        }
+    }
+#endif
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLEARBUFFERDATAPROC(GLenum target, GLenum internalformat, GLenum format, GLenum type, void* data);
     private static PFNGLCLEARBUFFERDATAPROC _glClearBufferData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
@@ -7906,7 +8067,6 @@ public unsafe static class GL
 #if OGL_V_1_1 || OGL_V_1_2 || OGL_V_1_3 || OGL_V_1_4 || OGL_V_1_5 || OGL_V_2_0 || OGL_V_2_1 || OGL_V_3_0 || OGL_V_3_1 || OGL_V_3_2 || OGL_V_3_3 || OGL_V_4_0 || OGL_V_4_1 || OGL_V_4_2 || OGL_V_4_3 || OGL_V_4_4 || OGL_V_4_5 || OGL_V_4_6
         _glDrawArrays = Marshal.GetDelegateForFunctionPointer<PFNGLDRAWARRAYSPROC>(loader.Invoke("glDrawArrays"));
         _glDrawElements = Marshal.GetDelegateForFunctionPointer<PFNGLDRAWELEMENTSPROC>(loader.Invoke("glDrawElements"));
-        _glGetPointerv = Marshal.GetDelegateForFunctionPointer<PFNGLGETPOINTERVPROC>(loader.Invoke("glGetPointerv"));
         _glPolygonOffset = Marshal.GetDelegateForFunctionPointer<PFNGLPOLYGONOFFSETPROC>(loader.Invoke("glPolygonOffset"));
         _glCopyTexImage1D = Marshal.GetDelegateForFunctionPointer<PFNGLCOPYTEXIMAGE1DPROC>(loader.Invoke("glCopyTexImage1D"));
         _glCopyTexImage2D = Marshal.GetDelegateForFunctionPointer<PFNGLCOPYTEXIMAGE2DPROC>(loader.Invoke("glCopyTexImage2D"));
@@ -8375,6 +8535,7 @@ public unsafe static class GL
         _glDrawTransformFeedbackStreamInstanced = Marshal.GetDelegateForFunctionPointer<PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC>(loader.Invoke("glDrawTransformFeedbackStreamInstanced"));
 #endif
 #if OGL_V_4_3 || OGL_V_4_4 || OGL_V_4_5 || OGL_V_4_6
+        _glGetPointerv = Marshal.GetDelegateForFunctionPointer<PFNGLGETPOINTERVPROC>(loader.Invoke("glGetPointerv"));
         _glClearBufferData = Marshal.GetDelegateForFunctionPointer<PFNGLCLEARBUFFERDATAPROC>(loader.Invoke("glClearBufferData"));
         _glClearBufferSubData = Marshal.GetDelegateForFunctionPointer<PFNGLCLEARBUFFERSUBDATAPROC>(loader.Invoke("glClearBufferSubData"));
         _glDispatchCompute = Marshal.GetDelegateForFunctionPointer<PFNGLDISPATCHCOMPUTEPROC>(loader.Invoke("glDispatchCompute"));
