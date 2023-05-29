@@ -1147,7 +1147,7 @@ public unsafe static class GL
     /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
     /// <param name="count">Specifies the number of elements to be rendered.</param>
     /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
-    /// <param name="indices">Specifies an offset of the first index in the array in the data store of the buffer currently bound to the <see cref="GL_ELEMENT_ARRAY_BUFFER"/> target.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
     public static void glDrawElements(GLenum mode, GLsizei count, GLenum type, void* indices) => _glDrawElements(mode, count, type, indices);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
@@ -1157,8 +1157,8 @@ public unsafe static class GL
     /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
     /// <param name="count">Specifies the number of elements to be rendered.</param>
     /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
-    /// <param name="indices">Specifies an offset of the first index in the array in the data store of the buffer currently bound to the <see cref="GL_ELEMENT_ARRAY_BUFFER"/> target.</param>
-    public static void glDrawElements(GLenum mode, GLsizei count, GLenum type, uint indices) => _glDrawElements(mode, count, type, (void*)indices);
+    /// <param name="indices">Specifies an array of indices to be rendererd. Make sure to match the type <typeparamref name="T"/> with the type specified by <paramref name="type"/>.</param>
+    public static void glDrawElements<T>(GLenum mode, GLsizei count, GLenum type, T[] indices) where T : unmanaged, IUnsignedNumber<T> { fixed (T* p = &indices[0]) { _glDrawElements(mode, count, type, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -1407,9 +1407,27 @@ public unsafe static class GL
     private delegate void PFNGLDRAWRANGEELEMENTSPROC(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, void* indices);
     private static PFNGLDRAWRANGEELEMENTSPROC _glDrawRangeElements;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="start">Specifies the minimum array index contained in <paramref name="indices" />.</param>
+    /// <param name="end">Specifies the maximum array index contained in <paramref name="indices" />.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices" />.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
     public static void glDrawRangeElements(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, void* indices) => _glDrawRangeElements(mode, start, end, count, type, indices);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render primitives from array data.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="start">Specifies the minimum array index contained in <paramref name="indices" />.</param>
+    /// <param name="end">Specifies the maximum array index contained in <paramref name="indices" />.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices" />.</param>
+    /// <param name="indices">An array of indices to render. Make sure to match the type <typeparamref name="T" /> with the type specified for <paramref name="type" />.</param>
     public static void glDrawRangeElements<T>(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, T[] indices) where T : unmanaged, IUnsignedNumber<T> { fixed (T* p_indices = &indices[0]) { _glDrawRangeElements(mode, start, end, count, type, p_indices); } }
 #endif
 
@@ -1417,9 +1435,35 @@ public unsafe static class GL
     private delegate void PFNGLTEXIMAGE3DPROC(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXIMAGE3DPROC _glTexImage3D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a three-dimensional texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D" />, <see cref="GL_PROXY_TEXTURE_3D" />, <see cref="GL_TEXTURE_2D_ARRAY" /> or <see cref="GL_PROXY_TEXTURE_2D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the number of color components in the texture. Refer to <see href="https://docs.gl/gl4/glTexImage3D" /> for the list of possible values.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 3D texture images that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture image. All implementations support 3D texture images that are at least 256 texels high.</param>
+    /// <param name="depth">Specifies the depth of the texture image, or the number of layers in a texture array. All implementations support 3D texture images that are at least 256 texels deep, and texture arrays that are at least 256 layers deep.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_BGRA" />, <see cref="GL_RED_INTEGER" />, <see cref="GL_RG_INTEGER" />, <see cref="GL_RGB_INTEGER" />, <see cref="GL_BGR_INTEGER" />, <see cref="GL_RGBA_INTEGER" />, <see cref="GL_BGRA_INTEGER" />, <see cref="GL_STENCIL_INDEX" />, <see cref="GL_DEPTH_COMPONENT" /> or <see cref="GL_DEPTH_STENCIL" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" />, and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTexImage3D(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, void* pixels) => _glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a three-dimensional texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D" />, <see cref="GL_PROXY_TEXTURE_3D" />, <see cref="GL_TEXTURE_2D_ARRAY" /> or <see cref="GL_PROXY_TEXTURE_2D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="internalformat">Specifies the number of color components in the texture. Refer to <see href="https://docs.gl/gl4/glTexImage3D" /> for the list of possible values.</param>
+    /// <param name="width">Specifies the width of the texture image. All implementations support 3D texture images that are at least 16 texels wide.</param>
+    /// <param name="height">Specifies the height of the texture image. All implementations support 3D texture images that are at least 256 texels high.</param>
+    /// <param name="depth">Specifies the depth of the texture image, or the number of layers in a texture array. All implementations support 3D texture images that are at least 256 texels deep, and texture arrays that are at least 256 layers deep.</param>
+    /// <param name="border">This value must be 0.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_BGRA" />, <see cref="GL_RED_INTEGER" />, <see cref="GL_RG_INTEGER" />, <see cref="GL_RGB_INTEGER" />, <see cref="GL_BGR_INTEGER" />, <see cref="GL_RGBA_INTEGER" />, <see cref="GL_BGRA_INTEGER" />, <see cref="GL_STENCIL_INDEX" />, <see cref="GL_DEPTH_COMPONENT" /> or <see cref="GL_DEPTH_STENCIL" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" />, and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies an array of <typeparamref name="T" /> containing the image data. Make sure to match the <paramref name="type" /> parameter with <typeparamref name="T" />.</param>
     public static void glTexImage3D<T>(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (T* p_pixels = &pixels[0]) { _glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, p_pixels); } }
 #endif
 
@@ -1427,15 +1471,55 @@ public unsafe static class GL
     private delegate void PFNGLTEXSUBIMAGE3DPROC(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXSUBIMAGE3DPROC _glTexSubImage3D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D" /> or <see cref="GL_TEXTURE_2D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_DEPTH_COMPONENT" /> and <see cref="GL_STENCIL_INDEX" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" />, and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void* pixels) => _glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D" /> or <see cref="GL_TEXTURE_2D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data. The following symbolic values are accepted: <see cref="GL_RED" />, <see cref="GL_RG" />, <see cref="GL_RGB" />, <see cref="GL_BGR" />, <see cref="GL_RGBA" />, <see cref="GL_DEPTH_COMPONENT" /> and <see cref="GL_STENCIL_INDEX" />.</param>
+    /// <param name="type">Specifies the data type of the pixel data. The following symbolic values are accepted: <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, <see cref="GL_SHORT" />, <see cref="GL_UNSIGNED_INT" />, <see cref="GL_INT" />, <see cref="GL_FLOAT" />, <see cref="GL_UNSIGNED_BYTE_3_3_2" />, <see cref="GL_UNSIGNED_BYTE_2_3_3_REV" />, <see cref="GL_UNSIGNED_SHORT_5_6_5" />, <see cref="GL_UNSIGNED_SHORT_5_6_5_REV" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4" />, <see cref="GL_UNSIGNED_SHORT_4_4_4_4_REV" />, <see cref="GL_UNSIGNED_SHORT_5_5_5_1" />, <see cref="GL_UNSIGNED_SHORT_1_5_5_5_REV" />, <see cref="GL_UNSIGNED_INT_8_8_8_8" />, <see cref="GL_UNSIGNED_INT_8_8_8_8_REV" />, <see cref="GL_UNSIGNED_INT_10_10_10_2" />, and <see cref="GL_UNSIGNED_INT_2_10_10_10_REV" />.</param>
+    /// <param name="pixels">Specifies an array of <typeparamref name="T" /> containing the image data. Make sure to match the <paramref name="type" /> parameter with <typeparamref name="T" />.</param>
     public static void glTexSubImage3D<T>(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (T* p_pixels = &pixels[0]) { _glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, p_pixels); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXSUBIMAGE3DPROC(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
     private static PFNGLCOPYTEXSUBIMAGE3DPROC _glCopyTexSubImage3D;
+    /// <summary>
+    /// Copy a three-dimensional texture subimage.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be <see cref="GL_TEXTURE_3D" /> or <see cref="GL_TEXTURE_2D_ARRAY" />.</param>
+    /// <param name="level">Specifies the level-of-detail number. Level 0 is the base image level. Level n is the nth mipmap reduction image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="x">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the lower left corner of the rectangular region of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
     public static void glCopyTexSubImage3D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height) => _glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 
 #endif
