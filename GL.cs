@@ -7440,26 +7440,55 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLMINSAMPLESHADINGPROC(GLfloat value);
     private static PFNGLMINSAMPLESHADINGPROC _glMinSampleShading;
+    /// <summary>
+    /// Specifies minimum rate at which sample shading takes place.
+    /// </summary>
+    /// <param name="value">Minimum rate at which sample shading takes place.</param>
     public static void glMinSampleShading(GLfloat value) { _glMinSampleShading(value); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDEQUATIONIPROC(GLuint buf, GLenum mode);
     private static PFNGLBLENDEQUATIONIPROC _glBlendEquationi;
+    /// <summary>
+    /// Set the equation used for both the RGB blend equation and the Alpha blend equation.
+    /// </summary>
+    /// <param name="buf">Specifies the index of the draw buffer for which to set the blend equation.</param>
+    /// <param name="mode">Specifies how source and destination colors are combined. It must be one of <see cref="GL_FUNC_ADD"/>, <see cref="GL_FUNC_SUBTRACT"/>, <see cref="GL_FUNC_REVERSE_SUBTRACT"/>, <see cref="GL_MIN"/> or <see cref="GL_MAX"/>.</param>
     public static void glBlendEquationi(GLuint buf, GLenum mode) { _glBlendEquationi(buf, mode); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDEQUATIONSEPARATEIPROC(GLuint buf, GLenum modeRGB, GLenum modeAlpha);
     private static PFNGLBLENDEQUATIONSEPARATEIPROC _glBlendEquationSeparatei;
+    /// <summary>
+    /// Set the equation used for both the RGB blend equation and the Alpha blend equation.
+    /// </summary>
+    /// <param name="buf">Specifies the index of the draw buffer for which to set the blend equation.</param>
+    /// <param name="modeRGB">Specifies how the red, green, and blue blending factors are computed. The following symbolic constants are accepted: <see cref="GL_FUNC_ADD"/>, <see cref="GL_FUNC_SUBTRACT"/>, <see cref="GL_FUNC_REVERSE_SUBTRACT"/>, <see cref="GL_MIN"/> or <see cref="GL_MAX"/>.</param>
+    /// <param name="modeAlpha">Specifies how the alpha blending factor is computed. The following symbolic constants are accepted: <see cref="GL_FUNC_ADD"/>, <see cref="GL_FUNC_SUBTRACT"/>, <see cref="GL_FUNC_REVERSE_SUBTRACT"/>, <see cref="GL_MIN"/> or <see cref="GL_MAX"/>.</param>
     public static void glBlendEquationSeparatei(GLuint buf, GLenum modeRGB, GLenum modeAlpha) { _glBlendEquationSeparatei(buf, modeRGB, modeAlpha); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDFUNCIPROC(GLuint buf, GLenum src, GLenum dst);
     private static PFNGLBLENDFUNCIPROC _glBlendFunci;
+    /// <summary>
+    /// Specify pixel arithmetic
+    /// </summary>
+    /// <param name="buf">Specifies the index of the draw buffer for which to set the blend function.</param>
+    /// <param name="src">Specifies how the red, green, blue, and alpha source blending factors are computed. The initial value is <see cref="GL_ONE"/>.</param>
+    /// <param name="dst">Specifies how the red, green, blue, and alpha destination blending factors are computed. Allowed values are the same as for <see cref="glBlendFunc"/>.</param>
     public static void glBlendFunci(GLuint buf, GLenum src, GLenum dst) { _glBlendFunci(buf, src, dst); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLENDFUNCSEPARATEIPROC(GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
     private static PFNGLBLENDFUNCSEPARATEIPROC _glBlendFuncSeparatei;
+    /// <summary>
+    /// Specify pixel arithmetic for RGB and alpha components separately
+    /// </summary>
+    /// <param name="buf">Specifies the index of the draw buffer for which to set the blend function.</param>
+    /// <param name="srcRGB">Specifies how the red, green, and blue blending factors are computed. The initial value is <see cref="GL_ONE"/>.</param>
+    /// <param name="dstRGB">Specifies how the red, green, and blue destination blending factors are computed. The initial value is <see cref="GL_ZERO"/>.</param>
+    /// <param name="srcAlpha">Specifies how the alpha source blending factor is computed. The initial value is <see cref="GL_ONE"/>.</param>
+    /// <param name="dstAlpha">Specifies how the alpha destination blending factor is computed. The initial value is <see cref="GL_ZERO"/>.</param>
     public static void glBlendFuncSeparatei(GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha) { _glBlendFuncSeparatei(buf, srcRGB, dstRGB, srcAlpha, dstAlpha); }
 
 #if OGL_V_4_0 || OGL_V_4_1 
@@ -7485,9 +7514,19 @@ public unsafe static class GL
     private delegate void PFNGLDRAWARRAYSINDIRECTPROC(GLenum mode, void* indirect);
     private static PFNGLDRAWARRAYSINDIRECTPROC _glDrawArraysIndirect;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render primitives from array data, taking parameters from memory
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="indirect">Specifies the address of an array of DrawArraysIndirectCommand structures.</param>
     public static void glDrawArraysIndirect(GLenum mode, void* indirect) { _glDrawArraysIndirect(mode, indirect); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render primitives from array data, taking parameters from memory
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="indirect">Specifies an instance of <see cref="DrawArraysIndirectCommand"/>.</param>
     public static void glDrawArraysIndirect(GLenum mode, DrawArraysIndirectCommand indirect) { _glDrawArraysIndirect(mode, &indirect); }
 #endif
 
@@ -7516,179 +7555,403 @@ public unsafe static class GL
     private delegate void PFNGLDRAWELEMENTSINDIRECTPROC(GLenum mode, GLenum type, void* indirect);
     private static PFNGLDRAWELEMENTSINDIRECTPROC _glDrawElementsIndirect;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render indexed primitives from array data, taking parameters from memory
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="type">Specifies the type of data in the buffer bound to the <see cref="GL_ELEMENT_ARRAY_BUFFER"/> binding.</param>
+    /// <param name="indirect">Specifies the address of a DrawElementsIndirectCommand structure.</param>
     public static void glDrawElementsIndirect(GLenum mode, GLenum type, void* indirect) { _glDrawElementsIndirect(mode, type, indirect); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render indexed primitives from array data, taking parameters from memory
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="type">Specifies the type of data in the buffer bound to the <see cref="GL_ELEMENT_ARRAY_BUFFER"/> binding.</param>
+    /// <param name="indirect">Specifies an instance of <see cref="DrawElementsIndirectCommand"/>.</param>
     public static void glDrawElementsIndirect(GLenum mode, GLenum type, DrawElementsIndirectCommand indirect) { _glDrawElementsIndirect(mode, type, &indirect); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM1DPROC(GLint location, GLdouble x);
     private static PFNGLUNIFORM1DPROC _glUniform1d;
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="x">Specifies the new value to be used for the specified uniform variable.</param>
     public static void glUniform1d(GLint location, GLdouble x) { _glUniform1d(location, x); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM2DPROC(GLint location, GLdouble x, GLdouble y);
     private static PFNGLUNIFORM2DPROC _glUniform2d;
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="x">Specifies the first value to be used for the specified uniform variable.</param>
+    /// <param name="y">Specifies the second value to be used for the specified uniform variable.</param>
     public static void glUniform2d(GLint location, GLdouble x, GLdouble y) { _glUniform2d(location, x, y); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM3DPROC(GLint location, GLdouble x, GLdouble y, GLdouble z);
     private static PFNGLUNIFORM3DPROC _glUniform3d;
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="x">Specifies the first value to be used for the specified uniform variable.</param>
+    /// <param name="y">Specifies the second value to be used for the specified uniform variable.</param>
+    /// <param name="z">Specifies the third value to be used for the specified uniform variable.</param>
     public static void glUniform3d(GLint location, GLdouble x, GLdouble y, GLdouble z) { _glUniform3d(location, x, y, z); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM4DPROC(GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
     private static PFNGLUNIFORM4DPROC _glUniform4d;
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="x">Specifies the first value to be used for the specified uniform variable.</param>
+    /// <param name="y">Specifies the second value to be used for the specified uniform variable.</param>
+    /// <param name="z">Specifies the third value to be used for the specified uniform variable.</param>
     public static void glUniform4d(GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w) { _glUniform4d(location, x, y, z, w); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM1DVPROC(GLint location, GLsizei count, GLdouble* value);
     private static PFNGLUNIFORM1DVPROC _glUniform1dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of values in the <paramref name="value"/> array.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniform1dv(GLint location, GLsizei count, GLdouble* value) { _glUniform1dv(location, count, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniform1dv(GLint location, GLsizei count, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform1dv(location, count, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glUniform1dv(GLint location, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform1dv(location, value.Length, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM2DVPROC(GLint location, GLsizei count, GLdouble* value);
     private static PFNGLUNIFORM2DVPROC _glUniform2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of values in the <paramref name="value"/> array.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniform2dv(GLint location, GLsizei count, GLdouble* value) { _glUniform2dv(location, count, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniform2dv(GLint location, GLsizei count, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform2dv(location, count, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glUniform2dv(GLint location, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform2dv(location, value.Length / 2, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM3DVPROC(GLint location, GLsizei count, GLdouble* value);
     private static PFNGLUNIFORM3DVPROC _glUniform3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of values in the <paramref name="value"/> array.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniform3dv(GLint location, GLsizei count, GLdouble* value) { _glUniform3dv(location, count, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniform3dv(GLint location, GLsizei count, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform3dv(location, count, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glUniform3dv(GLint location, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform3dv(location, value.Length / 3, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORM4DVPROC(GLint location, GLsizei count, GLdouble* value);
     private static PFNGLUNIFORM4DVPROC _glUniform4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of values in the <paramref name="value"/> array.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniform4dv(GLint location, GLsizei count, GLdouble* value) { _glUniform4dv(location, count, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniform4dv(GLint location, GLsizei count, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform4dv(location, count, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glUniform4dv(GLint location, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniform4dv(location, value.Length / 4, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX2DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX2DVPROC _glUniformMatrix2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix2dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix2dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix2dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix2dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 4 values per matrix.</param>
+    public static void glUniformMatrix2dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix2dv(location, value.Length / 4, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX3DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX3DVPROC _glUniformMatrix3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix3dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix3dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix3dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix3dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 9 values per matrix.</param>
+    public static void glUniformMatrix3dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix3dv(location, value.Length / 9, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX4DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX4DVPROC _glUniformMatrix4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix4dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix4dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix4dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix4dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 16 values per matrix.</param>
+    public static void glUniformMatrix4dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix4dv(location, value.Length / 16, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX2X3DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX2X3DVPROC _glUniformMatrix2x3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix2x3dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix2x3dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix2x3dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix2x3dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 6 values per matrix.</param>
+    public static void glUniformMatrix2x3dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix2x3dv(location, value.Length / 6, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX2X4DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX2X4DVPROC _glUniformMatrix2x4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix2x4dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix2x4dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix2x4dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix2x4dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 8 values per matrix.</param>
+    public static void glUniformMatrix2x4dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix2x4dv(location, value.Length / 8, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX3X2DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX3X2DVPROC _glUniformMatrix3x2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix3x2dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix3x2dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix3x2dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix3x2dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 6 values per matrix.</param>
+    public static void glUniformMatrix3x2dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix3x2dv(location, value.Length / 6, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX3X4DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX3X4DVPROC _glUniformMatrix3x4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix3x4dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix3x4dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix3x4dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix3x4dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 12 values per matrix.</param>
+    public static void glUniformMatrix3x4dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix3x4dv(location, value.Length / 12, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX4X2DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX4X2DVPROC _glUniformMatrix4x2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix4x2dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix4x2dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix4x2dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix4x2dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 8 values per matrix.</param>
+    public static void glUniformMatrix4x2dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix4x2dv(location, value.Length / 8, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMMATRIX4X3DVPROC(GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLUNIFORMMATRIX4X3DVPROC _glUniformMatrix4x3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of matrices that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glUniformMatrix4x3dv(GLint location, GLsizei count, GLboolean transpose, GLdouble* value) { _glUniformMatrix4x3dv(location, count, transpose, value); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glUniformMatrix4x3dv(GLint location, GLsizei count, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix4x3dv(location, count, transpose, p); }
+    /// <summary>
+    /// Specify the value of a double uniform variable for the current program object
+    /// </summary>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable. 12 values per matrix.</param>
+    public static void glUniformMatrix4x3dv(GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* p = &value[0]) _glUniformMatrix4x3dv(location, value.Length / 12, transpose, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETUNIFORMDVPROC(GLuint program, GLint location, GLdouble* parameters);
     private static PFNGLGETUNIFORMDVPROC _glGetUniformdv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the value or values of a double uniform variable
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be queried.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be queried.</param>
+    /// <param name="parameters">Specifies the address of a variable to receive the value or values of the uniform variable.</param>
     public static void glGetUniformdv(GLuint program, GLint location, GLdouble* parameters) { _glGetUniformdv(program, location, parameters); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glGetUniformdv(GLuint program, GLint location, GLdouble[] parameters) { fixed (GLdouble* p = &parameters[0]) _glGetUniformdv(program, location, p); }
+    /// <summary>
+    /// Return the value or values of a double uniform variable
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be queried.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be queried.</param>
+    /// <param name="parameters">Specifies an array to receive the value or values of the uniform variable.</param>
+    public static void glGetUniformdv(GLuint program, GLint location, ref GLdouble[] parameters) { fixed (GLdouble* p = &parameters[0]) _glGetUniformdv(program, location, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLint PFNGLGETSUBROUTINEUNIFORMLOCATIONPROC(GLuint program, GLenum shadertype, GLchar* name);
     private static PFNGLGETSUBROUTINEUNIFORMLOCATIONPROC _glGetSubroutineUniformLocation;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the location of a subroutine uniform variable
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose location to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose location to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="name">Specifies the name of the subroutine uniform variable whose location to query.</param>
+    /// <returns>The location of the subroutine uniform variable.</returns>
     public static GLint glGetSubroutineUniformLocation(GLuint program, GLenum shadertype, GLchar* name) { return _glGetSubroutineUniformLocation(program, shadertype, name); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the location of a subroutine uniform variable
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose location to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose location to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="name">Specifies the name of the subroutine uniform variable whose location to query.</param>
+    /// <returns>The location of the subroutine uniform variable.</returns>
     public static GLint glGetSubroutineUniformLocation(GLuint program, GLenum shadertype, string name)
     {
         GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
@@ -7703,9 +7966,23 @@ public unsafe static class GL
     private delegate GLuint PFNGLGETSUBROUTINEINDEXPROC(GLuint program, GLenum shadertype, GLchar* name);
     private static PFNGLGETSUBROUTINEINDEXPROC _glGetSubroutineIndex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the index of a subroutine uniform of a given shader stage within a program.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose index to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose index to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="name">Specifies the name of the subroutine uniform variable whose index to query.</param>
+    /// <returns>The index of the subroutine uniform variable.</returns>
     public static GLuint glGetSubroutineIndex(GLuint program, GLenum shadertype, GLchar* name) { return _glGetSubroutineIndex(program, shadertype, name); }
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the index of a subroutine uniform of a given shader stage within a program.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose index to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose index to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="name">Specifies the name of the subroutine uniform variable whose index to query.</param>
+    /// <returns>The index of the subroutine uniform variable.</returns>
     public static GLuint glGetSubroutineIndex(GLuint program, GLenum shadertype, string name)
     {
         GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
@@ -7720,9 +7997,25 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVESUBROUTINEUNIFORMIVPROC(GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint* values);
     private static PFNGLGETACTIVESUBROUTINEUNIFORMIVPROC _glGetActiveSubroutineUniformiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Query a property of an active shader subroutine uniform variable.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose properties to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose properties to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="index">Specifies the index of the subroutine uniform variable whose properties to query.</param>
+    /// <param name="pname">Specifies the property of the subroutine uniform variable to query. One of <see cref="GL_NUM_COMPATIBLE_SUBROUTINES"/>, <see cref="GL_COMPATIBLE_SUBROUTINES"/>, <see cref="GL_UNIFORM_SIZE" />, or <see cref="GL_UNIFORM_NAME_LENGTH"/>.</param>
+    /// <param name="values">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetActiveSubroutineUniformiv(GLuint program, GLenum shadertype, GLuint index, GLenum pname, GLint* values) => _glGetActiveSubroutineUniformiv(program, shadertype, index, pname, values);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Query a property of an active shader subroutine uniform variable.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose properties to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose properties to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="index">Specifies the index of the subroutine uniform variable whose properties to query.</param>
+    /// <param name="pname">Specifies the property of the subroutine uniform variable to query. One of <see cref="GL_NUM_COMPATIBLE_SUBROUTINES"/>, <see cref="GL_COMPATIBLE_SUBROUTINES"/>, <see cref="GL_UNIFORM_SIZE" />, or <see cref="GL_UNIFORM_NAME_LENGTH"/>.</param>
+    /// <param name="values">Specifies an array to receive the value of the queried parameter.</param>
     public static void glGetActiveSubroutineUniformiv(GLuint program, GLenum shadertype, GLuint index, GLenum pname, ref GLint[] values) { fixed (GLint* p = &values[0]) _glGetActiveSubroutineUniformiv(program, shadertype, index, pname, p); }
 #endif
 
@@ -7730,9 +8023,26 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei* length, GLchar* name);
     private static PFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC _glGetActiveSubroutineUniformName;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the name of an active shader subroutine uniform variable.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose name to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose name to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="index">Specifies the index of the subroutine uniform variable whose name to query.</param>
+    /// <param name="bufsize">Specifies the max amount of characters that may be written into <paramref name="name"/>.</param>
+    /// <param name="length">Specifies the address of a variable to receive the number of characters that were written.</param>
+    /// <param name="name">Specifies the address of a buffer into which the name of the subroutine uniform variable will be written.</param>
     public static void glGetActiveSubroutineUniformName(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei* length, GLchar* name) => _glGetActiveSubroutineUniformName(program, shadertype, index, bufsize, length, name);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the name of an active shader subroutine uniform variable.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine uniform variable whose name to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform variable whose name to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="index">Specifies the index of the subroutine uniform variable whose name to query.</param>
+    /// <param name="bufsize">Specifies the max amount of characters that may be written into <paramref name="name"/>.</param>
+    /// <returns>The name of the subroutine uniform variable, resized correctly.</returns>
     public static string glGetActiveSubroutineUniformName(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize)
     {
         GLchar[] name = new GLchar[bufsize];
@@ -7749,9 +8059,26 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVESUBROUTINENAMEPROC(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei* length, GLchar* name);
     private static PFNGLGETACTIVESUBROUTINENAMEPROC _glGetActiveSubroutineName;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the name of an active shader subroutine.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine whose name to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine whose name to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="index">Specifies the index of the subroutine whose name to query.</param>
+    /// <param name="bufsize">Specifies the max amount of characters that may be written into <paramref name="name"/>.</param>
+    /// <param name="length">Specifies the address of a variable to receive the number of characters that were written.</param>
+    /// <param name="name">Specifies the address of a buffer into which the name of the subroutine will be written.</param>
     public static void glGetActiveSubroutineName(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize, GLsizei* length, GLchar* name) => _glGetActiveSubroutineName(program, shadertype, index, bufsize, length, name);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the name of an active shader subroutine.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the subroutine whose name to query.</param>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine whose name to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="index">Specifies the index of the subroutine whose name to query.</param>
+    /// <param name="bufsize">Specifies the max amount of characters that may be written into <paramref name="name"/>.</param>
+    /// <returns>The name of the subroutine, resized correctly.</returns>
     public static string glGetActiveSubroutineName(GLuint program, GLenum shadertype, GLuint index, GLsizei bufsize)
     {
         GLchar[] name = new GLchar[bufsize];
@@ -7768,9 +8095,20 @@ public unsafe static class GL
     private delegate void PFNGLUNIFORMSUBROUTINESUIVPROC(GLenum shadertype, GLsizei count, GLuint* indices);
     private static PFNGLUNIFORMSUBROUTINESUIVPROC _glUniformSubroutinesuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Load active subroutine uniforms.
+    /// </summary>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniforms to load. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="count">Specifies the number of subroutine uniform incides in the array pointed to by <paramref name="indices"/>.</param>
+    /// <param name="indices">Specifies an array containing the subroutine uniform indices to load.</param>
     public static void glUniformSubroutinesuiv(GLenum shadertype, GLsizei count, GLuint* indices) => _glUniformSubroutinesuiv(shadertype, count, indices);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Load active subroutine uniforms.
+    /// </summary>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniforms to load. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="indices">Specifies an array containing the subroutine uniform indices to load.</param>
     public static void glUniformSubroutinesuiv(GLenum shadertype, GLuint[] indices) { fixed (GLuint* p = &indices[0]) _glUniformSubroutinesuiv(shadertype, indices.Length, p); }
 #endif
 
@@ -7778,9 +8116,21 @@ public unsafe static class GL
     private delegate void PFNGLGETUNIFORMSUBROUTINEUIVPROC(GLenum shadertype, GLint location, GLuint* @params);
     private static PFNGLGETUNIFORMSUBROUTINEUIVPROC _glGetUniformSubroutineuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the value of a subroutine uniform of a given shader stage of the current program.
+    /// </summary>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform whose value to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="location">Specifies the location of the subroutine uniform whose value to query.</param>
+    /// <param name="params">Specifies the address of a variable to receive the value of the subroutine uniform.</param>
     public static void glGetUniformSubroutineuiv(GLenum shadertype, GLint location, GLuint* @params) => _glGetUniformSubroutineuiv(shadertype, location, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the value of a subroutine uniform of a given shader stage of the current program.
+    /// </summary>
+    /// <param name="shadertype">Specifies the shader stage containing the subroutine uniform whose value to query. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="location">Specifies the location of the subroutine uniform whose value to query.</param>
+    /// <param name="params">Specifies an array to receive the value of the subroutine uniform.</param>
     public static void glGetUniformSubroutineuiv(GLenum shadertype, GLint location, ref GLuint[] @params) { fixed (GLuint* p = &@params[0]) _glGetUniformSubroutineuiv(shadertype, location, p); }
 #endif
 
@@ -7788,39 +8138,82 @@ public unsafe static class GL
     private delegate void PFNGLGETPROGRAMSTAGEIVPROC(GLuint program, GLenum shadertype, GLenum pname, GLint* values);
     private static PFNGLGETPROGRAMSTAGEIVPROC _glGetProgramStageiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve a parameter from a shader stage of the current program.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the shader stage to query.</param>
+    /// <param name="shadertype">Specifies the shader stage from which to query the parameter. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="pname">Specifies the parameter to query. One of <see cref="GL_ACTIVE_SUBROUTINE_UNIFORMS"/>, <see cref="GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS"/>, <see cref="GL_ACTIVE_SUBROUTINES"/>, <see cref="GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH"/>, <see cref="GL_ACTIVE_SUBROUTINE_MAX_LENGTH"/>.</param>
+    /// <param name="values">Specifies the address of a variable to receive the value of the parameter.</param>
     public static void glGetProgramStageiv(GLuint program, GLenum shadertype, GLenum pname, GLint* values) => _glGetProgramStageiv(program, shadertype, pname, values);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve a parameter from a shader stage of the current program.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing the shader stage to query.</param>
+    /// <param name="shadertype">Specifies the shader stage from which to query the parameter. One of <see cref="GL_VERTEX_SHADER"/>, <see cref="GL_TESS_CONTROL_SHADER"/>, <see cref="GL_TESS_EVALUATION_SHADER"/>, <see cref="GL_GEOMETRY_SHADER"/>, <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="pname">Specifies the parameter to query. One of <see cref="GL_ACTIVE_SUBROUTINE_UNIFORMS"/>, <see cref="GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS"/>, <see cref="GL_ACTIVE_SUBROUTINES"/>, <see cref="GL_ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH"/>, <see cref="GL_ACTIVE_SUBROUTINE_MAX_LENGTH"/>.</param>
+    /// <param name="values">Specifies an array to receive the value of the parameter.</param>
     public static void glGetProgramStageiv(GLuint program, GLenum shadertype, GLenum pname, ref GLint[] values) { fixed (GLint* p = &values[0]) _glGetProgramStageiv(program, shadertype, pname, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPATCHPARAMETERIPROC(GLenum pname, GLint value);
     private static PFNGLPATCHPARAMETERIPROC _glPatchParameteri;
+    /// <summary>
+    /// Specifies the parameters for patch primitives.
+    /// </summary>
+    /// <param name="pname">Specifies the parameter to set. One of <see cref="GL_PATCH_VERTICES"/>, <see cref="GL_PATCH_DEFAULT_INNER_LEVEL"/>, <see cref="GL_PATCH_DEFAULT_OUTER_LEVEL"/>.</param>
+    /// <param name="value">Specifies the value to set for <paramref name="pname"/>.</param>
     public static void glPatchParameteri(GLenum pname, GLint value) => _glPatchParameteri(pname, value);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPATCHPARAMETERFVPROC(GLenum pname, GLfloat* values);
     private static PFNGLPATCHPARAMETERFVPROC _glPatchParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specifies the parameters for patch primitives.
+    /// </summary>
+    /// <param name="pname">Specifies the parameter to set. One of <see cref="GL_PATCH_VERTICES"/>, <see cref="GL_PATCH_DEFAULT_INNER_LEVEL"/>, <see cref="GL_PATCH_DEFAULT_OUTER_LEVEL"/>.</param>
+    /// <param name="values">Specifies the address of an array containing the value or values to set for <paramref name="pname"/>.</param>
     public static void glPatchParameterfv(GLenum pname, GLfloat* values) => _glPatchParameterfv(pname, values);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specifies the parameters for patch primitives.
+    /// </summary>
+    /// <param name="pname">Specifies the parameter to set. One of <see cref="GL_PATCH_VERTICES"/>, <see cref="GL_PATCH_DEFAULT_INNER_LEVEL"/>, <see cref="GL_PATCH_DEFAULT_OUTER_LEVEL"/>.</param>
+    /// <param name="values">Specifies an array containing the value or values to set for <paramref name="pname"/>.</param>
     public static void glPatchParameterfv(GLenum pname, GLfloat[] values) { fixed (GLfloat* p = &values[0]) _glPatchParameterfv(pname, p); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDTRANSFORMFEEDBACKPROC(GLenum target, GLuint id);
     private static PFNGLBINDTRANSFORMFEEDBACKPROC _glBindTransformFeedback;
+    /// <summary>
+    /// Bind a named transform feedback object.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the transform feedback object is bound. Must be <see cref="GL_TRANSFORM_FEEDBACK"/>.</param>
+    /// <param name="id">Specifies the name of a transform feedback object.</param>
     public static void glBindTransformFeedback(GLenum target, GLuint id) => _glBindTransformFeedback(target, id);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDELETETRANSFORMFEEDBACKSPROC(GLsizei n, GLuint* ids);
     private static PFNGLDELETETRANSFORMFEEDBACKSPROC _glDeleteTransformFeedbacks;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Delete named transform feedback objects.
+    /// </summary>
+    /// <param name="n">Specifies the number of transform feedback objects to be deleted.</param>
+    /// <param name="ids">Specifies the address of an array containing the n names of the objects to be deleted.</param>
     public static void glDeleteTransformFeedbacks(GLsizei n, GLuint* ids) => _glDeleteTransformFeedbacks(n, ids);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Delete named transform feedback objects.
+    /// </summary>
+    /// <param name="ids">Specifies the names of the objects to be deleted.</param>
     public static void glDeleteTransformFeedbacks(params GLuint[] ids) { fixed (GLuint* p = &ids[0]) _glDeleteTransformFeedbacks(ids.Length, p); }
 #endif
 
@@ -7828,55 +8221,116 @@ public unsafe static class GL
     private delegate void PFNGLGENTRANSFORMFEEDBACKSPROC(GLsizei n, GLuint* ids);
     private static PFNGLGENTRANSFORMFEEDBACKSPROC _glGenTransformFeedbacks;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate transform feedback object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of transform feedback object names to generate.</param>
+    /// <param name="ids">Specifies the address of an array in which to place the generated transform feedback object names.</param>
     public static void glGenTransformFeedbacks(GLsizei n, GLuint* ids) => _glGenTransformFeedbacks(n, ids);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate transform feedback object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of transform feedback object names to generate.</param>
+    /// <returns>Array of generated transform feedback object names.</returns>
     public static GLuint[] glGenTransformFeedbacks(GLsizei n) { var r = new GLuint[n]; fixed (GLuint* p = &r[0]) _glGenTransformFeedbacks(n, p); return r; }
+    /// <summary>
+    /// Generate a single transform feedback object name.
+    /// </summary>
+    /// <returns>Generated transform feedback object name.</returns>
     public static GLuint glGenTransformFeedback() => glGenTransformFeedbacks(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLISTRANSFORMFEEDBACKPROC(GLuint id);
     private static PFNGLISTRANSFORMFEEDBACKPROC _glIsTransformFeedback;
+    /// <summary>
+    /// Determine if a name corresponds to a transform feedback object.
+    /// </summary>
+    /// <param name="id">Specifies a value that may be the name of a transform feedback object.</param>
+    /// <returns><see langword="true" />, if <paramref name="id"/> corresponds to a transform feedback object; otherwise, <see langword="false" />.</returns>
     public static GLboolean glIsTransformFeedback(GLuint id) => _glIsTransformFeedback(id);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPAUSETRANSFORMFEEDBACKPROC();
     private static PFNGLPAUSETRANSFORMFEEDBACKPROC _glPauseTransformFeedback;
+    /// <summary>
+    /// Pause transform feedback operations.
+    /// </summary>
     public static void glPauseTransformFeedback() => _glPauseTransformFeedback();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLRESUMETRANSFORMFEEDBACKPROC();
     private static PFNGLRESUMETRANSFORMFEEDBACKPROC _glResumeTransformFeedback;
+    /// <summary>
+    /// Resume transform feedback operations.
+    /// </summary>
     public static void glResumeTransformFeedback() => _glResumeTransformFeedback();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWTRANSFORMFEEDBACKPROC(GLenum mode, GLuint id);
     private static PFNGLDRAWTRANSFORMFEEDBACKPROC _glDrawTransformFeedback;
+    /// <summary>
+    /// Render primitives using a count derived from a transform feedback object.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="id">Specifies the name of a transform feedback object from which to retrieve a primitive count and a primitive mode.</param>
     public static void glDrawTransformFeedback(GLenum mode, GLuint id) => _glDrawTransformFeedback(mode, id);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC(GLenum mode, GLuint id, GLuint stream);
     private static PFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC _glDrawTransformFeedbackStream;
+    /// <summary>
+    /// Render primitives using a counter derived from a specified stream of a transform feedback object.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="id">Specifies the name of a transform feedback object from which to retrieve a primitive count and a primitive mode.</param>
+    /// <param name="stream">Specifies the index of the stream from which to retrieve the primitive count and mode.</param>
     public static void glDrawTransformFeedbackStream(GLenum mode, GLuint id, GLuint stream) => _glDrawTransformFeedbackStream(mode, id, stream);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBEGINQUERYINDEXEDPROC(GLenum target, GLuint index, GLuint id);
     private static PFNGLBEGINQUERYINDEXEDPROC _glBeginQueryIndexed;
+    /// <summary>
+    /// Begin a query object target.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object. The symbolic constant must be <see cref="GL_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED"/>, <see cref="GL_PRIMITIVES_GENERATED" />, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN" />, <see cref="GL_TIME_ELAPSED" />.</param>
+    /// <param name="index">Specifies the index of the query object target.</param>
+    /// <param name="id">Specifies the name of a query object.</param>
     public static void glBeginQueryIndexed(GLenum target, GLuint index, GLuint id) => _glBeginQueryIndexed(target, index, id);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLENDQUERYINDEXEDPROC(GLenum target, GLuint index);
     private static PFNGLENDQUERYINDEXEDPROC _glEndQueryIndexed;
+    /// <summary>
+    /// End a query object target.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object. The symbolic constant must be <see cref="GL_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED"/>, <see cref="GL_PRIMITIVES_GENERATED" />, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN" />, <see cref="GL_TIME_ELAPSED" />.</param>
+    /// <param name="index">Specifies the index of the query object target.</param>
     public static void glEndQueryIndexed(GLenum target, GLuint index) => _glEndQueryIndexed(target, index);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYINDEXEDIVPROC(GLenum target, GLuint index, GLenum pname, GLint* parameters);
     private static PFNGLGETQUERYINDEXEDIVPROC _glGetQueryIndexediv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a query object target.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object. The symbolic constant must be <see cref="GL_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED"/>, <see cref="GL_PRIMITIVES_GENERATED" />, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN" />, <see cref="GL_TIME_ELAPSED" />, or <see cref="GL_TIMESTAMP"/>.</param>
+    /// <param name="index">Specifies the index of the query object target.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object target parameter. Accepted values are <see cref="GL_CURRENT_QUERY"/>, <see cref="GL_QUERY_COUNTER_BITS"/>.</param>
+    /// <param name="parameters">Returns the requested data.</param>
     public static void glGetQueryIndexediv(GLenum target, GLuint index, GLenum pname, GLint* parameters) => _glGetQueryIndexediv(target, index, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a query object target.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object. The symbolic constant must be <see cref="GL_SAMPLES_PASSED"/>, <see cref="GL_ANY_SAMPLES_PASSED"/>, <see cref="GL_PRIMITIVES_GENERATED" />, <see cref="GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN" />, <see cref="GL_TIME_ELAPSED" />, or <see cref="GL_TIMESTAMP"/>.</param>
+    /// <param name="index">Specifies the index of the query object target.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object target parameter. Accepted values are <see cref="GL_CURRENT_QUERY"/>, <see cref="GL_QUERY_COUNTER_BITS"/>.</param>
+    /// <param name="parameters">Returns the requested data.</param>
     public static void glGetQueryIndexediv(GLenum target, GLuint index, GLenum pname, ref GLint[] parameters) { fixed (GLint* p = &parameters[0]) _glGetQueryIndexediv(target, index, pname, p); }
 #endif
 
