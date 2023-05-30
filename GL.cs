@@ -6871,9 +6871,23 @@ public unsafe static class GL
     private delegate void PFNGLBINDFRAGDATALOCATIONINDEXEDPROC(GLuint program, GLuint colorNumber, GLuint index, GLchar* name);
     private static PFNGLBINDFRAGDATALOCATIONINDEXEDPROC _glBindFragDataLocationIndexed;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind a user-defined varying out variable to a fragment shader color number and index.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing varying out variable whose binding to modify.</param>
+    /// <param name="colorNumber">Specifies the color number to bind the user-defined varying out variable to.</param>
+    /// <param name="index">Specifies the index of the color number to bind the user-defined varying out variable to.</param>
+    /// <param name="name">Specifies the name of the user-defined varying out variable whose binding to modify.</param>
     public static void glBindFragDataLocationIndexed(GLuint program, GLuint colorNumber, GLuint index, GLchar* name) => _glBindFragDataLocationIndexed(program, colorNumber, index, name);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind a user-defined varying out variable to a fragment shader color number and index.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing varying out variable whose binding to modify.</param>
+    /// <param name="colorNumber">Specifies the color number to bind the user-defined varying out variable to.</param>
+    /// <param name="index">Specifies the index of the color number to bind the user-defined varying out variable to.</param>
+    /// <param name="name">Specifies the name of the user-defined varying out variable whose binding to modify.</param>
     public static void glBindFragDataLocationIndexed(GLuint program, GLuint colorNumber, GLuint index, string name)
     {
         GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
@@ -6886,9 +6900,21 @@ public unsafe static class GL
     private delegate GLint PFNGLGETFRAGDATAINDEXPROC(GLuint program, GLchar* name);
     private static PFNGLGETFRAGDATAINDEXPROC _glGetFragDataIndex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the index of a user-defined varying out variable.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing varying out variable whose index to query.</param>
+    /// <param name="name">Specifies the name of the user-defined varying out variable whose index to query.</param>
+    /// <returns>The index of the user-defined varying out variable.</returns>
     public static GLint glGetFragDataIndex(GLuint program, GLchar* name) => _glGetFragDataIndex(program, name);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the index of a user-defined varying out variable.
+    /// </summary>
+    /// <param name="program">Specifies the name of the program containing varying out variable whose index to query.</param>
+    /// <param name="name">Specifies the name of the user-defined varying out variable whose index to query.</param>
+    /// <returns>The index of the user-defined varying out variable.</returns>
     public static GLint glGetFragDataIndex(GLuint program, string name)
     {
         GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
@@ -6901,10 +6927,24 @@ public unsafe static class GL
     private delegate void PFNGLGENSAMPLERSPROC(GLsizei count, GLuint* samplers);
     private static PFNGLGENSAMPLERSPROC _glGenSamplers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate sampler object names.
+    /// </summary>
+    /// <param name="count">Specifies the number of sampler object names to generate.</param>
+    /// <param name="samplers">Specifies an array in which the generated sampler object names are stored.</param>
     public static void glGenSamplers(GLsizei count, GLuint* samplers) => _glGenSamplers(count, samplers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate sampler object names.
+    /// </summary>
+    /// <param name="count">Specifies the number of sampler object names to generate.</param>
+    /// <returns>An array in which the generated sampler object names are stored.</returns>
     public static GLuint[] glGenSamplers(GLsizei count) { GLuint[] result = new GLuint[count]; fixed (GLuint* dp = &result[0]) _glGenSamplers(count, dp); return result; }
+    /// <summary>
+    /// Generate a single sampler object name.
+    /// </summary>
+    /// <returns>The generated sampler object name.</returns>
     public static GLuint glGenSampler() => glGenSamplers(1)[0];
 #endif
 
@@ -6912,49 +6952,104 @@ public unsafe static class GL
     private delegate void PFNGLDELETESAMPLERSPROC(GLsizei count, GLuint* samplers);
     private static PFNGLDELETESAMPLERSPROC _glDeleteSamplers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Delete named sampler objects.
+    /// </summary>
+    /// <param name="count">Specifies the number of sampler objects to be deleted.</param>
+    /// <param name="samplers">Specifies an array of sampler objects to be deleted.</param>
     public static void glDeleteSamplers(GLsizei count, GLuint* samplers) => _glDeleteSamplers(count, samplers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Delete named sampler objects.
+    /// </summary>
+    /// <param name="samplers">Specifies an array of sampler objects to be deleted.</param>
     public static void glDeleteSamplers(params GLuint[] samplers) { fixed (GLuint* dp = &samplers[0]) _glDeleteSamplers(samplers.Length, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLISSAMPLERPROC(GLuint sampler);
     private static PFNGLISSAMPLERPROC _glIsSampler;
+    /// <summary>
+    /// Determine if a name corresponds to a sampler object.
+    /// </summary>
+    /// <param name="sampler">Specifies a value that may be the name of a sampler object.</param>
+    /// <returns><see langword="true"/> if <paramref name="sampler"/> is a value generated by OpenGL; otherwise, <see langword="false"/>.</returns>
     public static GLboolean glIsSampler(GLuint sampler) => _glIsSampler(sampler);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDSAMPLERPROC(GLuint unit, GLuint sampler);
     private static PFNGLBINDSAMPLERPROC _glBindSampler;
+    /// <summary>
+    /// Bind a named sampler to a texturing unit.
+    /// </summary>
+    /// <param name="unit">Specifies the index of the texture unit to which the sampler is bound.</param>
+    /// <param name="sampler">Specifies the name of a sampler.</param>
     public static void glBindSampler(GLuint unit, GLuint sampler) => _glBindSampler(unit, sampler);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSAMPLERPARAMETERIPROC(GLuint sampler, GLenum pname, GLint param);
     private static PFNGLSAMPLERPARAMETERIPROC _glSamplerParameteri;
+    /// <summary>
+    /// Set the integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameteri(GLuint sampler, GLenum pname, GLint param) => _glSamplerParameteri(sampler, pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSAMPLERPARAMETERIVPROC(GLuint sampler, GLenum pname, GLint* param);
     private static PFNGLSAMPLERPARAMETERIVPROC _glSamplerParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set the integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameteriv(GLuint sampler, GLenum pname, GLint* param) => _glSamplerParameteriv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set the integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameteriv(GLuint sampler, GLenum pname, GLint[] param) { fixed (GLint* dp = &param[0]) _glSamplerParameteriv(sampler, pname, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSAMPLERPARAMETERFPROC(GLuint sampler, GLenum pname, GLfloat param);
     private static PFNGLSAMPLERPARAMETERFPROC _glSamplerParameterf;
+    /// <summary>
+    /// Set the float value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterf(GLuint sampler, GLenum pname, GLfloat param) => _glSamplerParameterf(sampler, pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSAMPLERPARAMETERFVPROC(GLuint sampler, GLenum pname, GLfloat* param);
     private static PFNGLSAMPLERPARAMETERFVPROC _glSamplerParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set the float value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterfv(GLuint sampler, GLenum pname, GLfloat* param) => _glSamplerParameterfv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set the float value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterfv(GLuint sampler, GLenum pname, GLfloat[] param) { fixed (GLfloat* dp = &param[0]) _glSamplerParameterfv(sampler, pname, dp); }
 #endif
 
@@ -6962,9 +7057,21 @@ public unsafe static class GL
     private delegate void PFNGLSAMPLERPARAMETERIIVPROC(GLuint sampler, GLenum pname, GLint* param);
     private static PFNGLSAMPLERPARAMETERIIVPROC _glSamplerParameterIiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set the integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterIiv(GLuint sampler, GLenum pname, GLint* param) => _glSamplerParameterIiv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set the integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterIiv(GLuint sampler, GLenum pname, GLint[] param) { fixed (GLint* dp = &param[0]) _glSamplerParameterIiv(sampler, pname, dp); }
 #endif
 
@@ -6972,9 +7079,21 @@ public unsafe static class GL
     private delegate void PFNGLSAMPLERPARAMETERIUIVPROC(GLuint sampler, GLenum pname, GLuint* param);
     private static PFNGLSAMPLERPARAMETERIUIVPROC _glSamplerParameterIuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set the unsigned integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterIuiv(GLuint sampler, GLenum pname, GLuint* param) => _glSamplerParameterIuiv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set the unsigned integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to modify.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Specifies the value of <paramref name="pname"/>.</param>
     public static void glSamplerParameterIuiv(GLuint sampler, GLenum pname, GLuint[] param) { fixed (GLuint* dp = &param[0]) _glSamplerParameterIuiv(sampler, pname, dp); }
 #endif
 
@@ -6982,9 +7101,21 @@ public unsafe static class GL
     private delegate void PFNGLGETSAMPLERPARAMETERIVPROC(GLuint sampler, GLenum pname, GLint* param);
     private static PFNGLGETSAMPLERPARAMETERIVPROC _glGetSamplerParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the integer value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to query.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Returns the value of <paramref name="pname"/>.</param>
     public static void glGetSamplerParameteriv(GLuint sampler, GLenum pname, GLint* param) => _glGetSamplerParameteriv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the value of a sampler parameter.
+    /// </summary>
+    /// <param name="sampler">Specifies the name of the sampler object whose parameter to query.</param>
+    /// <param name="pname">Specifies the symbolic name of a single-valued sampler parameter. One of <see cref="GL_TEXTURE_WRAP_S"/>, <see cref="GL_TEXTURE_WRAP_T"/>, <see cref="GL_TEXTURE_WRAP_R"/>, <see cref="GL_TEXTURE_MIN_FILTER"/>, <see cref="GL_TEXTURE_MAG_FILTER"/>, <see cref="GL_TEXTURE_BORDER_COLOR"/>, <see cref="GL_TEXTURE_MIN_LOD"/>, <see cref="GL_TEXTURE_MAX_LOD"/>, <see cref="GL_TEXTURE_LOD_BIAS"/>, <see cref="GL_TEXTURE_COMPARE_MODE"/>, <see cref="GL_TEXTURE_COMPARE_FUNC"/>.</param>
+    /// <param name="param">Returns the value of <paramref name="pname"/>.</param>
     public static void glGetSamplerParameteriv(GLuint sampler, GLenum pname, ref GLint[] param) { fixed (GLint* dp = &param[0]) _glGetSamplerParameteriv(sampler, pname, dp); }
 #endif
 
@@ -6992,9 +7123,11 @@ public unsafe static class GL
     private delegate void PFNGLGETSAMPLERPARAMETERIIVPROC(GLuint sampler, GLenum pname, GLint* param);
     private static PFNGLGETSAMPLERPARAMETERIIVPROC _glGetSamplerParameterIiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <inheritdoc cref="glGetSamplerParameteriv(GLuint, GLenum, GLint*)"/>
     public static void glGetSamplerParameterIiv(GLuint sampler, GLenum pname, GLint* param) => _glGetSamplerParameterIiv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <inheritdoc cref="glGetSamplerParameteriv(GLuint, GLenum, ref GLint[])"/>
     public static void glGetSamplerParameterIiv(GLuint sampler, GLenum pname, ref GLint[] param) { fixed (GLint* dp = &param[0]) _glGetSamplerParameterIiv(sampler, pname, dp); }
 #endif
 
@@ -7002,9 +7135,11 @@ public unsafe static class GL
     private delegate void PFNGLGETSAMPLERPARAMETERFVPROC(GLuint sampler, GLenum pname, GLfloat* param);
     private static PFNGLGETSAMPLERPARAMETERFVPROC _glGetSamplerParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <inheritdoc cref="glGetSamplerParameteriv(GLuint, GLenum, GLint*)"/>
     public static void glGetSamplerParameterfv(GLuint sampler, GLenum pname, GLfloat* param) => _glGetSamplerParameterfv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <inheritdoc cref="glGetSamplerParameteriv(GLuint, GLenum, ref GLint[])"/>
     public static void glGetSamplerParameterfv(GLuint sampler, GLenum pname, ref GLfloat[] param) { fixed (GLfloat* dp = &param[0]) _glGetSamplerParameterfv(sampler, pname, dp); }
 #endif
 
@@ -7012,24 +7147,38 @@ public unsafe static class GL
     private delegate void PFNGLGETSAMPLERPARAMETERIUIVPROC(GLuint sampler, GLenum pname, GLuint* param);
     private static PFNGLGETSAMPLERPARAMETERIUIVPROC _glGetSamplerParameterIuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <inheritdoc cref="glGetSamplerParameteriv(GLuint, GLenum, GLint*)"/>
     public static void glGetSamplerParameterIuiv(GLuint sampler, GLenum pname, GLuint* param) => _glGetSamplerParameterIuiv(sampler, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <inheritdoc cref="glGetSamplerParameteriv(GLuint, GLenum, ref GLint[])"/>
     public static void glGetSamplerParameterIuiv(GLuint sampler, GLenum pname, ref GLuint[] param) { fixed (GLuint* dp = &param[0]) _glGetSamplerParameterIuiv(sampler, pname, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLQUERYCOUNTERPROC(GLuint id, GLenum target);
     private static PFNGLQUERYCOUNTERPROC _glQueryCounter;
+    /// <summary>
+    /// Record the GL time into a query object after all previous commands have reached the GL server but have not yet necessarily executed.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object into which to record the GL time.</param>
+    /// <param name="target">Specifies the counter to use as the source of the time.</param>
     public static void glQueryCounter(GLuint id, GLenum target) => _glQueryCounter(id, target);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYOBJECTI64VPROC(GLuint id, GLenum pname, GLint64* param);
     private static PFNGLGETQUERYOBJECTI64VPROC _glGetQueryObjecti64v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the 64bit integer value of a query object parameter.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object parameter. One of <see cref="GL_QUERY_RESULT"/>, <see cref="GL_QUERY_RESULT_NO_WAIT"/> or <see cref="GL_QUERY_RESULT_AVAILABLE"/>.</param>
+    /// <param name="param">Returns the value of <paramref name="pname"/>.</param>
     public static void glGetQueryObjecti64v(GLuint id, GLenum pname, GLint64* param) => _glGetQueryObjecti64v(id, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <inheritdoc cref="glGetQueryObjecti64v(GLuint, GLenum, GLint64*)"/>
     public static void glGetQueryObjecti64v(GLuint id, GLenum pname, ref GLint64[] param) { fixed (GLint64* dp = &param[0]) _glGetQueryObjecti64v(id, pname, dp); }
 #endif
 
@@ -7037,74 +7186,170 @@ public unsafe static class GL
     private delegate void PFNGLGETQUERYOBJECTUI64VPROC(GLuint id, GLenum pname, GLuint64* param);
     private static PFNGLGETQUERYOBJECTUI64VPROC _glGetQueryObjectui64v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the 64bit unsigned integer value of a query object parameter.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="pname">Specifies the symbolic name of a query object parameter. One of <see cref="GL_QUERY_RESULT"/>, <see cref="GL_QUERY_RESULT_NO_WAIT"/> or <see cref="GL_QUERY_RESULT_AVAILABLE"/>.</param>
+    /// <param name="param">Returns the value of <paramref name="pname"/>.</param>
     public static void glGetQueryObjectui64v(GLuint id, GLenum pname, GLuint64* param) => _glGetQueryObjectui64v(id, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <inheritdoc cref="glGetQueryObjectui64v(GLuint, GLenum, GLuint64*)"/>
     public static void glGetQueryObjectui64v(GLuint id, GLenum pname, ref GLuint64[] param) { fixed (GLuint64* dp = &param[0]) _glGetQueryObjectui64v(id, pname, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBDIVISORPROC(GLuint index, GLuint divisor);
     private static PFNGLVERTEXATTRIBDIVISORPROC _glVertexAttribDivisor;
+    /// <summary>
+    /// Modify the reate at which generic vertex attributes advance during instanced rendering
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute.</param>
+    /// <param name="divisor">Specifies the number of instances that will pass between updates of the generic attribute at slot <paramref name="index"/>.</param>
     public static void glVertexAttribDivisor(GLuint index, GLuint divisor) => _glVertexAttribDivisor(index, divisor);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP1UIPROC(GLuint index, GLenum type, GLboolean normalized, GLuint value);
     private static PFNGLVERTEXATTRIBP1UIPROC _glVertexAttribP1ui;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP1ui(GLuint index, GLenum type, GLboolean normalized, GLuint value) => _glVertexAttribP1ui(index, type, normalized, value);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP1UIVPROC(GLuint index, GLenum type, GLboolean normalized, GLuint* value);
     private static PFNGLVERTEXATTRIBP1UIVPROC _glVertexAttribP1uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies a pointer to the value of the vertex attribute.</param>
     public static void glVertexAttribP1uiv(GLuint index, GLenum type, GLboolean normalized, GLuint* value) => _glVertexAttribP1uiv(index, type, normalized, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP1uiv(GLuint index, GLenum type, GLboolean normalized, GLuint[] value) { fixed (GLuint* dp = &value[0]) _glVertexAttribP1uiv(index, type, normalized, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP2UIPROC(GLuint index, GLenum type, GLboolean normalized, GLuint value);
     private static PFNGLVERTEXATTRIBP2UIPROC _glVertexAttribP2ui;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP2ui(GLuint index, GLenum type, GLboolean normalized, GLuint value) => _glVertexAttribP2ui(index, type, normalized, value);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP2UIVPROC(GLuint index, GLenum type, GLboolean normalized, GLuint* value);
     private static PFNGLVERTEXATTRIBP2UIVPROC _glVertexAttribP2uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies a pointer to the value of the vertex attribute.</param>
     public static void glVertexAttribP2uiv(GLuint index, GLenum type, GLboolean normalized, GLuint* value) => _glVertexAttribP2uiv(index, type, normalized, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP2uiv(GLuint index, GLenum type, GLboolean normalized, GLuint[] value) { fixed (GLuint* dp = &value[0]) _glVertexAttribP2uiv(index, type, normalized, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP3UIPROC(GLuint index, GLenum type, GLboolean normalized, GLuint value);
     private static PFNGLVERTEXATTRIBP3UIPROC _glVertexAttribP3ui;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP3ui(GLuint index, GLenum type, GLboolean normalized, GLuint value) => _glVertexAttribP3ui(index, type, normalized, value);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP3UIVPROC(GLuint index, GLenum type, GLboolean normalized, GLuint* value);
     private static PFNGLVERTEXATTRIBP3UIVPROC _glVertexAttribP3uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies a pointer to the value of the vertex attribute.</param>
     public static void glVertexAttribP3uiv(GLuint index, GLenum type, GLboolean normalized, GLuint* value) => _glVertexAttribP3uiv(index, type, normalized, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP3uiv(GLuint index, GLenum type, GLboolean normalized, GLuint[] value) { fixed (GLuint* dp = &value[0]) _glVertexAttribP3uiv(index, type, normalized, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP4UIPROC(GLuint index, GLenum type, GLboolean normalized, GLuint value);
     private static PFNGLVERTEXATTRIBP4UIPROC _glVertexAttribP4ui;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP4ui(GLuint index, GLenum type, GLboolean normalized, GLuint value) => _glVertexAttribP4ui(index, type, normalized, value);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBP4UIVPROC(GLuint index, GLenum type, GLboolean normalized, GLuint* value);
     private static PFNGLVERTEXATTRIBP4UIVPROC _glVertexAttribP4uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies a pointer to the value of the vertex attribute.</param>
     public static void glVertexAttribP4uiv(GLuint index, GLenum type, GLboolean normalized, GLuint* value) => _glVertexAttribP4uiv(index, type, normalized, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="type">Specifies the data type of the vertex attribute value.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (<see langword="true"/>), or converted directly as fixed-point values (<see langword="false"/>).</param>
+    /// <param name="value">Specifies the value of the vertex attribute.</param>
     public static void glVertexAttribP4uiv(GLuint index, GLenum type, GLboolean normalized, GLuint[] value) { fixed (GLuint* dp = &value[0]) _glVertexAttribP4uiv(index, type, normalized, dp); }
 #endif
 
