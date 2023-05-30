@@ -6083,40 +6083,94 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWARRAYSINSTANCEDPROC(GLenum mode, GLint first, GLsizei count, GLsizei instancecount);
     private static PFNGLDRAWARRAYSINSTANCEDPROC _glDrawArraysInstanced;
+    /// <summary>
+    /// Draw multiple instances of a range of elements
+    /// </summary>
+    /// <param mode="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" /> and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param first="first">Specifies the starting index in the enabled arrays.</param>
+    /// <param count="count">Specifies the number of indices to be rendered.</param>
+    /// <param instancecount="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
     public static void glDrawArraysInstanced(GLenum mode, GLint first, GLsizei count, GLsizei instancecount) => _glDrawArraysInstanced(mode, first, count, instancecount);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWELEMENTSINSTANCEDPROC(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount);
     private static PFNGLDRAWELEMENTSINSTANCEDPROC _glDrawElementsInstanced;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Draw multiple instances of a set of elements
+    /// </summary>
+    /// <param mode="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" /> and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param count="count">Specifies the number of elements to be rendered.</param>
+    /// <param type="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, or <see cref="GL_UNSIGNED_INT" />.</param>
+    /// <param indices="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param instancecount="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
     public static void glDrawElementsInstanced(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount) => _glDrawElementsInstanced(mode, count, type, indices, instancecount);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Draw multiple instances of a set of elements
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS" />, <see cref="GL_LINE_STRIP" />, <see cref="GL_LINE_LOOP" />, <see cref="GL_LINES" />, <see cref="GL_TRIANGLE_STRIP" />, <see cref="GL_TRIANGLE_FAN" />, <see cref="GL_TRIANGLES" />, <see cref="GL_LINES_ADJACENCY" />, <see cref="GL_LINE_STRIP_ADJACENCY" />, <see cref="GL_TRIANGLES_ADJACENCY" />, <see cref="GL_TRIANGLE_STRIP_ADJACENCY" /> and <see cref="GL_PATCHES" /> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE" />, <see cref="GL_UNSIGNED_SHORT" />, or <see cref="GL_UNSIGNED_INT" />.</param>
+    /// <param name="indices">Specifies an array containin the indices. Make sure to match <typeparamref name="T" /> to the type of the indices.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
     public static void glDrawElementsInstanced<T>(GLenum mode, GLsizei count, GLenum type, T[] indices, GLsizei instancecount) where T : unmanaged, IUnsignedNumber<T> { fixed (T* p = &indices[0]) _glDrawElementsInstanced(mode, count, type, p, instancecount); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXBUFFERPROC(GLenum target, GLenum internalformat, GLuint buffer);
     private static PFNGLTEXBUFFERPROC _glTexBuffer;
+    /// <summary>
+    /// Attach a buffer object's data store to a buffer texture object
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffer object's data store is attached for the purposes of the specified buffer texture object. target​ must be <see cref="GL_TEXTURE_BUFFER" />.</param>
+    /// <param name="internalformat">Specifies the internal format of the data in the store belonging to buffer.</param>
+    /// <param name="buffer">Specifies the name of an existing buffer object whose storage to attach to the specified buffer texture object.</param>
     public static void glTexBuffer(GLenum target, GLenum internalformat, GLuint buffer) => _glTexBuffer(target, internalformat, buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPRIMITIVERESTARTINDEXPROC(GLuint index);
     private static PFNGLPRIMITIVERESTARTINDEXPROC _glPrimitiveRestartIndex;
+    /// <summary>
+    /// Specify the primitive restart index
+    /// </summary>
+    /// <param name="index">Specifies the value to be interpreted as the primitive restart index.</param>
     public static void glPrimitiveRestartIndex(GLuint index) => _glPrimitiveRestartIndex(index);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYBUFFERSUBDATAPROC(GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
     private static PFNGLCOPYBUFFERSUBDATAPROC _glCopyBufferSubData;
+    /// <summary>
+    /// Copy part of a buffer object's data store to the the data store of another buffer object.
+    /// </summary>
+    /// <param name="readTarget">Specifies the target from which the data will be copied. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" />, or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="writeTarget">Specifies the target to which the data will be copied. The symbolic constant must be <see cref="GL_ARRAY_BUFFER" />, <see cref="GL_ATOMIC_COUNTER_BUFFER" />, <see cref="GL_COPY_READ_BUFFER" />, <see cref="GL_COPY_WRITE_BUFFER" />, <see cref="GL_DISPATCH_INDIRECT_BUFFER" />, <see cref="GL_DRAW_INDIRECT_BUFFER" />, <see cref="GL_ELEMENT_ARRAY_BUFFER" />, <see cref="GL_PIXEL_PACK_BUFFER" />, <see cref="GL_PIXEL_UNPACK_BUFFER" />, <see cref="GL_QUERY_BUFFER" />, <see cref="GL_SHADER_STORAGE_BUFFER" />, <see cref="GL_TEXTURE_BUFFER" />, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER" />, or <see cref="GL_UNIFORM_BUFFER" />.</param>
+    /// <param name="readOffset">Specifies the offset into the data store of the buffer object containing the data to copy.</param>
+    /// <param name="writeOffset">Specifies the offset into the data store of the buffer object into which data will be copied.</param>
+    /// <param name="size">Specifies the size in bytes of the data to be copied.</param>
     public static void glCopyBufferSubData(GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size) => _glCopyBufferSubData(readTarget, writeTarget, readOffset, writeOffset, size);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETUNIFORMINDICESPROC(GLuint program, GLsizei uniformCount, GLchar** uniformNames, GLuint* uniformIndices);
     private static PFNGLGETUNIFORMINDICESPROC _glGetUniformIndices;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the indices of a number of uniforms within a program object
+    /// </summary>
+    /// <param name="program">Specifies the name of a program containing uniforms whose indices to retrieve.</param>
+    /// <param name="uniformCount">Specifies the number of uniforms whose indices to retrieve.</param>
+    /// <param name="uniformNames">Specifies an array of pointers to strings containing the names of the queried uniforms.</param>
+    /// <param name="uniformIndices">Specifies an array to receive the indices of the uniforms specified in uniformNames.</param>
     public static void glGetUniformIndices(GLuint program, GLsizei uniformCount, GLchar** uniformNames, GLuint* uniformIndices) => _glGetUniformIndices(program, uniformCount, uniformNames, uniformIndices);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the indices of a number of uniforms within a program object
+    /// </summary>
+    /// <param name="program">Specifies the name of a program containing uniforms whose indices to retrieve.</param>
+    /// <param name="uniformNames">Specifies an array of strings containing the names of the queried uniforms.</param>
+    /// <returns>An array of indices of the uniforms specified in uniformNames.</returns>
     public static GLuint[] glGetUniformIndices(GLuint program, params string[] uniformNames)
     {
         int uniformCount = uniformNames.Length;
@@ -6149,9 +6203,24 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVEUNIFORMSIVPROC(GLuint program, GLsizei uniformCount, GLuint* uniformIndices, GLenum pname, GLint* parameters);
     private static PFNGLGETACTIVEUNIFORMSIVPROC _glGetActiveUniformsiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns information about several active uniform variables for the specified program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformCount">Specifies the number of elements in the array of indices <paramref name="uniformIndices" />.</param>
+    /// <param name="uniformIndices">Specifies an array of <paramref name="uniformCount" /> integers containing the indices of the uniform variables to be queried.</param>
+    /// <param name="pname">Specifies the information to be queried about each uniform variable specified in <paramref name="uniformIndices" />.</param>
+    /// <param name="parameters">Specifies an array of <paramref name="uniformCount" /> integers to receive the information requested about each uniform variable specified in <paramref name="uniformIndices" />.</param>
     public static void glGetActiveUniformsiv(GLuint program, GLsizei uniformCount, GLuint* uniformIndices, GLenum pname, GLint* parameters) => _glGetActiveUniformsiv(program, uniformCount, uniformIndices, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns information about several active uniform variables for the specified program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="pname">Specifies the information to be queried about each uniform variable specified in <paramref name="uniformIndices" />.</param>
+    /// <param name="uniformIndices">Specifies an array of integers containing the indices of the uniform variables to be queried.</param>
+    /// <returns>An array of integers to receive the information requested about each uniform variable specified in <paramref name="uniformIndices" />.</returns>
     public static GLint[] glGetActiveUniformsiv(GLuint program, GLenum pname, params GLuint[] uniformIndices)
     {
         int uniformCount = uniformIndices.Length;
@@ -6169,9 +6238,24 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVEUNIFORMNAMEPROC(GLuint program, GLuint uniformIndex, GLsizei bufSize, GLsizei* length, GLchar* uniformName);
     private static PFNGLGETACTIVEUNIFORMNAMEPROC _glGetActiveUniformName;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the name of an active uniform variable at the specified index within a program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformIndex">Specifies the index of the uniform variable to be queried.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is specified by <paramref name="uniformName" />, in characters.</param>
+    /// <param name="length">Returns the number of characters actually written into the buffer indicated by <paramref name="uniformName" />.</param>
+    /// <param name="uniformName">Returns the name of the uniform variable at the specified index in the program object specified by <paramref name="program" />.</param>
     public static void glGetActiveUniformName(GLuint program, GLuint uniformIndex, GLsizei bufSize, GLsizei* length, GLchar* uniformName) => _glGetActiveUniformName(program, uniformIndex, bufSize, length, uniformName);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns the name of an active uniform variable at the specified index within a program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformIndex">Specifies the index of the uniform variable to be queried.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is specified by <paramref name="uniformName" />, in characters.</param>
+    /// <returns>The name of the uniform variable at the specified index in the program object specified by <paramref name="program" />, in the correct size.</returns>
     public static string glGetActiveUniformName(GLuint program, GLuint uniformIndex, GLsizei bufSize)
     {
         GLchar* uniformName = stackalloc GLchar[bufSize];
@@ -6185,9 +6269,20 @@ public unsafe static class GL
     private delegate GLuint PFNGLGETUNIFORMBLOCKINDEXPROC(GLuint program, GLchar* uniformBlockName);
     private static PFNGLGETUNIFORMBLOCKINDEXPROC _glGetUniformBlockIndex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the index of a uniform block within a program
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformBlockName">Points to a null terminated string containing the name of the uniform block whose index to query.</param>
+    /// <returns>The index of the uniform block named <paramref name="uniformBlockName" /> within the program object <paramref name="program" />.</returns>
     public static GLuint glGetUniformBlockIndex(GLuint program, GLchar* uniformBlockName) => _glGetUniformBlockIndex(program, uniformBlockName);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns the index of a uniform block within a program
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformBlockName">Contains the name of the uniform block whose index to query.</param>
     public static GLuint glGetUniformBlockIndex(GLuint program, string uniformBlockName)
     {
         byte[] uniformBlockNameBytes = Encoding.UTF8.GetBytes(uniformBlockName);
@@ -6202,9 +6297,23 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVEUNIFORMBLOCKIVPROC(GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint* parameters);
     private static PFNGLGETACTIVEUNIFORMBLOCKIVPROC _glGetActiveUniformBlockiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns information about an active uniform block
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformBlockIndex">Specifies the index of the uniform block within <paramref name="program" /> whose information to query.</param>
+    /// <param name="pname">Specifies the specific information to query about the active uniform block.</param>
+    /// <param name="parameters">Returns the requested information about the uniform block.</param>
     public static void glGetActiveUniformBlockiv(GLuint program, GLuint uniformBlockIndex, GLenum pname, GLint* parameters) => _glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns information about an active uniform block
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformBlockIndex">Specifies the index of the uniform block within <paramref name="program" /> whose information to query.</param>
+    /// <param name="pname">Specifies the specific information to query about the active uniform block.</param>
+    /// <param name="parameters">Returns the requested information about the uniform block.</param>
     public static void glGetActiveUniformBlockiv(GLuint program, GLuint uniformBlockIndex, GLenum pname, ref GLint[] parameters) { fixed (GLint* p = &parameters[0]) { _glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, p); } }
 #endif
 
@@ -6212,9 +6321,24 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC(GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei* length, GLchar* uniformBlockName);
     private static PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC _glGetActiveUniformBlockName;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the name of an active uniform block at the specified index within a program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformBlockIndex">Specifies the index of the uniform block within <paramref name="program" /> whose name to retrieve.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is specified by <paramref name="uniformBlockName" />, in characters.</param>
+    /// <param name="length">Returns the length of the uniform block name.</param>
+    /// <param name="uniformBlockName">Returns the name of the uniform block at the specified index in the program object specified by <paramref name="program" />.</param>
     public static void glGetActiveUniformBlockName(GLuint program, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei* length, GLchar* uniformBlockName) => _glGetActiveUniformBlockName(program, uniformBlockIndex, bufSize, length, uniformBlockName);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns the name of an active uniform block at the specified index within a program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="uniformBlockIndex">Specifies the index of the uniform block within <paramref name="program" /> whose name to retrieve.</param>
+    /// <param name="bufSize">Specifies a maximum amount of characters OpenGL is allowed to write in the character buffer.</param>
+    /// <param name="length">Returns the length of the uniform block name.</param>
     public static string glGetActiveUniformBlockName(GLuint program, GLuint uniformBlockIndex, GLsizei bufSize)
     {
         GLchar* uniformBlockName = stackalloc GLchar[bufSize];
@@ -6227,6 +6351,12 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUNIFORMBLOCKBINDINGPROC(GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding);
     private static PFNGLUNIFORMBLOCKBINDINGPROC _glUniformBlockBinding;
+    /// <summary>
+    /// Assigns a binding point to an active uniform block
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the active uniform block whose binding to assign.</param>
+    /// <param name="uniformBlockIndex">Specifies the index of the active uniform block within <paramref name="program" /> whose binding to assign.</param>
+    /// <param name="uniformBlockBinding">Specifies the binding point to which to bind the uniform block with index <paramref name="uniformBlockIndex" /> within the program object <paramref name="program" />.</param>
     public static void glUniformBlockBinding(GLuint program, GLuint uniformBlockIndex, GLuint uniformBlockBinding) => _glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding);
 
 #endif
