@@ -6434,9 +6434,25 @@ public unsafe static class GL
     private delegate void PFNGLDRAWELEMENTSBASEVERTEXPROC(GLenum mode, GLsizei count, GLenum type, void* indices, GLint basevertex);
     private static PFNGLDRAWELEMENTSBASEVERTEXPROC _glDrawElementsBaseVertex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glDrawElementsBaseVertex(GLenum mode, GLsizei count, GLenum type, void* indices, GLint basevertex) => _glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array of indices. Make sure to match the type <typeparamref name="T"/> with <paramref name="type"/>.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glDrawElementsBaseVertex<T>(GLenum mode, GLsizei count, GLenum type, T[] indices, GLint basevertex) where T : unmanaged, IUnsignedNumber<T> { fixed (void* p = &indices[0]) _glDrawElementsBaseVertex(mode, count, type, p, basevertex); }
 #endif
 
@@ -6444,9 +6460,29 @@ public unsafe static class GL
     private delegate void PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, void* indices, GLint basevertex);
     private static PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC _glDrawRangeElementsBaseVertex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="start">Specifies the minimum array index contained in <paramref name="indices"/>.</param>
+    /// <param name="end">Specifies the maximum array index contained in <paramref name="indices"/>.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glDrawRangeElementsBaseVertex(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, void* indices, GLint basevertex) => _glDrawRangeElementsBaseVertex(mode, start, end, count, type, indices, basevertex);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="start">Specifies the minimum array index contained in <paramref name="indices"/>.</param>
+    /// <param name="end">Specifies the maximum array index contained in <paramref name="indices"/>.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array of indices. Make sure to match the type <typeparamref name="T"/> with <paramref name="type"/>.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glDrawRangeElementsBaseVertex<T>(GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, T[] indices, GLint basevertex) where T : unmanaged, IUnsignedNumber<T> { fixed (void* p = &indices[0]) _glDrawRangeElementsBaseVertex(mode, start, end, count, type, p, basevertex); }
 #endif
 
@@ -6454,9 +6490,27 @@ public unsafe static class GL
     private delegate void PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount, GLint basevertex);
     private static PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC _glDrawElementsInstancedBaseVertex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render multiple instances of a set of primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param name="instancecount">Specifies the number of instances of the indexed geometry that should be drawn.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glDrawElementsInstancedBaseVertex(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount, GLint basevertex) => _glDrawElementsInstancedBaseVertex(mode, count, type, indices, instancecount, basevertex);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render multiple instances of a set of primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array of indices. Make sure to match the type <typeparamref name="T"/> with <paramref name="type"/>.</param>
+    /// <param name="instancecount">Specifies the number of instances of the indexed geometry that should be drawn.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glDrawElementsInstancedBaseVertex<T>(GLenum mode, GLsizei count, GLenum type, T[] indices, GLsizei instancecount, GLint basevertex) where T : unmanaged, IUnsignedNumber<T> { fixed (void* p = &indices[0]) _glDrawElementsInstancedBaseVertex(mode, count, type, p, instancecount, basevertex); }
 #endif
 
@@ -6464,9 +6518,25 @@ public unsafe static class GL
     private delegate void PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC(GLenum mode, GLsizei* count, GLenum type, void** indices, GLsizei drawcount, GLint* basevertex);
     private static PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC _glMultiDrawElementsBaseVertex;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render multiple sets of primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="count">Specifies an array of the elements counts.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array of pointers to the location where the indices are stored.</param>
+    /// <param name="drawcount">Specifies the size of the <paramref name="count"/> and <paramref name="basevertex"/> arrays.</param>
+    /// <param name="basevertex">Specifies an array of the constants that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glMultiDrawElementsBaseVertex(GLenum mode, GLsizei* count, GLenum type, void** indices, GLsizei drawcount, GLint* basevertex) => _glMultiDrawElementsBaseVertex(mode, count, type, indices, drawcount, basevertex);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render multiple sets of primitives from array data with a per-element offset.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render. Symbolic constants <see cref="GL_POINTS"/>, <see cref="GL_LINE_STRIP"/>, <see cref="GL_LINE_LOOP"/>, <see cref="GL_LINES"/>, <see cref="GL_TRIANGLE_STRIP"/>, <see cref="GL_TRIANGLE_FAN"/>, <see cref="GL_TRIANGLES"/>, <see cref="GL_LINES_ADJACENCY"/>, <see cref="GL_LINE_STRIP_ADJACENCY"/>, <see cref="GL_TRIANGLES_ADJACENCY"/>, <see cref="GL_TRIANGLE_STRIP_ADJACENCY"/> and <see cref="GL_PATCHES"/> are accepted.</param>
+    /// <param name="type">Specifies the type of the values in <paramref name="indices"/>. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array of arrays of indices. Make sure to match the type <typeparamref name="T"/> with <paramref name="type"/>.</param>
+    /// <param name="basevertex">Specifies an array of the constants that should be added to each element of <paramref name="indices"/> when choosing elements from the enabled vertex arrays.</param>
     public static void glMultiDrawElementsBaseVertex<T>(GLenum mode, GLenum type, T[][] indices, GLint[] basevertex) where T : unmanaged, IUnsignedNumber<T>
     {
         if (indices.Length != basevertex.Length) throw new ArgumentException("indices and basevertex must have the same length");
@@ -6490,15 +6560,31 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROVOKINGVERTEXPROC(GLenum mode);
     private static PFNGLPROVOKINGVERTEXPROC _glProvokingVertex;
+    /// <summary>
+    /// Specify the vertex to be used as the source of data for flat shaded varyings.
+    /// </summary>
+    /// <param name="mode">Specifies the vertex to be used as the source of data for flat shaded varyings. Must be <see cref="GL_FIRST_VERTEX_CONVENTION"/> or <see cref="GL_LAST_VERTEX_CONVENTION"/>.</param>
     public static void glProvokingVertex(GLenum mode) => _glProvokingVertex(mode);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void* PFNGLFENCESYNCPROC(GLenum condition, GLbitfield flags);
     private static PFNGLFENCESYNCPROC _glFenceSync;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Creates a new sync object and inserts it into the GL command stream.
+    /// </summary>
+    /// <param name="condition">Specifies the condition that must be met to set the sync object's state to signaled. Must be <see cref="GL_SYNC_GPU_COMMANDS_COMPLETE"/>.</param>
+    /// <param name="flags">Specifies a bitwise combination of flags controlling the behavior of the sync object. No flags are presently defined for this operation and <paramref name="flags"/> must be zero.</param>
+    /// <returns>The sync object.</returns>
     public static void* glFenceSync(GLenum condition, GLbitfield flags) => _glFenceSync(condition, flags);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Creates a new sync object and inserts it into the GL command stream.
+    /// </summary>
+    /// <param name="condition">Specifies the condition that must be met to set the sync object's state to signaled. Must be <see cref="GL_SYNC_GPU_COMMANDS_COMPLETE"/>.</param>
+    /// <param name="flags">Specifies a bitwise combination of flags controlling the behavior of the sync object. No flags are presently defined for this operation and <paramref name="flags"/> must be zero.</param>
+    /// <returns>The sync object.</returns>
     public static IntPtr glFenceSyncSafe(GLenum condition, GLbitfield flags) => new IntPtr(_glFenceSync(condition, flags));
 #endif
 
@@ -6506,9 +6592,19 @@ public unsafe static class GL
     private delegate GLboolean PFNGLISSYNCPROC(void* sync);
     private static PFNGLISSYNCPROC _glIsSync;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Determines if a name corresponds to a sync object.
+    /// </summary>
+    /// <param name="sync">Specifies a value that may be the name of a sync object.</param>
+    /// <returns><see langword="true" /> if <paramref name="sync"/> is a name of a sync object. Otherwise, <see langword="false" />.</returns>
     public static GLboolean glIsSync(void* sync) => _glIsSync(sync);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Determines if a name corresponds to a sync object.
+    /// </summary>
+    /// <param name="sync">Specifies a value that may be the name of a sync object.</param>
+    /// <returns><see langword="true" /> if <paramref name="sync"/> is a name of a sync object. Otherwise, <see langword="false" />.</returns>
     public static GLboolean glIsSyncSafe(IntPtr sync) => _glIsSync(sync.ToPointer());
 #endif
 
@@ -6516,9 +6612,17 @@ public unsafe static class GL
     private delegate void PFNGLDELETESYNCPROC(void* sync);
     private static PFNGLDELETESYNCPROC _glDeleteSync;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Deletes a sync object.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object to be deleted.</param>
     public static void glDeleteSync(void* sync) => _glDeleteSync(sync);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Deletes a sync object.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object to be deleted.</param>
     public static void glDeleteSyncSafe(IntPtr sync) => _glDeleteSync(sync.ToPointer());
 #endif
 
@@ -6526,9 +6630,23 @@ public unsafe static class GL
     private delegate GLenum PFNGLCLIENTWAITSYNCPROC(void* sync, GLbitfield flags, GLuint64 timeout);
     private static PFNGLCLIENTWAITSYNCPROC _glClientWaitSync;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Causes the client to block and wait for a sync object to become signaled.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object whose status to wait on.</param>
+    /// <param name="flags">A bitfield controlling the command flushing behavior. <paramref name="flags" /> may be <see cref="GL_SYNC_FLUSH_COMMANDS_BIT"/> or zero.</param>
+    /// <param name="timeout">The timeout, specified in nanoseconds, for which the implementation should wait for <paramref name="sync"/> to become signaled.</param>
+    /// <returns>One of <see cref="GL_ALREADY_SIGNALED"/>, <see cref="GL_TIMEOUT_EXPIRED"/>, <see cref="GL_CONDITION_SATISFIED"/>, or <see cref="GL_WAIT_FAILED"/>.</returns>
     public static GLenum glClientWaitSync(void* sync, GLbitfield flags, GLuint64 timeout) => _glClientWaitSync(sync, flags, timeout);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Causes the client to block and wait for a sync object to become signaled.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object whose status to wait on.</param>
+    /// <param name="flags">A bitfield controlling the command flushing behavior. <paramref name="flags" /> may be <see cref="GL_SYNC_FLUSH_COMMANDS_BIT"/> or zero.</param>
+    /// <param name="timeout">The timeout, specified in nanoseconds, for which the implementation should wait for <paramref name="sync"/> to become signaled.</param>
+    /// <returns>One of <see cref="GL_ALREADY_SIGNALED"/>, <see cref="GL_TIMEOUT_EXPIRED"/>, <see cref="GL_CONDITION_SATISFIED"/>, or <see cref="GL_WAIT_FAILED"/>.</returns>
     public static GLenum glClientWaitSyncSafe(IntPtr sync, GLbitfield flags, GLuint64 timeout) => _glClientWaitSync(sync.ToPointer(), flags, timeout);
 #endif
 
@@ -6536,9 +6654,21 @@ public unsafe static class GL
     private delegate void PFNGLWAITSYNCPROC(void* sync, GLbitfield flags, GLuint64 timeout);
     private static PFNGLWAITSYNCPROC _glWaitSync;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Causes the server to block and wait for a sync object to become signaled.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object whose status to wait on.</param>
+    /// <param name="flags">A bitfield controlling the command flushing behavior. <paramref name="flags" /> must be zero.</param>
+    /// <param name="timeout">The timeout, specified in nanoseconds, for which the implementation should wait for <paramref name="sync"/> to become signaled.</param>
     public static void glWaitSync(void* sync, GLbitfield flags, GLuint64 timeout) => _glWaitSync(sync, flags, timeout);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Causes the server to block and wait for a sync object to become signaled.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object whose status to wait on.</param>
+    /// <param name="flags">A bitfield controlling the command flushing behavior. <paramref name="flags" /> must be zero.</param>
+    /// <param name="timeout">The timeout, specified in nanoseconds, for which the implementation should wait for <paramref name="sync"/> to become signaled.</param>
     public static void glWaitSyncSafe(IntPtr sync, GLbitfield flags, GLuint64 timeout) => _glWaitSync(sync.ToPointer(), flags, timeout);
 #endif
 
@@ -6546,19 +6676,44 @@ public unsafe static class GL
     private delegate void PFNGLGETINTEGER64VPROC(GLenum pname, GLint64* data);
     private static PFNGLGETINTEGER64VPROC _glGetInteger64v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the 64bit integer value or values of a selected parameter.
+    /// </summary>
+    /// <param name="pname">Specifies the parameter value to be returned. Refer to <see href="https://docs.gl/gl4/glGet"/> for a list of possible values.</param>
+    /// <param name="data">Returns the value or values of the specified parameter.</param>
     public static void glGetInteger64v(GLenum pname, GLint64* data) => _glGetInteger64v(pname, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glGetInteger64vSafe(GLenum pname, ref GLint64[] data) { fixed (GLint64* dp = &data[0]) _glGetInteger64v(pname, dp); }
+    /// <summary>
+    /// Returns the 64bit integer value or values of a selected parameter.
+    /// </summary>
+    /// <param name="pname">Specifies the parameter value to be returned. Refer to <see href="https://docs.gl/gl4/glGet"/> for a list of possible values.</param>
+    /// <param name="data">Returns the value or values of the specified parameter.</param>
+    public static void glGetInteger64v(GLenum pname, ref GLint64[] data) { fixed (GLint64* dp = &data[0]) _glGetInteger64v(pname, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETSYNCIVPROC(void* sync, GLenum pname, GLsizei bufSize, GLsizei* length, GLint* values);
     private static PFNGLGETSYNCIVPROC _glGetSynciv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Query the properties of a sync object.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object whose properties to query.</param>
+    /// <param name="pname">Specifies the parameter whose value to retrieve from the sync object indicated by <paramref name="sync"/>. Allowed values are <see cref="GL_OBJECT_TYPE"/>, <see cref="GL_SYNC_STATUS"/>, <see cref="GL_SYNC_CONDITION"/>, <see cref="GL_SYNC_FLAGS"/>.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given by <paramref name="values"/>.</param>
+    /// <param name="length">Returns the number of integers placed in <paramref name="values"/>.</param>
+    /// <param name="values">Returns the requested parameter.</param>
     public static void glGetSynciv(void* sync, GLenum pname, GLsizei bufSize, GLsizei* length, GLint* values) => _glGetSynciv(sync, pname, bufSize, length, values);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Query the properties of a sync object.
+    /// </summary>
+    /// <param name="sync">Specifies the sync object whose properties to query.</param>
+    /// <param name="pname">Specifies the parameter whose value to retrieve from the sync object indicated by <paramref name="sync"/>. Allowed values are <see cref="GL_OBJECT_TYPE"/>, <see cref="GL_SYNC_STATUS"/>, <see cref="GL_SYNC_CONDITION"/>, <see cref="GL_SYNC_FLAGS"/>.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given by <paramref name="values"/>.</param>
+    /// <returns>Returns the requested parameter(s).</returns>
     public static GLint[] glGetSynciv(IntPtr sync, GLenum pname, GLsizei bufSize)
     {
         GLint[] ret = new GLint[bufSize];
@@ -6576,50 +6731,117 @@ public unsafe static class GL
     private delegate void PFNGLGETINTEGER64I_VPROC(GLenum target, GLuint index, GLint64* data);
     private static PFNGLGETINTEGER64I_VPROC _glGetInteger64i_v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the 64bit integer value or values of a selected parameter.
+    /// </summary>
+    /// <param name="target">Specifies the target of which the indexed parameter <paramref name="index"/> is to be returned. Refer to <see href="https://docs.gl/gl4/glGet"/> for a list of possible values.</param>
+    /// <param name="index">Specifies the index of the value to be returned.</param>
+    /// <param name="data">Returns the value or values of the specified parameter.</param>
     public static void glGetInteger64i_v(GLenum target, GLuint index, GLint64* data) => _glGetInteger64i_v(target, index, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glGetInteger64i_vSafe(GLenum target, GLuint index, ref GLint64[] data) { fixed (GLint64* dp = &data[0]) _glGetInteger64i_v(target, index, dp); }
+    /// <summary>
+    /// Returns the 64bit integer value or values of a selected parameter.
+    /// </summary>
+    /// <param name="target">Specifies the target of which the indexed parameter <paramref name="index"/> is to be returned. Refer to <see href="https://docs.gl/gl4/glGet"/> for a list of possible values.</param>
+    /// <param name="index">Specifies the index of the value to be returned.</param>
+    /// <param name="data">Returns the value or values of the specified parameter.</param>
+    public static void glGetInteger64i_v(GLenum target, GLuint index, ref GLint64[] data) { fixed (GLint64* dp = &data[0]) _glGetInteger64i_v(target, index, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETBUFFERPARAMETERI64VPROC(GLenum target, GLenum pname, GLint64* parameters);
     private static PFNGLGETBUFFERPARAMETERI64VPROC _glGetBufferParameteri64v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the value or values of a selected parameter.
+    /// </summary>
+    /// <param name="target">. Specifies the target to which the buffer object is bound. Must be one of <see cref="GL_ARRAY_BUFFER"/>, <see cref="GL_ATOMIC_COUNTER_BUFFER"/>, <see cref="GL_COPY_READ_BUFFER"/>, <see cref="GL_COPY_WRITE_BUFFER"/>, <see cref="GL_DISPATCH_INDIRECT_BUFFER"/>, <see cref="GL_DRAW_INDIRECT_BUFFER"/>, <see cref="GL_ELEMENT_ARRAY_BUFFER"/>, <see cref="GL_PIXEL_PACK_BUFFER"/>, <see cref="GL_PIXEL_UNPACK_BUFFER"/>, <see cref="GL_QUERY_BUFFER"/>, <see cref="GL_SHADER_STORAGE_BUFFER"/>, <see cref="GL_TEXTURE_BUFFER"/>, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER"/>, or <see cref="GL_UNIFORM_BUFFER"/>.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter. Accepted values are <see cref="GL_BUFFER_ACCESS"/>, <see cref="GL_BUFFER_ACCESS_FLAGS"/>, <see cref="GL_BUFFER_IMMUTABLE_STORAGE"/>, <see cref="GL_BUFFER_MAPPED"/>, <see cref="GL_BUFFER_MAP_LENGTH"/>, <see cref="GL_BUFFER_MAP_OFFSET"/>, <see cref="GL_BUFFER_SIZE"/>, <see cref="GL_BUFFER_STORAGE_FLAGS"/>, <see cref="GL_BUFFER_USAGE"/>.</param>
+    /// <param name="parameters">Returns the requested parameter.</param>
     public static void glGetBufferParameteri64v(GLenum target, GLenum pname, GLint64* parameters) => _glGetBufferParameteri64v(target, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glGetBufferParameteri64vSafe(GLenum target, GLenum pname, ref GLint64[] parameters) { fixed (GLint64* dp = &parameters[0]) _glGetBufferParameteri64v(target, pname, dp); }
+    /// <summary>
+    /// Returns the value or values of a selected parameter.
+    /// </summary>
+    /// <param name="target">. Specifies the target to which the buffer object is bound. Must be one of <see cref="GL_ARRAY_BUFFER"/>, <see cref="GL_ATOMIC_COUNTER_BUFFER"/>, <see cref="GL_COPY_READ_BUFFER"/>, <see cref="GL_COPY_WRITE_BUFFER"/>, <see cref="GL_DISPATCH_INDIRECT_BUFFER"/>, <see cref="GL_DRAW_INDIRECT_BUFFER"/>, <see cref="GL_ELEMENT_ARRAY_BUFFER"/>, <see cref="GL_PIXEL_PACK_BUFFER"/>, <see cref="GL_PIXEL_UNPACK_BUFFER"/>, <see cref="GL_QUERY_BUFFER"/>, <see cref="GL_SHADER_STORAGE_BUFFER"/>, <see cref="GL_TEXTURE_BUFFER"/>, <see cref="GL_TRANSFORM_FEEDBACK_BUFFER"/>, or <see cref="GL_UNIFORM_BUFFER"/>.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter. Accepted values are <see cref="GL_BUFFER_ACCESS"/>, <see cref="GL_BUFFER_ACCESS_FLAGS"/>, <see cref="GL_BUFFER_IMMUTABLE_STORAGE"/>, <see cref="GL_BUFFER_MAPPED"/>, <see cref="GL_BUFFER_MAP_LENGTH"/>, <see cref="GL_BUFFER_MAP_OFFSET"/>, <see cref="GL_BUFFER_SIZE"/>, <see cref="GL_BUFFER_STORAGE_FLAGS"/>, <see cref="GL_BUFFER_USAGE"/>.</param>
+    /// <param name="parameters">Returns the requested parameter.</param>
+    public static void glGetBufferParameteri64v(GLenum target, GLenum pname, ref GLint64[] parameters) { fixed (GLint64* dp = &parameters[0]) _glGetBufferParameteri64v(target, pname, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLFRAMEBUFFERTEXTUREPROC(GLenum target, GLenum attachment, GLuint texture, GLint level);
     private static PFNGLFRAMEBUFFERTEXTUREPROC _glFramebufferTexture;
+    /// <summary>
+    /// Attaches a level of a texture object as a logical buffer to the currently bound framebuffer object.
+    /// </summary>
+    /// <param name="target">Specifies the framebuffer target. Must be <see cref="GL_DRAW_FRAMEBUFFER"/>, <see cref="GL_READ_FRAMEBUFFER"/> or <see cref="GL_FRAMEBUFFER"/>.</param>
+    /// <param name="attachment">Specifies the attachment point of the framebuffer. Must be one of <see cref="GL_COLOR_ATTACHMENT0"/> through <see cref="GL_COLOR_ATTACHMENT31"/>, <see cref="GL_DEPTH_ATTACHMENT"/>, <see cref="GL_STENCIL_ATTACHMENT"/>, <see cref="GL_DEPTH_STENCIL_ATTACHMENT"/>.</param>
+    /// <param name="texture">Specifies the texture object whose image is to be attached.</param>
+    /// <param name="level">Specifies the mipmap level of the texture object to be attached.</param>
     public static void glFramebufferTexture(GLenum target, GLenum attachment, GLuint texture, GLint level) => _glFramebufferTexture(target, attachment, texture, level);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXIMAGE2DMULTISAMPLEPROC(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
     private static PFNGLTEXIMAGE2DMULTISAMPLEPROC _glTexImage2DMultisample;
+    /// <summary>
+    /// Establishes the data storage, format, dimensions, and number of samples of a multisample texture's image.
+    /// </summary>
+    /// <param name="target">Specifies the target of the operation. Must be <see cref="GL_TEXTURE_2D_MULTISAMPLE"/> or <see cref="GL_PROXY_TEXTURE_2D_MULTISAMPLE"/>.</param>
+    /// <param name="samples">Specifies the number of samples in the multisample texture's image.</param>
+    /// <param name="internalformat">Specifies the internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the multisample texture's image, in texels.</param>
+    /// <param name="height">Specifies the height of the multisample texture's image, in texels.</param>
+    /// <param name="fixedsamplelocations">Specifies whether the image will use identical sample locations and the same number of samples for all texels in the image, and the sample locations will not depend on the internal format or size of the image.</param>
     public static void glTexImage2DMultisample(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations) => _glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXIMAGE3DMULTISAMPLEPROC(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
     private static PFNGLTEXIMAGE3DMULTISAMPLEPROC _glTexImage3DMultisample;
+    /// <summary>
+    /// Establishes the data storage, format, dimensions, and number of samples of a multisample texture's image.
+    /// </summary>
+    /// <param name="target">Specifies the target of the operation. Must be <see cref="GL_TEXTURE_3D_MULTISAMPLE"/> or <see cref="GL_PROXY_TEXTURE_3D_MULTISAMPLE"/>.</param>
+    /// <param name="samples">Specifies the number of samples in the multisample texture's image.</param>
+    /// <param name="internalformat">Specifies the internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the multisample texture's image, in texels.</param>
+    /// <param name="height">Specifies the height of the multisample texture's image, in texels.</param>
+    /// <param name="depth">Specifies the depth of the multisample texture's image, in texels.</param>
+    /// <param name="fixedsamplelocations">Specifies whether the image will use identical sample locations and the same number of samples for all texels in the image, and the sample locations will not depend on the internal format or size of the image.</param>
     public static void glTexImage3DMultisample(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations) => _glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETMULTISAMPLEFVPROC(GLenum pname, GLuint index, GLfloat* val);
     private static PFNGLGETMULTISAMPLEFVPROC _glGetMultisamplefv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns the location of a sample.
+    /// </summary>
+    /// <param name="pname">Specifies the sample parameter to query. Must be <see cref="GL_SAMPLE_POSITION"/>.</param>
+    /// <param name="index">Specifies the index of the sample.</param>
+    /// <param name="val">Specifies the address of an array to receive the location of the sample.</param>
     public static void glGetMultisamplefv(GLenum pname, GLuint index, GLfloat* val) => _glGetMultisamplefv(pname, index, val);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns the location of a sample.
+    /// </summary>
+    /// <param name="pname">Specifies the sample parameter to query. Must be <see cref="GL_SAMPLE_POSITION"/>.</param>
+    /// <param name="index">Specifies the index of the sample.</param>
+    /// <param name="val">Specifies the address of an array to receive the location of the sample.</param>
     public static void glGetMultisamplefvSafe(GLenum pname, GLuint index, ref GLfloat[] val) { fixed (GLfloat* dp = &val[0]) _glGetMultisamplefv(pname, index, dp); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSAMPLEMASKIPROC(GLuint maskNumber, GLbitfield mask);
     private static PFNGLSAMPLEMASKIPROC _glSampleMaski;
+    /// <summary>
+    /// Controls the writing of individual bits in a logical multisample color sample.
+    /// </summary>
+    /// <param name="maskNumber">Specifies which 32-bit sub-word of the sample mask to update.</param>
+    /// <param name="mask">Specifies a mask to enable and disable sample coverage.</param>
     public static void glSampleMaski(GLuint maskNumber, GLbitfield mask) => _glSampleMaski(maskNumber, mask);
 
 #endif
