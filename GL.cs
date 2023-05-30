@@ -8379,22 +8379,39 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLRELEASESHADERCOMPILERPROC();
     private static PFNGLRELEASESHADERCOMPILERPROC _glReleaseShaderCompiler;
+    /// <summary>
+    /// Release resources consumed by the shader compiler.
+    /// </summary>
     public static void glReleaseShaderCompiler() => _glReleaseShaderCompiler();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSHADERBINARYPROC(GLsizei count, GLuint* shaders, GLenum binaryformat, void* binary, GLsizei length);
     private static PFNGLSHADERBINARYPROC _glShaderBinary;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Loads pre-compiled shader binaries.
+    /// </summary>
+    /// <param name="count">Specifies the number of shader handles contained in the array whose address is given in shaders.</param>
+    /// <param name="shaders">Specifies an array of shader handles into which to load pre-compiled shader binaries.</param>
+    /// <param name="binaryformat">Specifies the format of the shader binary data contained in binary.</param>
+    /// <param name="binary">Specifies an array of bytes containing pre-compiled shader binaries.</param>
+    /// <param name="length">Specifies the number of bytes in the array of bytes pointed to by binary.</param>
     public static void glShaderBinary(GLsizei count, GLuint* shaders, GLenum binaryformat, void* binary, GLsizei length) => _glShaderBinary(count, shaders, binaryformat, binary, length);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glShaderBinary(GLuint[] shaders, GLenum binaryFormat, byte[] binary)
+    /// <summary>
+    /// Loads pre-compiled shader binaries.
+    /// </summary>
+    /// <param name="shaders">Specifies an array of shader handles into which to load pre-compiled shader binaries.</param>
+    /// <param name="binaryformat">Specifies the format of the shader binary data contained in binary.</param>
+    /// <param name="binary">Specifies an array of bytes containing pre-compiled shader binaries.</param>
+    public static void glShaderBinary(GLuint[] shaders, GLenum binaryformat, byte[] binary)
     {
         GLsizei count = shaders.Length;
         fixed (GLuint* pShaders = &shaders[0])
         fixed (byte* pBinary = &binary[0])
         {
-            _glShaderBinary(count, pShaders, binaryFormat, pBinary, binary.Length);
+            _glShaderBinary(count, pShaders, binaryformat, pBinary, binary.Length);
         }
     }
 #endif
@@ -8403,9 +8420,23 @@ public unsafe static class GL
     private delegate void PFNGLGETSHADERPRECISIONFORMATPROC(GLenum shadertype, GLenum precisiontype, GLint* range, GLint* precision);
     private static PFNGLGETSHADERPRECISIONFORMATPROC _glGetShaderPrecisionFormat;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Retrieve the range and precision for numeric formats supported by the shader compiler.
+    /// </summary>
+    /// <param name="shaderType">Specifies the type of shader, <see cref="GL_VERTEX_SHADER"/> or <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="precisionType">Specifies the numeric format whose precision to query.</param>
+    /// <param name="range">Returns the range of variable.</param>
+    /// <param name="precision">Returns the precision of variable.</param>
     public static void glGetShaderPrecisionFormat(GLenum shaderType, GLenum precisionType, GLint* range, GLint* precision) => _glGetShaderPrecisionFormat(shaderType, precisionType, range, precision);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Retrieve the range and precision for numeric formats supported by the shader compiler.
+    /// </summary>
+    /// <param name="shaderType">Specifies the type of shader, <see cref="GL_VERTEX_SHADER"/> or <see cref="GL_FRAGMENT_SHADER"/>.</param>
+    /// <param name="precisionType">Specifies the numeric format whose precision to query.</param>
+    /// <param name="range">Returns the range of variable.</param>
+    /// <param name="precision">Returns the precision of variable.</param>
     public static void glGetShaderPrecisionFormat(GLenum shaderType, GLenum precisionType, ref GLint[] range, ref GLint precision)
     {
         range = new GLint[2];
@@ -8420,20 +8451,44 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDEPTHRANGEFPROC(GLfloat n, GLfloat f);
     private static PFNGLDEPTHRANGEFPROC _glDepthRangef;
+    /// <summary>
+    /// Specify mapping of depth values from normalized device coordinates to window coordinates.
+    /// </summary>
+    /// <param name="n">Specifies the near value for the depth range.</param>
+    /// <param name="f">Specifies the far value for the depth range.</param>
     public static void glDepthRangef(GLfloat n, GLfloat f) => _glDepthRangef(n, f);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLEARDEPTHFPROC(GLfloat d);
     private static PFNGLCLEARDEPTHFPROC _glClearDepthf;
+    /// <summary>
+    /// Specify the clear value for the depth buffer.
+    /// </summary>
+    /// <param name="d">Specifies the depth value used when the depth buffer is cleared. The initial value is 1.</param>
     public static void glClearDepthf(GLfloat d) => _glClearDepthf(d);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETPROGRAMBINARYPROC(GLuint program, GLsizei bufSize, GLsizei* length, GLenum* binaryFormat, void* binary);
     private static PFNGLGETPROGRAMBINARYPROC _glGetProgramBinary;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Returns a binary representation of the compiled and linked executable for a program object.
+    /// </summary>
+    /// <param name="program">Specifies the name of a program object whose executable binary is to be returned.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is specified by <paramref name="binary"/>.</param>
+    /// <param name="length">Returns the number of bytes actually written into <paramref name="binary"/>.</param>
+    /// <param name="binaryFormat">Returns the format of the program binary.</param>
+    /// <param name="binary">Returns the program binary.</param>
     public static void glGetProgramBinary(GLuint program, GLsizei bufSize, GLsizei* length, GLenum* binaryFormat, void* binary) => _glGetProgramBinary(program, bufSize, length, binaryFormat, binary);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Returns a binary representation of the compiled and linked executable for a program object.
+    /// </summary>
+    /// <param name="program">Specifies the name of a program object whose executable binary is to be returned.</param>
+    /// <param name="bufSize">Specifies the maximum amount of bytes that may be returned.</param>
+    /// <param name="binaryFormat">Returns the format of the program binary.</param>
+    /// <returns>Returns the program binary as bytes.</returns>
     public static byte[] glGetProgramBinary(GLuint program, GLsizei bufSize, out GLenum binaryFormat)
     {
         byte[] binary = new byte[bufSize];
@@ -8452,9 +8507,22 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMBINARYPROC(GLuint program, GLenum binaryFormat, void* binary, GLsizei length);
     private static PFNGLPROGRAMBINARYPROC _glProgramBinary;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Loads a program binary.
+    /// </summary>
+    /// <param name="program">Specifies the name of a program object whose executable binary is to be replaced.</param>
+    /// <param name="binaryFormat">Specifies the format of the binary data in <paramref name="binary"/>.</param>
+    /// <param name="binary">Specifies a pointer to a buffer containing the executable binary data that will be loaded into <paramref name="program"/>.</param>
+    /// <param name="length">Specifies the number of bytes contained in <paramref name="binary"/>.</param>
     public static void glProgramBinary(GLuint program, GLenum binaryFormat, void* binary, GLsizei length) => _glProgramBinary(program, binaryFormat, binary, length);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Loads a program binary.
+    /// </summary>
+    /// <param name="program">Specifies the name of a program object whose executable binary is to be replaced.</param>
+    /// <param name="binaryFormat">Specifies the format of the binary data in <paramref name="binary"/>.</param>
+    /// <param name="binary">Specifies a buffer containing the executable binary data that will be loaded into <paramref name="program"/>.</param>
     public static void glProgramBinary(GLuint program, GLenum binaryFormat, byte[] binary)
     {
         fixed (byte* pBinary = &binary[0])
@@ -8467,25 +8535,53 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMPARAMETERIPROC(GLuint program, GLenum pname, GLint value);
     private static PFNGLPROGRAMPARAMETERIPROC _glProgramParameteri;
+    /// <summary>
+    /// Specify a parameter for a program object
+    /// </summary>
+    /// <param name="program">Specifies the program object to be modified.</param>
+    /// <param name="pname">Specifies the name of the parameter to modify.</param>
+    /// <param name="value">Specifies the new value for <paramref name="pname"/>.</param>
     public static void glProgramParameteri(GLuint program, GLenum pname, GLint value) => _glProgramParameteri(program, pname, value);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLUSEPROGRAMSTAGESPROC(GLuint pipeline, GLbitfield stages, GLuint program);
     private static PFNGLUSEPROGRAMSTAGESPROC _glUseProgramStages;
+    /// <summary>
+    /// Bind stages of a program object to a program pipeline.
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of the program pipeline object to which to bind the program object.</param>
+    /// <param name="stages">Specifies a set of program stages.</param>
+    /// <param name="program">Specifies the name of a program object.</param>
     public static void glUseProgramStages(GLuint pipeline, GLbitfield stages, GLuint program) => _glUseProgramStages(pipeline, stages, program);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLACTIVESHADERPROGRAMPROC(GLuint pipeline, GLuint program);
     private static PFNGLACTIVESHADERPROGRAMPROC _glActiveShaderProgram;
+    /// <summary>
+    /// Set the active program object for a program pipeline object.
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object whose active program object is to be set.</param>
+    /// <param name="program">Specifies the name of a program object to set as the active program object of <paramref name="pipeline"/>.</param>
     public static void glActiveShaderProgram(GLuint pipeline, GLuint program) => _glActiveShaderProgram(pipeline, program);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLuint PFNGLCREATESHADERPROGRAMVPROC(GLenum type, GLsizei count, GLchar** strings);
     private static PFNGLCREATESHADERPROGRAMVPROC _glCreateShaderProgramv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Create a stand-alone program from an array of null-terminated source code strings.
+    /// </summary>
+    /// <param name="type">Specifies the type of shader to be created.</param>
+    /// <param name="count">Specifies the number of elements in the array <paramref name="strings"/>.</param>
+    /// <param name="strings">Specifies an array of pointers to strings containing the source code to be loaded into the shader.</param>
     public static GLuint glCreateShaderProgramv(GLenum type, GLsizei count, GLchar** strings) => _glCreateShaderProgramv(type, count, strings);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Create a stand-alone program from an array of null-terminated source code strings.
+    /// </summary>
+    /// <param name="type">Specifies the type of shader to be created.</param>
+    /// <param name="strings">Specifies an array of strings containing the source code to be loaded into the shader.</param>
     public static GLuint glCreateShaderProgramv(GLenum type, string[] strings)
     {
         // https://stackoverflow.com/questions/27777226/how-to-use-glcreateshaderprogram
@@ -8515,15 +8611,28 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDPROGRAMPIPELINEPROC(GLuint pipeline);
     private static PFNGLBINDPROGRAMPIPELINEPROC _glBindProgramPipeline;
+    /// <summary>
+    /// Bind a program pipeline to the current context
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object to bind to the current context.</param>
     public static void glBindProgramPipeline(GLuint pipeline) => _glBindProgramPipeline(pipeline);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDELETEPROGRAMPIPELINESPROC(GLsizei n, GLuint* pipelines);
     private static PFNGLDELETEPROGRAMPIPELINESPROC _glDeleteProgramPipelines;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Delete program pipelines
+    /// </summary>
+    /// <param name="n">Specifies the number of program pipeline objects to be deleted.</param>
+    /// <param name="pipelines">Specifies an array of <paramref name="n"/> values, containing the names of the program pipeline objects to be deleted.</param>
     public static void glDeleteProgramPipelines(GLsizei n, GLuint* pipelines) => _glDeleteProgramPipelines(n, pipelines);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Delete program pipelines
+    /// </summary>
+    /// <param name="pipelines">Specifies an array of program pipeline objects to be deleted.</param>
     public static void glDeleteProgramPipelines(params GLuint[] pipelines) { fixed (GLuint* pPipelines = &pipelines[0]) { _glDeleteProgramPipelines(pipelines.Length, pPipelines); } }
 #endif
 
@@ -8531,275 +8640,649 @@ public unsafe static class GL
     private delegate void PFNGLGENPROGRAMPIPELINESPROC(GLsizei n, GLuint* pipelines);
     private static PFNGLGENPROGRAMPIPELINESPROC _glGenProgramPipelines;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate program pipeline object names
+    /// </summary>
+    /// <param name="n">Specifies the number of program pipeline object names to generate.</param>
+    /// <param name="pipelines">Specifies an array in which the generated program pipeline object names are stored.</param>
     public static void glGenProgramPipelines(GLsizei n, GLuint* pipelines) => _glGenProgramPipelines(n, pipelines);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate program pipeline object names
+    /// </summary>
+    /// <param name="n">Specifies the number of program pipeline object names to generate.</param>
+    /// <returns>Array of <paramref name="n"/> generated program pipeline object names.</returns>
     public static GLuint[] glGenProgramPipelines(GLsizei n) { GLuint[] pipelines = new GLuint[n]; fixed (GLuint* pPipelines = &pipelines[0]) { _glGenProgramPipelines(n, pPipelines); } return pipelines; }
+    /// <summary>
+    /// Generate a single program pipeline object name
+    /// </summary>
+    /// <returns>Generated program pipeline object name.</returns>
     public static GLuint glGenProgramPipeline() => glGenProgramPipelines(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLISPROGRAMPIPELINEPROC(GLuint pipeline);
     private static PFNGLISPROGRAMPIPELINEPROC _glIsProgramPipeline;
+    /// <summary>
+    /// Determine if a name corresponds to a program pipeline object
+    /// </summary>
+    /// <param name="pipeline">Specifies a value that may be the name of a program pipeline object.</param>
+    /// <returns><see langword="true"/>, if <paramref name="pipeline"/> is the name of a program pipeline object. Otherwise, <see langword="false"/>.</returns>
     public static GLboolean glIsProgramPipeline(GLuint pipeline) => _glIsProgramPipeline(pipeline);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETPROGRAMPIPELINEIVPROC(GLuint pipeline, GLenum pname, GLint* param);
     private static PFNGLGETPROGRAMPIPELINEIVPROC _glGetProgramPipelineiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a parameter from a program pipeline object
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object from which to retrieve <paramref name="pname"/>.</param>
+    /// <param name="pname">Specifies the parameter to retrieve from the program pipeline object named <paramref name="pipeline"/>.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the retrieved parameter.</param>
     public static void glGetProgramPipelineiv(GLuint pipeline, GLenum pname, GLint* param) => _glGetProgramPipelineiv(pipeline, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a parameter from a program pipeline object
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object from which to retrieve <paramref name="pname"/>.</param>
+    /// <param name="pname">Specifies the parameter to retrieve from the program pipeline object named <paramref name="pipeline"/>.</param>
+    /// <param name="param">Specifies an array to receive the value of the retrieved parameter.</param>
     public static void glGetProgramPipelineiv(GLuint pipeline, GLenum pname, ref GLint[] param) { fixed (GLint* pParam = &param[0]) { _glGetProgramPipelineiv(pipeline, pname, pParam); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1IPROC(GLuint program, GLint location, GLint v0);
     private static PFNGLPROGRAMUNIFORM1IPROC _glProgramUniform1i;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform1i(GLuint program, GLint location, GLint v0) => _glProgramUniform1i(program, location, v0);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1IVPROC(GLuint program, GLint location, GLsizei count, GLint* value);
     private static PFNGLPROGRAMUNIFORM1IVPROC _glProgramUniform1iv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1iv(GLuint program, GLint location, GLsizei count, GLint* value) => _glProgramUniform1iv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform1iv(program, location, value.Length, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1FPROC(GLuint program, GLint location, GLfloat v0);
     private static PFNGLPROGRAMUNIFORM1FPROC _glProgramUniform1f;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform1f(GLuint program, GLint location, GLfloat v0) => _glProgramUniform1f(program, location, v0);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1FVPROC(GLuint program, GLint location, GLsizei count, GLfloat* value);
     private static PFNGLPROGRAMUNIFORM1FVPROC _glProgramUniform1fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1fv(GLuint program, GLint location, GLsizei count, GLfloat* value) => _glProgramUniform1fv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform1fv(program, location, value.Length, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1DPROC(GLuint program, GLint location, GLdouble v0);
     private static PFNGLPROGRAMUNIFORM1DPROC _glProgramUniform1d;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform1d(GLuint program, GLint location, GLdouble v0) => _glProgramUniform1d(program, location, v0);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1DVPROC(GLuint program, GLint location, GLsizei count, GLdouble* value);
     private static PFNGLPROGRAMUNIFORM1DVPROC _glProgramUniform1dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1dv(GLuint program, GLint location, GLsizei count, GLdouble* value) => _glProgramUniform1dv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform1dv(program, location, value.Length, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1UIPROC(GLuint program, GLint location, GLuint v0);
     private static PFNGLPROGRAMUNIFORM1UIPROC _glProgramUniform1ui;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform1ui(GLuint program, GLint location, GLuint v0) => _glProgramUniform1ui(program, location, v0);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM1UIVPROC(GLuint program, GLint location, GLsizei count, GLuint* value);
     private static PFNGLPROGRAMUNIFORM1UIVPROC _glProgramUniform1uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform1uiv(GLuint program, GLint location, GLsizei count, GLuint* value) => _glProgramUniform1uiv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+
     public static void glProgramUniform1uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform1uiv(program, location, value.Length, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2IPROC(GLuint program, GLint location, GLint v0, GLint v1);
     private static PFNGLPROGRAMUNIFORM2IPROC _glProgramUniform2i;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform2i(GLuint program, GLint location, GLint v0, GLint v1) => _glProgramUniform2i(program, location, v0, v1);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2IVPROC(GLuint program, GLint location, GLsizei count, GLint* value);
     private static PFNGLPROGRAMUNIFORM2IVPROC _glProgramUniform2iv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform2iv(GLuint program, GLint location, GLsizei count, GLint* value) => _glProgramUniform2iv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform2iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform2iv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform2iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform2iv(program, location, value.Length / 2, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2FPROC(GLuint program, GLint location, GLfloat v0, GLfloat v1);
     private static PFNGLPROGRAMUNIFORM2FPROC _glProgramUniform2f;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform2f(GLuint program, GLint location, GLfloat v0, GLfloat v1) => _glProgramUniform2f(program, location, v0, v1);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2FVPROC(GLuint program, GLint location, GLsizei count, GLfloat* value);
     private static PFNGLPROGRAMUNIFORM2FVPROC _glProgramUniform2fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform2fv(GLuint program, GLint location, GLsizei count, GLfloat* value) => _glProgramUniform2fv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform2fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform2fv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform2fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform2fv(program, location, value.Length / 2, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2DPROC(GLuint program, GLint location, GLdouble v0, GLdouble v1);
     private static PFNGLPROGRAMUNIFORM2DPROC _glProgramUniform2d;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform2d(GLuint program, GLint location, GLdouble v0, GLdouble v1) => _glProgramUniform2d(program, location, v0, v1);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2DVPROC(GLuint program, GLint location, GLsizei count, GLdouble* value);
     private static PFNGLPROGRAMUNIFORM2DVPROC _glProgramUniform2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform2dv(GLuint program, GLint location, GLsizei count, GLdouble* value) => _glProgramUniform2dv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform2dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform2dv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform2dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform2dv(program, location, value.Length / 2, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2UIPROC(GLuint program, GLint location, GLuint v0, GLuint v1);
     private static PFNGLPROGRAMUNIFORM2UIPROC _glProgramUniform2ui;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform2ui(GLuint program, GLint location, GLuint v0, GLuint v1) => _glProgramUniform2ui(program, location, v0, v1);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM2UIVPROC(GLuint program, GLint location, GLsizei count, GLuint* value);
     private static PFNGLPROGRAMUNIFORM2UIVPROC _glProgramUniform2uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform2uiv(GLuint program, GLint location, GLsizei count, GLuint* value) => _glProgramUniform2uiv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform2uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform2uiv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform2uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform2uiv(program, location, value.Length / 2, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3IPROC(GLuint program, GLint location, GLint v0, GLint v1, GLint v2);
     private static PFNGLPROGRAMUNIFORM3IPROC _glProgramUniform3i;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform3i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2) => _glProgramUniform3i(program, location, v0, v1, v2);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3IVPROC(GLuint program, GLint location, GLsizei count, GLint* value);
     private static PFNGLPROGRAMUNIFORM3IVPROC _glProgramUniform3iv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform3iv(GLuint program, GLint location, GLsizei count, GLint* value) => _glProgramUniform3iv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform3iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform3iv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform3iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform3iv(program, location, value.Length / 3, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3FPROC(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
     private static PFNGLPROGRAMUNIFORM3FPROC _glProgramUniform3f;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform3f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2) => _glProgramUniform3f(program, location, v0, v1, v2);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3FVPROC(GLuint program, GLint location, GLsizei count, GLfloat* value);
     private static PFNGLPROGRAMUNIFORM3FVPROC _glProgramUniform3fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform3fv(GLuint program, GLint location, GLsizei count, GLfloat* value) => _glProgramUniform3fv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform3fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform3fv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform3fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform3fv(program, location, value.Length / 3, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3DPROC(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2);
     private static PFNGLPROGRAMUNIFORM3DPROC _glProgramUniform3d;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform3d(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2) => _glProgramUniform3d(program, location, v0, v1, v2);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3DVPROC(GLuint program, GLint location, GLsizei count, GLdouble* value);
     private static PFNGLPROGRAMUNIFORM3DVPROC _glProgramUniform3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform3dv(GLuint program, GLint location, GLsizei count, GLdouble* value) => _glProgramUniform3dv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform3dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform3dv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform3dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform3dv(program, location, value.Length / 3, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3UIPROC(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2);
     private static PFNGLPROGRAMUNIFORM3UIPROC _glProgramUniform3ui;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform3ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2) => _glProgramUniform3ui(program, location, v0, v1, v2);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM3UIVPROC(GLuint program, GLint location, GLsizei count, GLuint* value);
     private static PFNGLPROGRAMUNIFORM3UIVPROC _glProgramUniform3uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform3uiv(GLuint program, GLint location, GLsizei count, GLuint* value) => _glProgramUniform3uiv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform3uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform3uiv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform3uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform3uiv(program, location, value.Length / 3, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4IPROC(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3);
     private static PFNGLPROGRAMUNIFORM4IPROC _glProgramUniform4i;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
+    /// <param name="v3">Specifies the fourth new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform4i(GLuint program, GLint location, GLint v0, GLint v1, GLint v2, GLint v3) => _glProgramUniform4i(program, location, v0, v1, v2, v3);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4IVPROC(GLuint program, GLint location, GLsizei count, GLint* value);
     private static PFNGLPROGRAMUNIFORM4IVPROC _glProgramUniform4iv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform4iv(GLuint program, GLint location, GLsizei count, GLint* value) => _glProgramUniform4iv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform4iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform4iv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform4iv(GLuint program, GLint location, GLint[] value) { fixed (GLint* pValue = &value[0]) { _glProgramUniform4iv(program, location, value.Length / 4, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4FPROC(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
     private static PFNGLPROGRAMUNIFORM4FPROC _glProgramUniform4f;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
+    /// <param name="v3">Specifies the fourth new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform4f(GLuint program, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) => _glProgramUniform4f(program, location, v0, v1, v2, v3);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4FVPROC(GLuint program, GLint location, GLsizei count, GLfloat* value);
     private static PFNGLPROGRAMUNIFORM4FVPROC _glProgramUniform4fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform4fv(GLuint program, GLint location, GLsizei count, GLfloat* value) => _glProgramUniform4fv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform4fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform4fv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform4fv(GLuint program, GLint location, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniform4fv(program, location, value.Length / 4, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4DPROC(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3);
     private static PFNGLPROGRAMUNIFORM4DPROC _glProgramUniform4d;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
+    /// <param name="v3">Specifies the fourth new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform4d(GLuint program, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3) => _glProgramUniform4d(program, location, v0, v1, v2, v3);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4DVPROC(GLuint program, GLint location, GLsizei count, GLdouble* value);
     private static PFNGLPROGRAMUNIFORM4DVPROC _glProgramUniform4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform4dv(GLuint program, GLint location, GLsizei count, GLdouble* value) => _glProgramUniform4dv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform4dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform4dv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform4dv(GLuint program, GLint location, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniform4dv(program, location, value.Length / 4, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4UIPROC(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3);
     private static PFNGLPROGRAMUNIFORM4UIPROC _glProgramUniform4ui;
+    /// <summary>
+    /// Specify the value of a uniform variable for a specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="v0">Specifies the first new value to be used for the specified uniform variable.</param>
+    /// <param name="v1">Specifies the second new value to be used for the specified uniform variable.</param>
+    /// <param name="v2">Specifies the third new value to be used for the specified uniform variable.</param>
+    /// <param name="v3">Specifies the fourth new value to be used for the specified uniform variable.</param>
     public static void glProgramUniform4ui(GLuint program, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3) => _glProgramUniform4ui(program, location, v0, v1, v2, v3);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORM4UIVPROC(GLuint program, GLint location, GLsizei count, GLuint* value);
     private static PFNGLPROGRAMUNIFORM4UIVPROC _glProgramUniform4uiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniform4uiv(GLuint program, GLint location, GLsizei count, GLuint* value) => _glProgramUniform4uiv(program, location, count, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glProgramUniform4uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform4uiv(program, location, value.Length, pValue); } }
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
+    public static void glProgramUniform4uiv(GLuint program, GLint location, GLuint[] value) { fixed (GLuint* pValue = &value[0]) { _glProgramUniform4uiv(program, location, value.Length / 4, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPROGRAMUNIFORMMATRIX2FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX2FVPROC _glProgramUniformMatrix2fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix2fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix2fv(program, location, value.Length / 4, transpose, pValue); } }
 #endif
 
@@ -8807,9 +9290,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX3FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX3FVPROC _glProgramUniformMatrix3fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix3fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix3fv(program, location, value.Length / 9, transpose, pValue); } }
 #endif
 
@@ -8817,9 +9315,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX4FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX4FVPROC _glProgramUniformMatrix4fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix4fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix4fv(program, location, value.Length / 16, transpose, pValue); } }
 #endif
 
@@ -8827,9 +9340,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX2DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX2DVPROC _glProgramUniformMatrix2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix2dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix2dv(program, location, value.Length / 4, transpose, pValue); } }
 #endif
 
@@ -8837,9 +9365,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX3DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX3DVPROC _glProgramUniformMatrix3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix3dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix3dv(program, location, value.Length / 9, transpose, pValue); } }
 #endif
 
@@ -8847,9 +9390,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX4DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX4DVPROC _glProgramUniformMatrix4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix4dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix4dv(program, location, value.Length / 16, transpose, pValue); } }
 #endif
 
@@ -8857,9 +9415,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX2X3FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX2X3FVPROC _glProgramUniformMatrix2x3fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix2x3fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x3fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix2x3fv(program, location, value.Length / 6, transpose, pValue); } }
 #endif
 
@@ -8867,9 +9440,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX3X2FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX3X2FVPROC _glProgramUniformMatrix3x2fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix3x2fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x2fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix3x2fv(program, location, value.Length / 6, transpose, pValue); } }
 #endif
 
@@ -8877,9 +9465,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX2X4FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX2X4FVPROC _glProgramUniformMatrix2x4fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix2x4fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x4fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix2x4fv(program, location, value.Length / 8, transpose, pValue); } }
 #endif
 
@@ -8887,9 +9490,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX4X2FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX4X2FVPROC _glProgramUniformMatrix4x2fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x2fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix4x2fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x2fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix4x2fv(program, location, value.Length / 8, transpose, pValue); } }
 #endif
 
@@ -8897,9 +9515,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX3X4FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX3X4FVPROC _glProgramUniformMatrix3x4fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x4fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix3x4fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x4fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix3x4fv(program, location, value.Length / 12, transpose, pValue); } }
 #endif
 
@@ -8907,9 +9540,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX4X3FVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value);
     private static PFNGLPROGRAMUNIFORMMATRIX4X3FVPROC _glProgramUniformMatrix4x3fv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x3fv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLfloat* value) => _glProgramUniformMatrix4x3fv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x3fv(GLuint program, GLint location, GLboolean transpose, GLfloat[] value) { fixed (GLfloat* pValue = &value[0]) { _glProgramUniformMatrix4x3fv(program, location, value.Length / 12, transpose, pValue); } }
 #endif
 
@@ -8917,9 +9565,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX2X3DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX2X3DVPROC _glProgramUniformMatrix2x3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix2x3dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x3dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix2x3dv(program, location, value.Length / 6, transpose, pValue); } }
 #endif
 
@@ -8927,9 +9590,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX3X2DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX3X2DVPROC _glProgramUniformMatrix3x2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix3x2dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x2dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix3x2dv(program, location, value.Length / 6, transpose, pValue); } }
 #endif
 
@@ -8937,9 +9615,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX2X4DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX2X4DVPROC _glProgramUniformMatrix2x4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix2x4dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix2x4dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix2x4dv(program, location, value.Length / 8, transpose, pValue); } }
 #endif
 
@@ -8947,9 +9640,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX4X2DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX4X2DVPROC _glProgramUniformMatrix4x2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x2dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix4x2dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x2dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix4x2dv(program, location, value.Length / 8, transpose, pValue); } }
 #endif
 
@@ -8957,9 +9665,24 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX3X4DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX3X4DVPROC _glProgramUniformMatrix3x4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x4dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix3x4dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix3x4dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix3x4dv(program, location, value.Length / 12, transpose, pValue); } }
 #endif
 
@@ -8967,24 +9690,56 @@ public unsafe static class GL
     private delegate void PFNGLPROGRAMUNIFORMMATRIX4X3DVPROC(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value);
     private static PFNGLPROGRAMUNIFORMMATRIX4X3DVPROC _glProgramUniformMatrix4x3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="count">Specifies the number of elements that are to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies a pointer to an array of <paramref name="count"/> values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x3dv(GLuint program, GLint location, GLsizei count, GLboolean transpose, GLdouble* value) => _glProgramUniformMatrix4x3dv(program, location, count, transpose, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a uniform variable for the current program object
+    /// </summary>
+    /// <param name="program">Specifies the program object containing the uniform variable to be modified.</param>
+    /// <param name="location">Specifies the location of the uniform variable to be modified.</param>
+    /// <param name="transpose">Specifies whether to transpose the matrix as the values are loaded into the uniform variable.</param>
+    /// <param name="value">Specifies an array of values that will be used to update the specified uniform variable.</param>
     public static void glProgramUniformMatrix4x3dv(GLuint program, GLint location, GLboolean transpose, GLdouble[] value) { fixed (GLdouble* pValue = &value[0]) { _glProgramUniformMatrix4x3dv(program, location, value.Length / 12, transpose, pValue); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVALIDATEPROGRAMPIPELINEPROC(GLuint pipeline);
     private static PFNGLVALIDATEPROGRAMPIPELINEPROC _glValidateProgramPipeline;
+    /// <summary>
+    /// Validate a program pipeline object
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object to validate.</param>
     public static void glValidateProgramPipeline(GLuint pipeline) => _glValidateProgramPipeline(pipeline);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETPROGRAMPIPELINEINFOLOGPROC(GLuint pipeline, GLsizei bufSize, GLsizei* length, GLchar* infoLog);
     private static PFNGLGETPROGRAMPIPELINEINFOLOGPROC _glGetProgramPipelineInfoLog;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the information log for a program pipeline object
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object whose information log is to be queried.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given by <paramref name="infoLog"/>.</param>
+    /// <param name="length">Returns the number of characters written into the buffer indicated by <paramref name="infoLog"/> (excluding the null terminator) if a value other than NULL is passed.</param>
+    /// <param name="infoLog">Specifies an array of characters that is used to return the information log.</param>
     public static void glGetProgramPipelineInfoLog(GLuint pipeline, GLsizei bufSize, GLsizei* length, GLchar* infoLog) => _glGetProgramPipelineInfoLog(pipeline, bufSize, length, infoLog);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the information log for a program pipeline object
+    /// </summary>
+    /// <param name="pipeline">Specifies the name of a program pipeline object whose information log is to be queried.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given by <paramref name="infoLog"/>.</param>
+    /// <returns>The information log for the specified program pipeline object.</returns>
     public static string glGetProgramPipelineInfoLog(GLuint pipeline, GLsizei bufSize)
     {
         GLchar[] infoLog = new GLchar[bufSize];
@@ -9000,30 +9755,66 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBL1DPROC(GLuint index, GLdouble x);
     private static PFNGLVERTEXATTRIBL1DPROC _glVertexAttribL1d;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="x">Specifies the new value for the generic vertex attribute.</param>
     public static void glVertexAttribL1d(GLuint index, GLdouble x) => _glVertexAttribL1d(index, x);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBL2DPROC(GLuint index, GLdouble x, GLdouble y);
     private static PFNGLVERTEXATTRIBL2DPROC _glVertexAttribL2d;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="x">Specifies the first new value for the generic vertex attribute.</param>
+    /// <param name="y">Specifies the second new value for the generic vertex attribute.</param>
     public static void glVertexAttribL2d(GLuint index, GLdouble x, GLdouble y) => _glVertexAttribL2d(index, x, y);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBL3DPROC(GLuint index, GLdouble x, GLdouble y, GLdouble z);
     private static PFNGLVERTEXATTRIBL3DPROC _glVertexAttribL3d;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="x">Specifies the first new value for the generic vertex attribute.</param>
+    /// <param name="y">Specifies the second new value for the generic vertex attribute.</param>
+    /// <param name="z">Specifies the third new value for the generic vertex attribute.</param>
     public static void glVertexAttribL3d(GLuint index, GLdouble x, GLdouble y, GLdouble z) => _glVertexAttribL3d(index, x, y, z);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBL4DPROC(GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
     private static PFNGLVERTEXATTRIBL4DPROC _glVertexAttribL4d;
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="x">Specifies the first new value for the generic vertex attribute.</param>
+    /// <param name="y">Specifies the second new value for the generic vertex attribute.</param>
+    /// <param name="z">Specifies the third new value for the generic vertex attribute.</param>
+    /// <param name="w">Specifies the fourth new value for the generic vertex attribute.</param>
     public static void glVertexAttribL4d(GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w) => _glVertexAttribL4d(index, x, y, z, w);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXATTRIBL1DVPROC(GLuint index, GLdouble* v);
     private static PFNGLVERTEXATTRIBL1DVPROC _glVertexAttribL1dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies the address of a single double-precision floating-point value that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL1dv(GLuint index, GLdouble* v) => _glVertexAttribL1dv(index, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies an array of a single double-precision floating-point value that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL1dv(GLuint index, GLdouble[] v) { fixed (GLdouble* pV = &v[0]) { _glVertexAttribL1dv(index, pV); } }
 #endif
 
@@ -9031,9 +9822,19 @@ public unsafe static class GL
     private delegate void PFNGLVERTEXATTRIBL2DVPROC(GLuint index, GLdouble* v);
     private static PFNGLVERTEXATTRIBL2DVPROC _glVertexAttribL2dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies the address of a two-element array that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL2dv(GLuint index, GLdouble* v) => _glVertexAttribL2dv(index, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies an array that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL2dv(GLuint index, GLdouble[] v) { fixed (GLdouble* pV = &v[0]) { _glVertexAttribL2dv(index, pV); } }
 #endif
 
@@ -9041,9 +9842,19 @@ public unsafe static class GL
     private delegate void PFNGLVERTEXATTRIBL3DVPROC(GLuint index, GLdouble* v);
     private static PFNGLVERTEXATTRIBL3DVPROC _glVertexAttribL3dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies the address of a three-element array that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL3dv(GLuint index, GLdouble* v) => _glVertexAttribL3dv(index, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies an array that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL3dv(GLuint index, GLdouble[] v) { fixed (GLdouble* pV = &v[0]) { _glVertexAttribL3dv(index, pV); } }
 #endif
 
@@ -9051,9 +9862,19 @@ public unsafe static class GL
     private delegate void PFNGLVERTEXATTRIBL4DVPROC(GLuint index, GLdouble* v);
     private static PFNGLVERTEXATTRIBL4DVPROC _glVertexAttribL4dv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies the address of a four-element array that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL4dv(GLuint index, GLdouble* v) => _glVertexAttribL4dv(index, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="v">Specifies an array that will be used to update the generic vertex attribute.</param>
     public static void glVertexAttribL4dv(GLuint index, GLdouble[] v) { fixed (GLdouble* pV = &v[0]) { _glVertexAttribL4dv(index, pV); } }
 #endif
 
@@ -9061,9 +9882,25 @@ public unsafe static class GL
     private delegate void PFNGLVERTEXATTRIBLPOINTERPROC(GLuint index, GLint size, GLenum type, GLsizei stride, void* pointer);
     private static PFNGLVERTEXATTRIBLPOINTERPROC _glVertexAttribLPointer;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Define an array of generic vertex attribute data
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="size">Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, or 4. The initial value is 4.</param>
+    /// <param name="type">Specifies the data type of each component in the array. The symbolic constants <see cref="GL_BYTE"/>, <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_SHORT"/>, <see cref="GL_UNSIGNED_SHORT"/>, <see cref="GL_INT"/>, <see cref="GL_UNSIGNED_INT"/>, <see cref="GL_DOUBLE"/>.</param>
+    /// <param name="stride">Specifies the byte offset between consecutive generic vertex attributes. If stride is 0, the generic vertex attributes are understood to be tightly packed in the array. The initial value is 0.</param>
+    /// <param name="pointer">Specifies a pointer to the first component of the first generic vertex attribute in the array. The initial value is 0.</param>
     public static void glVertexAttribLPointer(GLuint index, GLint size, GLenum type, GLsizei stride, void* pointer) => _glVertexAttribLPointer(index, size, type, stride, pointer);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Define an array of generic vertex attribute data
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="size">Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, or 4. The initial value is 4.</param>
+    /// <param name="type">Specifies the data type of each component in the array. The symbolic constants <see cref="GL_BYTE"/>, <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_SHORT"/>, <see cref="GL_UNSIGNED_SHORT"/>, <see cref="GL_INT"/>, <see cref="GL_UNSIGNED_INT"/>, <see cref="GL_DOUBLE"/>.</param>
+    /// <param name="stride">Specifies the byte offset between consecutive generic vertex attributes. If stride is 0, the generic vertex attributes are understood to be tightly packed in the array. The initial value is 0.</param>
+    /// <param name="pointer">Specifies a pointer to the first component of the first generic vertex attribute in the array. The initial value is 0.</param>
     public static void glVertexAttribLPointer(GLuint index, GLint size, GLenum type, GLsizei stride, GLsizei pointer) => _glVertexAttribLPointer(index, size, type, stride, (void*)pointer);
 #endif
 
@@ -9071,9 +9908,21 @@ public unsafe static class GL
     private delegate void PFNGLGETVERTEXATTRIBLDVPROC(GLuint index, GLenum pname, GLdouble* parameters);
     private static PFNGLGETVERTEXATTRIBLDVPROC _glGetVertexAttribLdv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute.</param>
+    /// <param name="pname">Specifies the symbolic name of the generic vertex attribute parameter to be queried. The following symbolic names are accepted: <see cref="GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_ENABLED"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_SIZE"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_STRIDE"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_TYPE"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_NORMALIZED"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_INTEGER"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_DIVISOR"/>, <see cref="GL_CURRENT_VERTEX_ATTRIB"/>.</param>
+    /// <param name="parameters">Returns the requested data.</param>
     public static void glGetVertexAttribLdv(GLuint index, GLenum pname, GLdouble* parameters) => _glGetVertexAttribLdv(index, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the value of a generic vertex attribute
+    /// </summary>
+    /// <param name="index">Specifies the index of the generic vertex attribute.</param>
+    /// <param name="pname">Specifies the symbolic name of the generic vertex attribute parameter to be queried. The following symbolic names are accepted: <see cref="GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_ENABLED"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_SIZE"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_STRIDE"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_TYPE"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_NORMALIZED"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_INTEGER"/>, <see cref="GL_VERTEX_ATTRIB_ARRAY_DIVISOR"/>, <see cref="GL_CURRENT_VERTEX_ATTRIB"/>.</param>
+    /// <param name="parameters">Returns the requested data.</param>
     public static void glGetVertexAttribLdv(GLuint index, GLenum pname, ref GLdouble[] parameters) { fixed (GLdouble* pP = &parameters[0]) { _glGetVertexAttribLdv(index, pname, pP); } }
 #endif
 
@@ -9081,74 +9930,164 @@ public unsafe static class GL
     private delegate void PFNGLVIEWPORTARRAYVPROC(GLuint first, GLsizei count, GLfloat* v);
     private static PFNGLVIEWPORTARRAYVPROC _glViewportArrayv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the viewport transformation parameters for multiple viewports
+    /// </summary>
+    /// <param name="first">Specifies the index of the first viewport to set.</param>
+    /// <param name="count">Specifies the number of viewports to set.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of each viewport, respectively. The parameters of each viewport, left, bottom, width, and height, are stored in array order. The initial value is (0,0,0,0).</param>
     public static void glViewportArrayv(GLuint first, GLsizei count, GLfloat* v) => _glViewportArrayv(first, count, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glViewportArrayv(GLuint first, GLsizei count, GLfloat[] v) { fixed (GLfloat* pV = &v[0]) { _glViewportArrayv(first, count, pV); } }
+    /// <summary>
+    /// Specify the viewport transformation parameters for multiple viewports
+    /// </summary>
+    /// <param name="first">Specifies the index of the first viewport to set.</param>
+    /// <param name="count">Specifies the number of viewports to set.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of each viewport, respectively. The parameters of each viewport, left, bottom, width, and height, are stored in array order. The initial value is (0,0,0,0).</param>
+    public static void glViewportArrayv(GLuint first, GLsizei count, params GLfloat[] v) { fixed (GLfloat* pV = &v[0]) { _glViewportArrayv(first, count, pV); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVIEWPORTINDEXEDFPROC(GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h);
     private static PFNGLVIEWPORTINDEXEDFPROC _glViewportIndexedf;
+    /// <summary>
+    /// Specify the viewport transformation parameters for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport to be modified.</param>
+    /// <param name="x">Specify the left viewport coordinate.</param>
+    /// <param name="y">Specify the bottom viewport coordinate.</param>
+    /// <param name="w">Specify the viewport width.</param>
+    /// <param name="h">Specify the viewport height.</param>
     public static void glViewportIndexedf(GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h) => _glViewportIndexedf(index, x, y, w, h);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVIEWPORTINDEXEDFVPROC(GLuint index, GLfloat* v);
     private static PFNGLVIEWPORTINDEXEDFVPROC _glViewportIndexedfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the viewport transformation parameters for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport to be modified.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of the viewport rectangle, in that order. The initial value is (0,0,0,0).</param>
     public static void glViewportIndexedfv(GLuint index, GLfloat* v) => _glViewportIndexedfv(index, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glViewportIndexedfv(GLuint index, GLfloat[] v) { fixed (GLfloat* pV = &v[0]) { _glViewportIndexedfv(index, pV); } }
+    /// <summary>
+    /// Specify the viewport transformation parameters for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport to be modified.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of the viewport rectangle, in that order. The initial value is (0,0,0,0).</param>
+    public static void glViewportIndexedfv(GLuint index, params GLfloat[] v) { fixed (GLfloat* pV = &v[0]) { _glViewportIndexedfv(index, pV); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSCISSORARRAYVPROC(GLuint first, GLsizei count, GLint* v);
     private static PFNGLSCISSORARRAYVPROC _glScissorArrayv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Define the scissor box for multiple viewports
+    /// </summary>
+    /// <param name="first">Specifies the index of the first scissor box to set.</param>
+    /// <param name="count">Specifies the number of scissor boxes to set.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of each scissor box, respectively. The parameters of each scissor box, left, bottom, width, and height, are stored in array order. The initial value is (0,0,0,0).</param>
     public static void glScissorArrayv(GLuint first, GLsizei count, GLint* v) => _glScissorArrayv(first, count, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glScissorArrayv(GLuint first, GLsizei count, GLint[] v) { fixed (GLint* pV = &v[0]) { _glScissorArrayv(first, count, pV); } }
+    /// <summary>
+    /// Define the scissor box for multiple viewports
+    /// </summary>
+    /// <param name="first">Specifies the index of the first scissor box to set.</param>
+    /// <param name="count">Specifies the number of scissor boxes to set.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of each scissor box, respectively. The parameters of each scissor box, left, bottom, width, and height, are stored in array order. The initial value is (0,0,0,0).</param>
+    public static void glScissorArrayv(GLuint first, GLsizei count, params GLint[] v) { fixed (GLint* pV = &v[0]) { _glScissorArrayv(first, count, pV); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSCISSORINDEXEDPROC(GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height);
     private static PFNGLSCISSORINDEXEDPROC _glScissorIndexed;
+    /// <summary>
+    /// Define the scissor box for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport whose scissor box to modify.</param>
+    /// <param name="left">Specify the left scissor box coordinate.</param>
+    /// <param name="bottom">Specify the bottom scissor box coordinate.</param>
+    /// <param name="width">Specify the scissor box width.</param>
+    /// <param name="height">Specify the scissor box height.</param>
     public static void glScissorIndexed(GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height) => _glScissorIndexed(index, left, bottom, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLSCISSORINDEXEDVPROC(GLuint index, GLint* v);
     private static PFNGLSCISSORINDEXEDVPROC _glScissorIndexedv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Define the scissor box for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport whose scissor box to modify.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of the scissor box. The initial value is (0,0,0,0).</param>
     public static void glScissorIndexedv(GLuint index, GLint* v) => _glScissorIndexedv(index, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glScissorIndexedv(GLuint index, GLint[] v) { fixed (GLint* pV = &v[0]) { _glScissorIndexedv(index, pV); } }
+    /// <summary>
+    /// Define the scissor box for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport whose scissor box to modify.</param>
+    /// <param name="v">Specifies the address of an array containing the left, bottom, width, and height of the scissor box. The initial value is (0,0,0,0).</param>
+    public static void glScissorIndexedv(GLuint index, params GLint[] v) { fixed (GLint* pV = &v[0]) { _glScissorIndexedv(index, pV); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDEPTHRANGEARRAYVPROC(GLuint first, GLsizei count, GLdouble* v);
     private static PFNGLDEPTHRANGEARRAYVPROC _glDepthRangeArrayv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify mapping of depth values from normalized device coordinates to window coordinates for a specified set of viewports
+    /// </summary>
+    /// <param name="first">Specifies the index of the first viewport whose depth range to update.</param>
+    /// <param name="count">Specifies the number of viewports whose depth range to update.</param>
+    /// <param name="v">Specifies the address of an array containing the near and far values for each viewport, respectively. The parameters of each viewport, near and far, are stored in array order. The initial value is (0,1).</param>
     public static void glDepthRangeArrayv(GLuint first, GLsizei count, GLdouble* v) => _glDepthRangeArrayv(first, count, v);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glDepthRangeArrayv(GLuint first, GLsizei count, GLdouble[] v) { fixed (GLdouble* pV = &v[0]) { _glDepthRangeArrayv(first, count, pV); } }
+    /// <summary>
+    /// Specify mapping of depth values from normalized device coordinates to window coordinates for a specified set of viewports
+    /// </summary>
+    /// <param name="first">Specifies the index of the first viewport whose depth range to update.</param>
+    /// <param name="count">Specifies the number of viewports whose depth range to update.</param>
+    /// <param name="v">Specifies an array containing the near and far values for each viewport, respectively. The parameters of each viewport, near and far, are stored in array order. The initial value is (0,1).</param>
+    public static void glDepthRangeArrayv(GLuint first, GLsizei count, params GLdouble[] v) { fixed (GLdouble* pV = &v[0]) { _glDepthRangeArrayv(first, count, pV); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDEPTHRANGEINDEXEDPROC(GLuint index, GLdouble n, GLdouble f);
     private static PFNGLDEPTHRANGEINDEXEDPROC _glDepthRangeIndexed;
+    /// <summary>
+    /// Specify mapping of depth values from normalized device coordinates to window coordinates for a specified viewport
+    /// </summary>
+    /// <param name="index">Specifies the index of the viewport whose depth range to update.</param>
+    /// <param name="n">Specifies the near value for the depth range for the specified viewport. n must be between 0.0 and 1.0, inclusive. The initial value is 0.0.</param>
+    /// <param name="f">Specifies the far value for the depth range for the specified viewport. f must be between 0.0 and 1.0, inclusive. The initial value is 1.0.</param>
     public static void glDepthRangeIndexed(GLuint index, GLdouble n, GLdouble f) => _glDepthRangeIndexed(index, n, f);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETFLOATI_VPROC(GLenum target, GLuint index, GLfloat* data);
     private static PFNGLGETFLOATI_VPROC _glGetFloati_v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the float value(s) of a selected state parameter for a specified indexed state target
+    /// </summary>
+    /// <param name="target">Specifies the state to query.</param>
+    /// <param name="index">Specifies the index of the element being queried.</param>
+    /// <param name="data">Returns the requested data.</param>
     public static void glGetFloati_v(GLenum target, GLuint index, GLfloat* data) => _glGetFloati_v(target, index, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the float value(s) of a selected state parameter for a specified indexed state target
+    /// </summary>
+    /// <param name="target">Specifies the state to query.</param>
+    /// <param name="index">Specifies the index of the element being queried.</param>
+    /// <param name="data">Returns the requested data.</param>
     public static void glGetFloati_v(GLenum target, GLuint index, ref GLfloat[] data) { fixed (GLfloat* pData = &data[0]) { _glGetFloati_v(target, index, pData); } }
 #endif
 
@@ -9156,9 +10095,21 @@ public unsafe static class GL
     private delegate void PFNGLGETDOUBLEI_VPROC(GLenum target, GLuint index, GLdouble* data);
     private static PFNGLGETDOUBLEI_VPROC _glGetDoublei_v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the double value(s) of a selected state parameter for a specified indexed state target
+    /// </summary>
+    /// <param name="target">Specifies the state to query.</param>
+    /// <param name="index">Specifies the index of the element being queried.</param>
+    /// <param name="data">Returns the requested data.</param>
     public static void glGetDoublei_v(GLenum target, GLuint index, GLdouble* data) => _glGetDoublei_v(target, index, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the double value(s) of a selected state parameter for a specified indexed state target
+    /// </summary>
+    /// <param name="target">Specifies the state to query.</param>
+    /// <param name="index">Specifies the index of the element being queried.</param>
+    /// <param name="data">Returns the requested data.</param>
     public static void glGetDoublei_v(GLenum target, GLuint index, ref GLdouble[] data) { fixed (GLdouble* pData = &data[0]) { _glGetDoublei_v(target, index, pData); } }
 #endif
 
