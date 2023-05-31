@@ -14224,9 +14224,25 @@ public unsafe static class GL
     private delegate void PFNGLSPECIALIZESHADERPROC(GLuint shader, GLchar* pEntryPoint, GLuint numSpecializationConstants, GLuint* pConstantIndex, GLuint* pConstantValue);
     private static PFNGLSPECIALIZESHADERPROC _glSpecializeShader;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specialize a shader.
+    /// </summary>
+    /// <param name="shader">Specifies the shader to be specialized.</param>
+    /// <param name="pEntryPoint">Specifies the entry point name of the shader.</param>
+    /// <param name="numSpecializationConstants">Specifies the number of elements in the pConstantIndex and pConstantValue arrays.</param>
+    /// <param name="pConstantIndex">Specifies the index of each specialization constant to be set.</param>
+    /// <param name="pConstantValue">Specifies the value of each specialization constant to be set.</param>
     public static void glSpecializeShader(GLuint shader, GLchar* pEntryPoint, GLuint numSpecializationConstants, GLuint* pConstantIndex, GLuint* pConstantValue) => _glSpecializeShader(shader, pEntryPoint, numSpecializationConstants, pConstantIndex, pConstantValue);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specialize a shader.
+    /// </summary>
+    /// <param name="shader">Specifies the shader to be specialized.</param>
+    /// <param name="pEntryPoint">Specifies the entry point name of the shader.</param>
+    /// <param name="numSpecializationConstants">Specifies the number of elements in the pConstantIndex and pConstantValue arrays.</param>
+    /// <param name="pConstantIndex">Specifies the index of each specialization constant to be set.</param>
+    /// <param name="pConstantValue">Specifies the value of each specialization constant to be set.</param>
     public static void glSpecializeShader(GLuint shader, string pEntryPoint, GLuint numSpecializationConstants, GLuint[] pConstantIndex, GLuint[] pConstantValue)
     {
         GLchar[] pEntryPointBytes = Encoding.UTF8.GetBytes(pEntryPoint);
@@ -14241,9 +14257,25 @@ public unsafe static class GL
     private delegate void PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC(GLenum mode, void* indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
     private static PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC _glMultiDrawArraysIndirectCount;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render multiple sets of primitives from array data, taking parameters from memory.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="indirect">Specifies the address of an array of DrawArraysIndirectCommand structures.</param>
+    /// <param name="drawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="maxdrawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="stride">Specifies the distance in basic machine units between elements of the array of indirect.</param>
     public static void glMultiDrawArraysIndirectCount(GLenum mode, void* indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride) => _glMultiDrawArraysIndirectCount(mode, indirect, drawcount, maxdrawcount, stride);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render multiple sets of primitives from array data, taking parameters from memory.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="indirect">Specifies the address of an array of DrawArraysIndirectCommand structures.</param>
+    /// <param name="drawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="maxdrawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="stride">Specifies the distance in basic machine units between elements of the array of indirect.</param>
     public static void glMultiDrawArraysIndirectCount(GLenum mode, DrawArraysIndirectCommand indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride) => _glMultiDrawArraysIndirectCount(mode, &indirect, drawcount, maxdrawcount, stride);
 #endif
 
@@ -14251,19 +14283,46 @@ public unsafe static class GL
     private delegate void PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC(GLenum mode, GLenum type, void* indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride);
     private static PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC _glMultiDrawElementsIndirectCount;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Render multiple sets of primitives by specifying indices of array data elements.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="type">Specifies the type of the values in indirect.</param>
+    /// <param name="indirect">Specifies the address of an array of DrawElementsIndirectCommand structures.</param>
+    /// <param name="drawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="maxdrawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="stride">Specifies the distance in basic machine units between elements of the array of indirect.</param>
     public static void glMultiDrawElementsIndirectCount(GLenum mode, GLenum type, void* indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride) => _glMultiDrawElementsIndirectCount(mode, type, indirect, drawcount, maxdrawcount, stride);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Render multiple sets of primitives by specifying indices of array data elements.
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="type">Specifies the type of the values in indirect.</param>
+    /// <param name="indirect">Specifies the address of an array of DrawElementsIndirectCommand structures.</param>
+    /// <param name="drawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="maxdrawcount">Specifies the address of an integer containing the maximum number of elements that will be written to the buffer.</param>
+    /// <param name="stride">Specifies the distance in basic machine units between elements of the array of indirect.</param>
     public static void glMultiDrawElementsIndirectCount(GLenum mode, GLenum type, DrawElementsIndirectCommand indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride) => _glMultiDrawElementsIndirectCount(mode, type, &indirect, drawcount, maxdrawcount, stride);
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLPOLYGONOFFSETCLAMPPROC(GLfloat factor, GLfloat units, GLfloat clamp);
     private static PFNGLPOLYGONOFFSETCLAMPPROC _glPolygonOffsetClamp;
+    /// <summary>
+    /// Controls the parameters of polygon offset.
+    /// </summary>
+    /// <param name="factor">Specifies a scale factor that is used to create a variable depth offset for each polygon. The initial value is 0.</param>
+    /// <param name="units">Is multiplied by an implementation-specific value to create a constant depth offset. The initial value is 0.</param>
+    /// <param name="clamp">Specifies the maximum (or minimum) depth clamping value. The initial value is 0.</param>
     public static void glPolygonOffsetClamp(GLfloat factor, GLfloat units, GLfloat clamp) => _glPolygonOffsetClamp(factor, units, clamp);
 
 #endif
 
+    /// <summary>
+    /// Loads OpenGL functions using the specified loader delegate.
+    /// </summary>
     public unsafe static void Import(GetProcAddressHandler loader)
     {
 #if OGL_V_1_0 || OGL_V_1_1 || OGL_V_1_2 || OGL_V_1_3 || OGL_V_1_4 || OGL_V_1_5 || OGL_V_2_0 || OGL_V_2_1 || OGL_V_3_0 || OGL_V_3_1 || OGL_V_3_2 || OGL_V_3_3 || OGL_V_4_0 || OGL_V_4_1 || OGL_V_4_2 || OGL_V_4_3 || OGL_V_4_4 || OGL_V_4_5 || OGL_V_4_6
