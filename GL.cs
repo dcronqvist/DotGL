@@ -10235,15 +10235,41 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC(GLenum mode, GLint first, GLsizei count, GLsizei instancecount, GLuint baseinstance);
     private static PFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC _glDrawArraysInstancedBaseInstance;
+    /// <summary>
+    /// Draw multiple instances of a range of elements with offset applied to instanced attributes
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="first">Specifies the starting index in the enabled arrays.</param>
+    /// <param name="count">Specifies the number of indices to be rendered.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
+    /// <param name="baseinstance">Specifies the base instance for use in fetching instanced vertex attributes.</param>
     public static void glDrawArraysInstancedBaseInstance(GLenum mode, GLint first, GLsizei count, GLsizei instancecount, GLuint baseinstance) => _glDrawArraysInstancedBaseInstance(mode, first, count, instancecount, baseinstance);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount, GLuint baseinstance);
     private static PFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC _glDrawElementsInstancedBaseInstance;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Draw multiple instances of a set of elements with offset applied to instanced attributes
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
+    /// <param name="baseinstance">Specifies the base instance for use in fetching instanced vertex attributes.</param>
     public static void glDrawElementsInstancedBaseInstance(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount, GLuint baseinstance) => _glDrawElementsInstancedBaseInstance(mode, count, type, indices, instancecount, baseinstance);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Draw multiple instances of a set of elements with offset applied to instanced attributes
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array where the indices are stored.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
+    /// <param name="baseinstance">Specifies the base instance for use in fetching instanced vertex attributes.</param>
     public static void glDrawElementsInstancedBaseInstance<T>(GLenum mode, GLsizei count, GLenum type, T[] indices, GLsizei instancecount, GLuint baseinstance) where T : unmanaged, IUnsignedNumber<T> { fixed (void* p = &indices[0]) { _glDrawElementsInstancedBaseInstance(mode, count, type, p, instancecount, baseinstance); } }
 #endif
 
@@ -10251,9 +10277,29 @@ public unsafe static class GL
     private delegate void PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance);
     private static PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC _glDrawElementsInstancedBaseVertexBaseInstance;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Draw multiple instances of a set of elements with offset applied to instanced attributes and a per-element offset
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies a pointer to the location where the indices are stored.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of indices when chosing elements from the enabled vertex arrays.</param>
+    /// <param name="baseinstance">Specifies the base instance for use in fetching instanced vertex attributes.</param>
     public static void glDrawElementsInstancedBaseVertexBaseInstance(GLenum mode, GLsizei count, GLenum type, void* indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance) => _glDrawElementsInstancedBaseVertexBaseInstance(mode, count, type, indices, instancecount, basevertex, baseinstance);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Draw multiple instances of a set of elements with offset applied to instanced attributes and a per-element offset
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="count">Specifies the number of elements to be rendered.</param>
+    /// <param name="type">Specifies the type of the values in indices. Must be one of <see cref="GL_UNSIGNED_BYTE"/>, <see cref="GL_UNSIGNED_SHORT"/>, or <see cref="GL_UNSIGNED_INT"/>.</param>
+    /// <param name="indices">Specifies an array where the indices are stored.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of indices to be rendered.</param>
+    /// <param name="basevertex">Specifies a constant that should be added to each element of indices when chosing elements from the enabled vertex arrays.</param>
+    /// <param name="baseinstance">Specifies the base instance for use in fetching instanced vertex attributes.</param>
     public static void glDrawElementsInstancedBaseVertexBaseInstance<T>(GLenum mode, GLsizei count, GLenum type, T[] indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance) where T : unmanaged, IUnsignedNumber<T> { fixed (void* p = &indices[0]) { _glDrawElementsInstancedBaseVertexBaseInstance(mode, count, type, p, instancecount, basevertex, baseinstance); } }
 #endif
 
@@ -10261,9 +10307,25 @@ public unsafe static class GL
     private delegate void PFNGLGETINTERNALFORMATIVPROC(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint* @params);
     private static PFNGLGETINTERNALFORMATIVPROC _glGetInternalformativ;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return information about implementation-dependent support for internal formats
+    /// </summary>
+    /// <param name="target">Specifies whether the information is being requested about a texture, renderbuffer, or framebuffer object.</param>
+    /// <param name="internalformat">Specifies the internal format about which to retrieve information.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given in params.</param>
+    /// <param name="params">Specifies the address of a buffer into which to place the returned data.</param>
     public static void glGetInternalformativ(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, GLint* @params) => _glGetInternalformativ(target, internalformat, pname, bufSize, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return information about implementation-dependent support for internal formats
+    /// </summary>
+    /// <param name="target">Specifies whether the information is being requested about a texture, renderbuffer, or framebuffer object.</param>
+    /// <param name="internalformat">Specifies the internal format about which to retrieve information.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given in params.</param>
+    /// <param name="params">Specifies the address of a buffer into which to place the returned data.</param>
     public static void glGetInternalformativ(GLenum target, GLenum internalformat, GLenum pname, GLsizei bufSize, ref GLint[] @params) { fixed (GLint* p = &@params[0]) { _glGetInternalformativ(target, internalformat, pname, bufSize, p); } }
 #endif
 
@@ -10271,45 +10333,110 @@ public unsafe static class GL
     private delegate void PFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC(GLuint program, GLuint bufferIndex, GLenum pname, GLint* @params);
     private static PFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC _glGetActiveAtomicCounterBufferiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Query the properties of an active atomic counter buffer
+    /// </summary>
+    /// <param name="program">Specifies the name of a program object whose active atomic counter buffer to query.</param>
+    /// <param name="bufferIndex">Specifies the index of the active atomic counter buffer whose properties to query.</param>
+    /// <param name="pname">Specifies the property of the active atomic counter buffer to query.</param>
+    /// <param name="params">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetActiveAtomicCounterBufferiv(GLuint program, GLuint bufferIndex, GLenum pname, GLint* @params) => _glGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, @params);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Query the properties of an active atomic counter buffer
+    /// </summary>
+    /// <param name="program">Specifies the name of a program object whose active atomic counter buffer to query.</param>
+    /// <param name="bufferIndex">Specifies the index of the active atomic counter buffer whose properties to query.</param>
+    /// <param name="pname">Specifies the property of the active atomic counter buffer to query.</param>
+    /// <param name="params">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetActiveAtomicCounterBufferiv(GLuint program, GLuint bufferIndex, GLenum pname, ref GLint[] @params) { fixed (GLint* p = &@params[0]) { _glGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDIMAGETEXTUREPROC(GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
     private static PFNGLBINDIMAGETEXTUREPROC _glBindImageTexture;
+    /// <summary>
+    /// Bind an image texture to an image unit
+    /// </summary>
+    /// <param name="unit">Specifies the index of the image unit to which to bind the texture.</param>
+    /// <param name="texture">Specifies the name of a texture to bind to the specified image unit.</param>
+    /// <param name="level">Specifies the mipmap level of the texture to bind.</param>
+    /// <param name="layered">Specifies whether a layered texture binding is to be established.</param>
+    /// <param name="layer">Specifies the layer of a layered texture to bind.</param>
+    /// <param name="access">Specifies the type of access that will be performed on the image.</param>
+    /// <param name="format">Specifies the format that the elements of the image will be treated as for the purposes of formatted stores.</param>
     public static void glBindImageTexture(GLuint unit, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format) => _glBindImageTexture(unit, texture, level, layered, layer, access, format);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLMEMORYBARRIERPROC(GLbitfield barriers);
     private static PFNGLMEMORYBARRIERPROC _glMemoryBarrier;
+    /// <summary>
+    /// Specify the memory access semantics to be enforced prior to executing a set of GL commands that includes shader writes
+    /// </summary>
+    /// <param name="barriers">Specifies the barriers that are to be applied.</param>
     public static void glMemoryBarrier(GLbitfield barriers) => _glMemoryBarrier(barriers);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXSTORAGE1DPROC(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width);
     private static PFNGLTEXSTORAGE1DPROC _glTexStorage1D;
+    /// <summary>
+    /// Specify storage for a one-dimensional texture
+    /// </summary>
+    /// <param name="target">Specifies the target of the operation.</param>
+    /// <param name="levels">Specifies the number of levels of detail in the texture.</param>
+    /// <param name="internalformat">Specifies the sized internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
     public static void glTexStorage1D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width) => _glTexStorage1D(target, levels, internalformat, width);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXSTORAGE2DPROC(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
     private static PFNGLTEXSTORAGE2DPROC _glTexStorage2D;
+    /// <summary>
+    /// Specify storage for a two-dimensional texture
+    /// </summary>
+    /// <param name="target">Specifies the target of the operation.</param>
+    /// <param name="levels">Specifies the number of levels of detail in the texture.</param>
+    /// <param name="internalformat">Specifies the sized internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
+    /// <param name="height">Specifies the height of the texture, in texels.</param>
     public static void glTexStorage2D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height) => _glTexStorage2D(target, levels, internalformat, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXSTORAGE3DPROC(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
     private static PFNGLTEXSTORAGE3DPROC _glTexStorage3D;
+    /// <summary>
+    /// Specify storage for a three-dimensional texture
+    /// </summary>
+    /// <param name="target">Specifies the target of the operation.</param>
+    /// <param name="levels">Specifies the number of levels of detail in the texture.</param>
+    /// <param name="internalformat">Specifies the sized internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
+    /// <param name="height">Specifies the height of the texture, in texels.</param>
+    /// <param name="depth">Specifies the depth of the texture, in texels.</param>
     public static void glTexStorage3D(GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth) => _glTexStorage3D(target, levels, internalformat, width, height, depth);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC(GLenum mode, GLuint id, GLsizei instancecount);
     private static PFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC _glDrawTransformFeedbackInstanced;
+    /// <summary>
+    /// Render primitives from array data previously placed in a transform feedback buffer
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="id">Specifies the name of a transform feedback object from which to retrieve the vertex attributes.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of vertices to render.</param>
     public static void glDrawTransformFeedbackInstanced(GLenum mode, GLuint id, GLsizei instancecount) => _glDrawTransformFeedbackInstanced(mode, id, instancecount);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC(GLenum mode, GLuint id, GLuint stream, GLsizei instancecount);
     private static PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC _glDrawTransformFeedbackStreamInstanced;
+    /// <summary>
+    /// Render primitives from array data previously placed in a transform feedback buffer
+    /// </summary>
+    /// <param name="mode">Specifies what kind of primitives to render.</param>
+    /// <param name="id">Specifies the name of a transform feedback object from which to retrieve the vertex attributes.</param>
+    /// <param name="stream">Specifies the transform feedback stream from which to retrieve the vertex attributes.</param>
+    /// <param name="instancecount">Specifies the number of instances of the specified range of vertices to render.</param>
     public static void glDrawTransformFeedbackStreamInstanced(GLenum mode, GLuint id, GLuint stream, GLsizei instancecount) => _glDrawTransformFeedbackStreamInstanced(mode, id, stream, instancecount);
 
 #endif
