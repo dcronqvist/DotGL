@@ -11982,36 +11982,81 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLIPCONTROLPROC(GLenum origin, GLenum depth);
     private static PFNGLCLIPCONTROLPROC _glClipControl;
+    /// <summary>
+    /// Controls the clipping behavior.
+    /// </summary>
+    /// <param name="origin">Specifies whether the clip volume's depth extent is given by the near and far clip distances stored in the depth range, or whether the clip volume's depth extent should be [-1, 1], regardless of the depth range.</param>
+    /// <param name="depth">Specifies whether vertex post-clipping x, y, and z coordinates are clipped to the clip volume based on their w component.</param>
     public static void glClipControl(GLenum origin, GLenum depth) => _glClipControl(origin, depth);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCREATETRANSFORMFEEDBACKSPROC(GLsizei n, GLuint* ids);
     private static PFNGLCREATETRANSFORMFEEDBACKSPROC _glCreateTransformFeedbacks;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate transform feedback object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of transform feedback object names to generate.</param>
+    /// <param name="ids">Specifies an array in which the generated transform feedback object names are stored.</param>
     public static void glCreateTransformFeedbacks(GLsizei n, GLuint* ids) => _glCreateTransformFeedbacks(n, ids);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate transform feedback object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of transform feedback object names to generate.</param>
+    /// <returns>An array in which the generated transform feedback object names are stored.</returns>
     public static GLuint[] glCreateTransformFeedbacks(GLsizei n) { GLuint[] ids = new GLuint[n]; fixed (GLuint* p_ids = &ids[0]) { _glCreateTransformFeedbacks(n, p_ids); } return ids; }
+    /// <summary>
+    /// Generate a single transform feedback object name.
+    /// </summary>
+    /// <returns>The generated transform feedback object name.</returns>
     public static GLuint glCreateTransformFeedbacks() => glCreateTransformFeedbacks(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTRANSFORMFEEDBACKBUFFERBASEPROC(GLuint xfb, GLuint index, GLuint buffer);
     private static PFNGLTRANSFORMFEEDBACKBUFFERBASEPROC _glTransformFeedbackBufferBase;
+    /// <summary>
+    /// Bind a buffer object to an indexed transform feedback buffer target.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="index">Specifies the index of the transform feedback buffer object whose binding to modify.</param>
+    /// <param name="buffer">Specifies the name of the buffer object to bind to the target.</param>
     public static void glTransformFeedbackBufferBase(GLuint xfb, GLuint index, GLuint buffer) => _glTransformFeedbackBufferBase(xfb, index, buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC(GLuint xfb, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
     private static PFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC _glTransformFeedbackBufferRange;
+    /// <summary>
+    /// Bind a range of a buffer object to an indexed transform feedback buffer target.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="index">Specifies the index of the transform feedback buffer object whose binding to modify.</param>
+    /// <param name="buffer">Specifies the name of the buffer object to bind to the target.</param>
+    /// <param name="offset">Specifies the starting offset in basic machine units into the buffer object buffer.</param>
+    /// <param name="size">Specifies the amount of data in machine units that can be read from the buffer object while used as an indexed transform feedback buffer.</param>
     public static void glTransformFeedbackBufferRange(GLuint xfb, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size) => _glTransformFeedbackBufferRange(xfb, index, buffer, offset, size);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETTRANSFORMFEEDBACKIVPROC(GLuint xfb, GLenum pname, GLint* param);
     private static PFNGLGETTRANSFORMFEEDBACKIVPROC _glGetTransformFeedbackiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a transform feedback object.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetTransformFeedbackiv(GLuint xfb, GLenum pname, GLint* param) => _glGetTransformFeedbackiv(xfb, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a transform feedback object.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="param">Specifies an array in which to place the returned data.</param>
     public static void glGetTransformFeedbackiv(GLuint xfb, GLenum pname, ref GLint[] param) { fixed (GLint* p_param = &param[0]) { _glGetTransformFeedbackiv(xfb, pname, p_param); } }
 #endif
 
@@ -12019,9 +12064,23 @@ public unsafe static class GL
     private delegate void PFNGLGETTRANSFORMFEEDBACKI_VPROC(GLuint xfb, GLenum pname, GLuint index, GLint* param);
     private static PFNGLGETTRANSFORMFEEDBACKI_VPROC _glGetTransformFeedbacki_v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a transform feedback object.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="index">Specifies the index of the transform feedback buffer object whose binding to query.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetTransformFeedbacki_v(GLuint xfb, GLenum pname, GLuint index, GLint* param) => _glGetTransformFeedbacki_v(xfb, pname, index, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a transform feedback object.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="index">Specifies the index of the transform feedback buffer object whose binding to query.</param>
+    /// <param name="param">Specifies an array in which to place the returned data.</param>
     public static void glGetTransformFeedbacki_v(GLuint xfb, GLenum pname, GLuint index, ref GLint[] param) { fixed (GLint* p_param = &param[0]) { _glGetTransformFeedbacki_v(xfb, pname, index, p_param); } }
 #endif
 
@@ -12029,9 +12088,23 @@ public unsafe static class GL
     private delegate void PFNGLGETTRANSFORMFEEDBACKI64_VPROC(GLuint xfb, GLenum pname, GLuint index, GLint64* param);
     private static PFNGLGETTRANSFORMFEEDBACKI64_VPROC _glGetTransformFeedbacki64_v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a transform feedback object.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="index">Specifies the index of the transform feedback buffer object whose binding to query.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetTransformFeedbacki64_v(GLuint xfb, GLenum pname, GLuint index, GLint64* param) => _glGetTransformFeedbacki64_v(xfb, pname, index, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a transform feedback object.
+    /// </summary>
+    /// <param name="xfb">Specifies the name of a transform feedback object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="index">Specifies the index of the transform feedback buffer object whose binding to query.</param>
+    /// <param name="param">Specifies an array in which to place the returned data.</param>
     public static void glGetTransformFeedbacki64_v(GLuint xfb, GLenum pname, GLuint index, ref GLint64[] param) { fixed (GLint64* p_param = &param[0]) { _glGetTransformFeedbacki64_v(xfb, pname, index, p_param); } }
 #endif
 
@@ -12039,10 +12112,24 @@ public unsafe static class GL
     private delegate void PFNGLCREATEBUFFERSPROC(GLsizei n, GLuint* buffers);
     private static PFNGLCREATEBUFFERSPROC _glCreateBuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate buffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of buffer object names to generate.</param>
+    /// <param name="buffers">Specifies an array in which to place the generated buffer object names.</param>
     public static void glCreateBuffers(GLsizei n, GLuint* buffers) => _glCreateBuffers(n, buffers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate buffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of buffer object names to generate.</param>
+    /// <returns>An array containing the generated buffer object names.</returns>
     public static GLuint[] glCreateBuffers(GLsizei n) { GLuint[] buffers = new GLuint[n]; fixed (GLuint* p_buffers = &buffers[0]) { _glCreateBuffers(n, p_buffers); } return buffers; }
+    /// <summary>
+    /// Generate a single buffer object name.
+    /// </summary>
+    /// <returns>The generated buffer object name.</returns>
     public static GLuint glCreateBuffer() => glCreateBuffers(1)[0];
 #endif
 
@@ -12050,9 +12137,24 @@ public unsafe static class GL
     private delegate void PFNGLNAMEDBUFFERSTORAGEPROC(GLuint buffer, GLsizeiptr size, void* data, GLbitfield flags);
     private static PFNGLNAMEDBUFFERSTORAGEPROC _glNamedBufferStorage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to create.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer object's new data store.</param>
+    /// <param name="data">Specifies a pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied.</param>
+    /// <param name="flags">Specifies flags indicating the intended usage of the buffer's data store.</param>
     public static void glNamedBufferStorage(GLuint buffer, GLsizeiptr size, void* data, GLbitfield flags) => _glNamedBufferStorage(buffer, size, data, flags);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to create.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer object's new data store.</param>
+    /// <param name="data">Specifies an array containing the data to copy into the buffer.</param>
+    /// <param name="flags">Specifies flags indicating the intended usage of the buffer's data store.</param>
     public static void glNamedBufferStorage<T>(GLuint buffer, GLsizeiptr size, T[] data, GLbitfield flags) where T : unmanaged
     {
         fixed (T* p_data = &data[0]) { _glNamedBufferStorage(buffer, size, p_data, flags); }
@@ -12063,9 +12165,24 @@ public unsafe static class GL
     private delegate void PFNGLNAMEDBUFFERDATAPROC(GLuint buffer, GLsizeiptr size, void* data, GLenum usage);
     private static PFNGLNAMEDBUFFERDATAPROC _glNamedBufferData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to create.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer object's new data store.</param>
+    /// <param name="data">Specifies a pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied.</param>
+    /// <param name="usage">Specifies the expected usage pattern of the data store.</param>
     public static void glNamedBufferData(GLuint buffer, GLsizeiptr size, void* data, GLenum usage) => _glNamedBufferData(buffer, size, data, usage);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to create.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer object's new data store.</param>
+    /// <param name="data">Specifies an array containing the data to copy into the buffer.</param>
+    /// <param name="usage">Specifies the expected usage pattern of the data store.</param>
     public static void glNamedBufferData<T>(GLuint buffer, GLsizeiptr size, T[] data, GLenum usage) where T : unmanaged
     {
         fixed (T* p_data = &data[0]) { _glNamedBufferData(buffer, size, p_data, usage); }
@@ -12076,9 +12193,24 @@ public unsafe static class GL
     private delegate void PFNGLNAMEDBUFFERSUBDATAPROC(GLuint buffer, GLintptr offset, GLsizeiptr size, void* data);
     private static PFNGLNAMEDBUFFERSUBDATAPROC _glNamedBufferSubData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Update a subset of a buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store is to be updated.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data store region being replaced.</param>
+    /// <param name="data">Specifies a pointer to the new data that will be copied into the data store.</param>
     public static void glNamedBufferSubData(GLuint buffer, GLintptr offset, GLsizeiptr size, void* data) => _glNamedBufferSubData(buffer, offset, size, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Update a subset of a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store is to be updated.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data store region being replaced.</param>
+    /// <param name="data">Specifies an array containing the new data that will be copied into the data store.</param>
     public static void glNamedBufferSubData<T>(GLuint buffer, GLintptr offset, GLsizeiptr size, T[] data) where T : unmanaged
     {
         fixed (T* p_data = &data[0]) { _glNamedBufferSubData(buffer, offset, size, p_data); }
@@ -12088,35 +12220,94 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYNAMEDBUFFERSUBDATAPROC(GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size);
     private static PFNGLCOPYNAMEDBUFFERSUBDATAPROC _glCopyNamedBufferSubData;
+    /// <summary>
+    /// Copy part of the data store of a buffer object to the data store of another buffer object.
+    /// </summary>
+    /// <param name="readBuffer">Specifies the name of the buffer object from which to read data.</param>
+    /// <param name="writeBuffer">Specifies the name of the buffer object to which to write data.</param>
+    /// <param name="readOffset">Specifies the offset into the data store of readBuffer at which to start reading data, measured in bytes.</param>
+    /// <param name="writeOffset">Specifies the offset into the data store of writeBuffer at which to start writing data, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data to be copied from readBuffer to writeBuffer.</param>
     public static void glCopyNamedBufferSubData(GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size) => _glCopyNamedBufferSubData(readBuffer, writeBuffer, readOffset, writeOffset, size);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLEARNAMEDBUFFERDATAPROC(GLuint buffer, GLenum internalformat, GLenum format, GLenum type, void* data);
     private static PFNGLCLEARNAMEDBUFFERDATAPROC _glClearNamedBufferData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear all or part of a buffer object's data store to the fixed value.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to clear.</param>
+    /// <param name="internalformat">Specifies the internal format of the buffer's data store.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies a pointer to the data that will be used to clear the buffer's data store.</param>
     public static void glClearNamedBufferData(GLuint buffer, GLenum internalformat, GLenum format, GLenum type, void* data) => _glClearNamedBufferData(buffer, internalformat, format, type, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glClearNamedBufferData<T>(GLuint buffer, GLenum internalformat, GLenum format, GLenum type, T data) where T : unmanaged { _glClearNamedBufferData(buffer, internalformat, format, type, &data); }
+    /// <summary>
+    /// Clear all or part of a buffer object's data store to the fixed value.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to clear.</param>
+    /// <param name="internalformat">Specifies the internal format of the buffer's data store.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies an array containing the data that will be used to clear the buffer's data store.</param>
+    public static void glClearNamedBufferData<T>(GLuint buffer, GLenum internalformat, GLenum format, GLenum type, T[] data) where T : unmanaged { fixed (T* t = &data[0]) _glClearNamedBufferData(buffer, internalformat, format, type, t); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLEARNAMEDBUFFERSUBDATAPROC(GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, void* data);
     private static PFNGLCLEARNAMEDBUFFERSUBDATAPROC _glClearNamedBufferSubData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear all or part of a buffer object's data store to the fixed value.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to clear.</param>
+    /// <param name="internalformat">Specifies the internal format of the buffer's data store.</param>
+    /// <param name="offset">Specifies the offset into the buffer's data store where clear will begin, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer's data store region being cleared.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies a pointer to the data that will be used to clear the buffer's data store.</param>
     public static void glClearNamedBufferSubData(GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, void* data) => _glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glClearNamedBufferSubData<T>(GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, T data) where T : unmanaged { _glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, &data); }
+    /// <summary>
+    /// Clear all or part of a buffer object's data store to the fixed value.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to clear.</param>
+    /// <param name="internalformat">Specifies the internal format of the buffer's data store.</param>
+    /// <param name="offset">Specifies the offset into the buffer's data store where clear will begin, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer's data store region being cleared.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies an array containing the data that will be used to clear the buffer's data store.</param>
+    public static void glClearNamedBufferSubData<T>(GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type, T[] data) where T : unmanaged { fixed (T* t = &data[0]) _glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, t); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void* PFNGLMAPNAMEDBUFFERPROC(GLuint buffer, GLenum access);
     private static PFNGLMAPNAMEDBUFFERPROC _glMapNamedBuffer;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Map all or part of the data store of a buffer object into the client's address space.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to map.</param>
+    /// <param name="access">Specifies the access policy for the region of the buffer object's data store to be mapped.</param>
+    /// <returns>Upon success, returns a pointer to the beginning of the mapped range. Otherwise, returns NULL.</returns>
     public static void* glMapNamedBuffer(GLuint buffer, GLenum access) => _glMapNamedBuffer(buffer, access);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Map all or part of the data store of a buffer object into the client's address space.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to map.</param>
+    /// <param name="access">Specifies the access policy for the region of the buffer object's data store to be mapped.</param>
+    /// <returns>Upon success, returns a <see cref="System.Span{T}"/> to the beginning of the mapped range.</returns>
     public static System.Span<T> glMapNamedBuffer<T>(GLuint buffer, GLenum access) where T : unmanaged
     {
         GLint* size = stackalloc GLint[1];
@@ -12130,9 +12321,26 @@ public unsafe static class GL
     private delegate void* PFNGLMAPNAMEDBUFFERRANGEPROC(GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access);
     private static PFNGLMAPNAMEDBUFFERRANGEPROC _glMapNamedBufferRange;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Map all or part of the data store of a buffer object into the client's address space.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to map.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where mapping will begin, measured in bytes.</param>
+    /// <param name="length">Specifies the length of the buffer object's data store region being mapped, measured in bytes.</param>
+    /// <param name="access">Specifies the access policy for the region of the buffer object's data store to be mapped.</param>
+    /// <returns>Upon success, returns a pointer to the beginning of the mapped range. Otherwise, returns NULL.</returns>
     public static void* glMapNamedBufferRange(GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access) => _glMapNamedBufferRange(buffer, offset, length, access);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Map all or part of the data store of a buffer object into the client's address space.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to copy into the buffer.</typeparam>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to map.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where mapping will begin, measured in bytes.</param>
+    /// <param name="length">Specifies the length of the buffer object's data store region being mapped, measured in bytes.</param>
+    /// <param name="access">Specifies the access policy for the region of the buffer object's data store to be mapped.</param>
+    /// <returns>Upon success, returns a <see cref="System.Span{T}"/> to the beginning of the mapped range.</returns>
     public static System.Span<T> glMapNamedBufferRange<T>(GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access) where T : unmanaged
     {
         void* ptr = _glMapNamedBufferRange(buffer, offset, length, access);
@@ -12143,20 +12351,42 @@ public unsafe static class GL
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLboolean PFNGLUNMAPNAMEDBUFFERPROC(GLuint buffer);
     private static PFNGLUNMAPNAMEDBUFFERPROC _glUnmapNamedBuffer;
+    /// <summary>
+    /// Invalidate all or part of a buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to unmap.</param>
     public static GLboolean glUnmapNamedBuffer(GLuint buffer) => _glUnmapNamedBuffer(buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC(GLuint buffer, GLintptr offset, GLsizeiptr length);
     private static PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC _glFlushMappedNamedBufferRange;
+    /// <summary>
+    /// Flush mapped buffer range.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose data store to flush.</param>
+    /// <param name="offset">Specifies the offset within the buffer object's data store of the start of the range to flush, measured in bytes.</param>
+    /// <param name="length">Specifies the length of the range within the buffer object's data store to flush, measured in bytes.</param>
     public static void glFlushMappedNamedBufferRange(GLuint buffer, GLintptr offset, GLsizeiptr length) => _glFlushMappedNamedBufferRange(buffer, offset, length);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETNAMEDBUFFERPARAMETERIVPROC(GLuint buffer, GLenum pname, GLint* parameters);
     private static PFNGLGETNAMEDBUFFERPARAMETERIVPROC _glGetNamedBufferParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a buffer object target.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose parameter to query.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter.</param>
+    /// <param name="parameters">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetNamedBufferParameteriv(GLuint buffer, GLenum pname, GLint* parameters) => _glGetNamedBufferParameteriv(buffer, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a buffer object target.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose parameter to query.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter.</param>
+    /// <param name="parameters">Specifies an array to receive the value(s) of the queried parameter.</param>
     public static void glGetNamedBufferParameteriv(GLuint buffer, GLenum pname, ref GLint[] parameters) { fixed (GLint* ptr_parameters = &parameters[0]) _glGetNamedBufferParameteriv(buffer, pname, ptr_parameters); }
 #endif
 
@@ -12164,9 +12394,21 @@ public unsafe static class GL
     private delegate void PFNGLGETNAMEDBUFFERPARAMETERI64VPROC(GLuint buffer, GLenum pname, GLint64* parameters);
     private static PFNGLGETNAMEDBUFFERPARAMETERI64VPROC _glGetNamedBufferParameteri64v;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a buffer object target.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose parameter to query.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter.</param>
+    /// <param name="parameters">Specifies the address of a variable to receive the value of the queried parameter.</param>
     public static void glGetNamedBufferParameteri64v(GLuint buffer, GLenum pname, GLint64* parameters) => _glGetNamedBufferParameteri64v(buffer, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a buffer object target.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose parameter to query.</param>
+    /// <param name="pname">Specifies the symbolic name of a buffer object parameter.</param>
+    /// <param name="parameters">Specifies an array to receive the value(s) of the queried parameter.</param>
     public static void glGetNamedBufferParameteri64v(GLuint buffer, GLenum pname, ref GLint64[] parameters) { fixed (GLint64* ptr_parameters = &parameters[0]) _glGetNamedBufferParameteri64v(buffer, pname, ptr_parameters); }
 #endif
 
@@ -12174,9 +12416,21 @@ public unsafe static class GL
     private delegate void PFNGLGETNAMEDBUFFERPOINTERVPROC(GLuint buffer, GLenum pname, void** parameters);
     private static PFNGLGETNAMEDBUFFERPOINTERVPROC _glGetNamedBufferPointerv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the pointer to a mapped buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose pointer to query.</param>
+    /// <param name="pname">Specifies the pointer to be returned.</param>
+    /// <param name="parameters">Specifies the address of a variable to receive the pointer to the buffer object's mapped data store.</param>
     public static void glGetNamedBufferPointerv(GLuint buffer, GLenum pname, void** parameters) => _glGetNamedBufferPointerv(buffer, pname, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the pointer to a mapped buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object whose pointer to query.</param>
+    /// <param name="pname">Specifies the pointer to be returned.</param>
+    /// <param name="parameters">Specifies an array to receive the pointer to the buffer object's mapped data store.</param>
     public static void glGetNamedBufferPointerv(GLuint buffer, GLenum pname, ref IntPtr[] parameters)
     {
         void*[] ptr_parameters = new void*[parameters.Length];
@@ -12194,9 +12448,22 @@ public unsafe static class GL
     private delegate void PFNGLGETNAMEDBUFFERSUBDATAPROC(GLuint buffer, GLintptr offset, GLsizeiptr size, void* data);
     private static PFNGLGETNAMEDBUFFERSUBDATAPROC _glGetNamedBufferSubData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a subset of data from a buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store from which to retrieve data, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data store region being returned.</param>
+    /// <param name="data">Specifies the address of a buffer to receive the returned data.</param>
     public static void glGetNamedBufferSubData(GLuint buffer, GLintptr offset, GLsizeiptr size, void* data) => _glGetNamedBufferSubData(buffer, offset, size, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a subset of data from a buffer object's data store.
+    /// </summary>
+    /// <param name="buffer">Specifies the name of the buffer object.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store from which to retrieve data, measured in bytes.</param>
+    /// <param name="size">Specifies the size in bytes of the data store region being returned.</param>
     public static T[] glGetNamedBufferSubData<T>(GLuint buffer, GLintptr offset, GLsizeiptr size) where T : unmanaged
     {
         T[] data = new T[size / sizeof(T)];
@@ -12210,60 +12477,134 @@ public unsafe static class GL
     private delegate void PFNGLCREATEFRAMEBUFFERSPROC(GLsizei n, GLuint* framebuffers);
     private static PFNGLCREATEFRAMEBUFFERSPROC _glCreateFramebuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate framebuffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of framebuffer object names to generate.</param>
+    /// <param name="framebuffers">Specifies an array in which the generated framebuffer object names are stored.</param>
     public static void glCreateFramebuffers(GLsizei n, GLuint* framebuffers) => _glCreateFramebuffers(n, framebuffers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate framebuffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of framebuffer object names to generate.</param>
+    /// <returns>Array of framebuffer object names.</returns>
     public static GLuint[] glCreateFramebuffers(GLsizei n) { GLuint[] framebuffers = new GLuint[n]; fixed (GLuint* ptr_framebuffers = &framebuffers[0]) _glCreateFramebuffers(n, ptr_framebuffers); return framebuffers; }
+    /// <summary>
+    /// Generate a single framebuffer object name.
+    /// </summary>
+    /// <returns>Framebuffer object name.</returns>
     public static GLuint glCreateFramebuffer() => glCreateFramebuffers(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC(GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
     private static PFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC _glNamedFramebufferRenderbuffer;
+    /// <summary>
+    /// Attach a renderbuffer as a logical buffer to the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object to which to attach the renderbuffer.</param>
+    /// <param name="attachment">Specifies the attachment point of the framebuffer.</param>
+    /// <param name="renderbuffertarget">Specifies the renderbuffer target of the framebuffer attachment point named by attachment.</param>
+    /// <param name="renderbuffer">Specifies the name of an existing renderbuffer object of type renderbuffertarget to attach.</param>
     public static void glNamedFramebufferRenderbuffer(GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer) => _glNamedFramebufferRenderbuffer(framebuffer, attachment, renderbuffertarget, renderbuffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERPARAMETERIPROC(GLuint framebuffer, GLenum pname, GLint param);
     private static PFNGLNAMEDFRAMEBUFFERPARAMETERIPROC _glNamedFramebufferParameteri;
+    /// <summary>
+    /// Set parameters for the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object for which to set parameters.</param>
+    /// <param name="pname">Specifies the parameter to set.</param>
+    /// <param name="param">Specifies the new value for pname.</param>
     public static void glNamedFramebufferParameteri(GLuint framebuffer, GLenum pname, GLint param) => _glNamedFramebufferParameteri(framebuffer, pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERTEXTUREPROC(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level);
     private static PFNGLNAMEDFRAMEBUFFERTEXTUREPROC _glNamedFramebufferTexture;
+    /// <summary>
+    /// Attach a level of a texture object as a logical buffer to the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object to which to attach the texture.</param>
+    /// <param name="attachment">Specifies the attachment point of the framebuffer.</param>
+    /// <param name="texture">Specifies the name of an existing texture object of type target to attach.</param>
+    /// <param name="level">Specifies the mipmap level of the texture object to attach.</param>
     public static void glNamedFramebufferTexture(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level) => _glNamedFramebufferTexture(framebuffer, attachment, texture, level);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer);
     private static PFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC _glNamedFramebufferTextureLayer;
+    /// <summary>
+    /// Attach a single layer of a texture object as a logical buffer to the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object to which to attach the texture.</param>
+    /// <param name="attachment">Specifies the attachment point of the framebuffer.</param>
+    /// <param name="texture">Specifies the name of an existing texture object of type target to attach.</param>
+    /// <param name="level">Specifies the mipmap level of the texture object to attach.</param>
+    /// <param name="layer">Specifies the layer of a 3-dimensional texture or the layer of a cube map texture.</param>
     public static void glNamedFramebufferTextureLayer(GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer) => _glNamedFramebufferTextureLayer(framebuffer, attachment, texture, level, layer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC(GLuint framebuffer, GLenum buf);
     private static PFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC _glNamedFramebufferDrawBuffer;
+    /// <summary>
+    /// Specify the draw buffer for the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object for which to set the draw buffer.</param>
+    /// <param name="buf">Specifies the draw buffer.</param>
     public static void glNamedFramebufferDrawBuffer(GLuint framebuffer, GLenum buf) => _glNamedFramebufferDrawBuffer(framebuffer, buf);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC(GLuint framebuffer, GLsizei n, GLenum* bufs);
     private static PFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC _glNamedFramebufferDrawBuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify the draw buffers for the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object for which to set the draw buffers.</param>
+    /// <param name="n">Specifies the number of buffers in bufs.</param>
+    /// <param name="bufs">Specifies an array of symbolic constants specifying the buffers to be drawn into.</param>
     public static void glNamedFramebufferDrawBuffers(GLuint framebuffer, GLsizei n, GLenum* bufs) => _glNamedFramebufferDrawBuffers(framebuffer, n, bufs);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify the draw buffers for the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object for which to set the draw buffers.</param>
+    /// <param name="bufs">Specifies an array of symbolic constants specifying the buffers to be drawn into.</param>
     public static void glNamedFramebufferDrawBuffers(GLuint framebuffer, GLenum[] bufs) { fixed (GLenum* ptr_bufs = &bufs[0]) _glNamedFramebufferDrawBuffers(framebuffer, bufs.Length, ptr_bufs); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDFRAMEBUFFERREADBUFFERPROC(GLuint framebuffer, GLenum src);
     private static PFNGLNAMEDFRAMEBUFFERREADBUFFERPROC _glNamedFramebufferReadBuffer;
+    /// <summary>
+    /// Specify the read buffer for the specified framebuffer object.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object for which to set the read buffer.</param>
+    /// <param name="src">Specifies the read buffer.</param>
     public static void glNamedFramebufferReadBuffer(GLuint framebuffer, GLenum src) => _glNamedFramebufferReadBuffer(framebuffer, src);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC(GLuint framebuffer, GLsizei numAttachments, GLenum* attachments);
     private static PFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC _glInvalidateNamedFramebufferData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Invalidate the content of a named framebuffer attachment.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="numAttachments">Specifies the number of attachments.</param>
+    /// <param name="attachments">Specifies an array of attachment points.</param>
     public static void glInvalidateNamedFramebufferData(GLuint framebuffer, GLsizei numAttachments, GLenum* attachments) => _glInvalidateNamedFramebufferData(framebuffer, numAttachments, attachments);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Invalidate the content of a named framebuffer attachment.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="attachments">Specifies an array of attachment points.</param>
     public static void glInvalidateNamedFramebufferData(GLuint framebuffer, GLenum[] attachments) { fixed (GLenum* ptr_attachments = &attachments[0]) _glInvalidateNamedFramebufferData(framebuffer, attachments.Length, ptr_attachments); }
 #endif
 
@@ -12271,9 +12612,28 @@ public unsafe static class GL
     private delegate void PFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC(GLuint framebuffer, GLsizei numAttachments, GLenum* attachments, GLint x, GLint y, GLsizei width, GLsizei height);
     private static PFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC _glInvalidateNamedFramebufferSubData;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Invalidate the content of a region of a named framebuffer attachment.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="numAttachments">Specifies the number of attachments.</param>
+    /// <param name="attachments">Specifies an array of attachment points.</param>
+    /// <param name="x">Specifies the left pixel coordinate of the region.</param>
+    /// <param name="y">Specifies the lower pixel coordinate of the region.</param>
+    /// <param name="width">Specifies the width of the region.</param>
+    /// <param name="height">Specifies the height of the region.</param>
     public static void glInvalidateNamedFramebufferSubData(GLuint framebuffer, GLsizei numAttachments, GLenum* attachments, GLint x, GLint y, GLsizei width, GLsizei height) => _glInvalidateNamedFramebufferSubData(framebuffer, numAttachments, attachments, x, y, width, height);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Invalidate the content of a region of a named framebuffer attachment.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="attachments">Specifies an array of attachment points.</param>
+    /// <param name="x">Specifies the left pixel coordinate of the region.</param>
+    /// <param name="y">Specifies the lower pixel coordinate of the region.</param>
+    /// <param name="width">Specifies the width of the region.</param>
+    /// <param name="height">Specifies the height of the region.</param>
     public static void glInvalidateNamedFramebufferSubData(GLuint framebuffer, GLenum[] attachments, GLint x, GLint y, GLsizei width, GLsizei height) { fixed (GLenum* ptr_attachments = &attachments[0]) _glInvalidateNamedFramebufferSubData(framebuffer, attachments.Length, ptr_attachments, x, y, width, height); }
 #endif
 
@@ -12281,9 +12641,23 @@ public unsafe static class GL
     private delegate void PFNGLCLEARNAMEDFRAMEBUFFERIVPROC(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLint* value);
     private static PFNGLCLEARNAMEDFRAMEBUFFERIVPROC _glClearNamedFramebufferiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="drawbuffer">Specifies the index of the draw buffer within the framebuffer.</param>
+    /// <param name="value">Specifies the address of a four-element vector specifying the R, G, B, and A values used to clear the buffer.</param>
     public static void glClearNamedFramebufferiv(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLint* value) => _glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="drawbuffer">Specifies the index of the draw buffer within the framebuffer.</param>
+    /// <param name="value">Specifies the address of a four-element vector specifying the R, G, B, and A values used to clear the buffer.</param>
     public static void glClearNamedFramebufferiv(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLint[] value) { fixed (GLint* ptr_value = &value[0]) _glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, ptr_value); }
 #endif
 
@@ -12291,9 +12665,23 @@ public unsafe static class GL
     private delegate void PFNGLCLEARNAMEDFRAMEBUFFERUIVPROC(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLuint* value);
     private static PFNGLCLEARNAMEDFRAMEBUFFERUIVPROC _glClearNamedFramebufferuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="drawbuffer">Specifies the index of the draw buffer within the framebuffer.</param>
+    /// <param name="value">Specifies the address of a four-element vector specifying the R, G, B, and A values used to clear the buffer.</param>
     public static void glClearNamedFramebufferuiv(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLuint* value) => _glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="drawbuffer">Specifies the index of the draw buffer within the framebuffer.</param>
+    /// <param name="value">Specifies the address of a four-element vector specifying the R, G, B, and A values used to clear the buffer.</param>
     public static void glClearNamedFramebufferuiv(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLuint[] value) { fixed (GLuint* ptr_value = &value[0]) _glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, ptr_value); }
 #endif
 
@@ -12301,34 +12689,87 @@ public unsafe static class GL
     private delegate void PFNGLCLEARNAMEDFRAMEBUFFERFVPROC(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat* value);
     private static PFNGLCLEARNAMEDFRAMEBUFFERFVPROC _glClearNamedFramebufferfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="drawbuffer">Specifies the index of the draw buffer within the framebuffer.</param>
+    /// <param name="value">Specifies the address of a four-element vector specifying the R, G, B, and A values used to clear the buffer.</param>
     public static void glClearNamedFramebufferfv(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat* value) => _glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, value);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="drawbuffer">Specifies the index of the draw buffer within the framebuffer.</param>
+    /// <param name="value">Specifies the address of a four-element vector specifying the R, G, B, and A values used to clear the buffer.</param>
     public static void glClearNamedFramebufferfv(GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat[] value) { fixed (GLfloat* ptr_value = &value[0]) _glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, ptr_value); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLEARNAMEDFRAMEBUFFERFIPROC(GLuint framebuffer, GLenum buffer, GLfloat depth, GLint stencil);
     private static PFNGLCLEARNAMEDFRAMEBUFFERFIPROC _glClearNamedFramebufferfi;
+    /// <summary>
+    /// Clear the specified buffer of a framebuffer to the specified value.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="buffer">Specifies the buffer to clear.</param>
+    /// <param name="depth">Specifies the depth value used when the depth buffer is cleared. The initial value is 1.</param>
+    /// <param name="stencil">Specifies the index used when the stencil buffer is cleared. The initial value is 0.</param>
     public static void glClearNamedFramebufferfi(GLuint framebuffer, GLenum buffer, GLfloat depth, GLint stencil) => _glClearNamedFramebufferfi(framebuffer, buffer, depth, stencil);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBLITNAMEDFRAMEBUFFERPROC(GLuint readFramebuffer, GLuint drawFramebuffer, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
     private static PFNGLBLITNAMEDFRAMEBUFFERPROC _glBlitNamedFramebuffer;
+    /// <summary>
+    /// Copy a block of pixels from the read framebuffer to the draw framebuffer.
+    /// </summary>
+    /// <param name="readFramebuffer">Specifies the name of the read framebuffer.</param>
+    /// <param name="drawFramebuffer">Specifies the name of the draw framebuffer.</param>
+    /// <param name="srcX0">Specifies the left source rectangle x coordinate.</param>
+    /// <param name="srcY0">Specifies the bottom source rectangle y coordinate.</param>
+    /// <param name="srcX1">Specifies the right source rectangle x coordinate.</param>
+    /// <param name="srcY1">Specifies the top source rectangle y coordinate.</param>
+    /// <param name="dstX0">Specifies the left destination rectangle x coordinate.</param>
+    /// <param name="dstY0">Specifies the bottom destination rectangle y coordinate.</param>
+    /// <param name="dstX1">Specifies the right destination rectangle x coordinate.</param>
+    /// <param name="dstY1">Specifies the top destination rectangle y coordinate.</param>
+    /// <param name="mask">Specifies the mask that indicates the buffers to be copied.</param>
+    /// <param name="filter">Specifies the interpolation to be applied if the image is stretched.</param>
     public static void glBlitNamedFramebuffer(GLuint readFramebuffer, GLuint drawFramebuffer, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter) => _glBlitNamedFramebuffer(readFramebuffer, drawFramebuffer, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLenum PFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC(GLuint framebuffer, GLenum target);
     private static PFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC _glCheckNamedFramebufferStatus;
+    /// <summary>
+    /// Check the completeness status of a framebuffer.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object whose status to query.</param>
+    /// <param name="target">Specifies the target to which the framebuffer is attached.</param>
     public static GLenum glCheckNamedFramebufferStatus(GLuint framebuffer, GLenum target) => _glCheckNamedFramebufferStatus(framebuffer, target);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC(GLuint framebuffer, GLenum pname, GLint* param);
     private static PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC _glGetNamedFramebufferParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a framebuffer object target.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of pname.</param>
     public static void glGetNamedFramebufferParameteriv(GLuint framebuffer, GLenum pname, GLint* param) => _glGetNamedFramebufferParameteriv(framebuffer, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a framebuffer object target.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="param">Specifies an array to receive the value of pname.</param>
     public static void glGetNamedFramebufferParameteriv(GLuint framebuffer, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetNamedFramebufferParameteriv(framebuffer, pname, ptr_param); }
 #endif
 
@@ -12336,9 +12777,23 @@ public unsafe static class GL
     private delegate void PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC(GLuint framebuffer, GLenum attachment, GLenum pname, GLint* params_);
     private static PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC _glGetNamedFramebufferAttachmentParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a framebuffer attachment.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="attachment">Specifies the attachment within framebuffer.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="params_">Specifies the address of a variable to receive the value of pname.</param>
     public static void glGetNamedFramebufferAttachmentParameteriv(GLuint framebuffer, GLenum attachment, GLenum pname, GLint* params_) => _glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, params_);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a framebuffer attachment.
+    /// </summary>
+    /// <param name="framebuffer">Specifies the name of the framebuffer object.</param>
+    /// <param name="attachment">Specifies the attachment within framebuffer.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="params_">Specifies an array to receive the value of pname.</param>
     public static void glGetNamedFramebufferAttachmentParameteriv(GLuint framebuffer, GLenum attachment, GLenum pname, ref GLint[] params_) { fixed (GLint* ptr_params_ = &params_[0]) _glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, ptr_params_); }
 #endif
 
@@ -12346,30 +12801,71 @@ public unsafe static class GL
     private delegate void PFNGLCREATERENDERBUFFERSPROC(GLsizei n, GLuint* renderbuffers);
     private static PFNGLCREATERENDERBUFFERSPROC _glCreateRenderbuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate renderbuffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of renderbuffer object names to generate.</param>
+    /// <param name="renderbuffers">Specifies an array in which the generated renderbuffer object names are stored.</param>
     public static void glCreateRenderbuffers(GLsizei n, GLuint* renderbuffers) => _glCreateRenderbuffers(n, renderbuffers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate renderbuffer object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of renderbuffer object names to generate.</param>
+    /// <returns>Array of generated renderbuffer object names.</returns>
     public static GLuint[] glCreateRenderbuffers(GLsizei n) { GLuint[] renderbuffers = new GLuint[n]; fixed (GLuint* ptr_renderbuffers = &renderbuffers[0]) _glCreateRenderbuffers(n, ptr_renderbuffers); return renderbuffers; }
+    /// <summary>
+    /// Generate a single renderbuffer object name.
+    /// </summary>
+    /// <returns>Generated renderbuffer object name.</returns>
     public static GLuint glCreateRenderbuffer() => glCreateRenderbuffers(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDRENDERBUFFERSTORAGEPROC(GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height);
     private static PFNGLNAMEDRENDERBUFFERSTORAGEPROC _glNamedRenderbufferStorage;
+    /// <summary>
+    /// Establish data storage, format and dimensions of a renderbuffer object's image.
+    /// </summary>
+    /// <param name="renderbuffer">Specifies the name of the renderbuffer object.</param>
+    /// <param name="internalformat">Specifies the internal format to be used for the renderbuffer object's image.</param>
+    /// <param name="width">Specifies the width of the renderbuffer, in pixels.</param>
+    /// <param name="height">Specifies the height of the renderbuffer, in pixels.</param>
     public static void glNamedRenderbufferStorage(GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height) => _glNamedRenderbufferStorage(renderbuffer, internalformat, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC(GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
     private static PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC _glNamedRenderbufferStorageMultisample;
+    /// <summary>
+    /// Establish data storage, format, dimensions and number of samples of a renderbuffer object's image.
+    /// </summary>
+    /// <param name="renderbuffer">Specifies the name of the renderbuffer object.</param>
+    /// <param name="samples">Specifies the number of samples of the image.</param>
+    /// <param name="internalformat">Specifies the internal format to be used for the renderbuffer object's image.</param>
+    /// <param name="width">Specifies the width of the renderbuffer, in pixels.</param>
+    /// <param name="height">Specifies the height of the renderbuffer, in pixels.</param>
     public static void glNamedRenderbufferStorageMultisample(GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height) => _glNamedRenderbufferStorageMultisample(renderbuffer, samples, internalformat, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC(GLuint renderbuffer, GLenum pname, GLint* param);
     private static PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC _glGetNamedRenderbufferParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a renderbuffer object.
+    /// </summary>
+    /// <param name="renderbuffer">Specifies the name of the renderbuffer object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of pname.</param>
     public static void glGetNamedRenderbufferParameteriv(GLuint renderbuffer, GLenum pname, GLint* param) => _glGetNamedRenderbufferParameteriv(renderbuffer, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a renderbuffer object.
+    /// </summary>
+    /// <param name="renderbuffer">Specifies the name of the renderbuffer object.</param>
+    /// <param name="pname">Specifies the parameter to query.</param>
+    /// <param name="param">Specifies an array to receive the value of pname.</param>
     public static void glGetNamedRenderbufferParameteriv(GLuint renderbuffer, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetNamedRenderbufferParameteriv(renderbuffer, pname, ptr_param); }
 #endif
 
@@ -12377,55 +12873,149 @@ public unsafe static class GL
     private delegate void PFNGLCREATETEXTURESPROC(GLenum target, GLsizei n, GLuint* textures);
     private static PFNGLCREATETEXTURESPROC _glCreateTextures;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate texture names.
+    /// </summary>
+    /// <param name="target">Specifies the target of the texture.</param>
+    /// <param name="n">Specifies the number of texture names to generate.</param>
+    /// <param name="textures">Specifies an array in which the generated texture names are stored.</param>
     public static void glCreateTextures(GLenum target, GLsizei n, GLuint* textures) => _glCreateTextures(target, n, textures);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate texture names.
+    /// </summary>
+    /// <param name="target">Specifies the target of the texture.</param>
+    /// <param name="n">Specifies the number of texture names to generate.</param>
+    /// <returns>Array of generated texture names.</returns>
     public static GLuint[] glCreateTextures(GLenum target, GLsizei n) { GLuint[] textures = new GLuint[n]; fixed (GLuint* ptr_textures = &textures[0]) _glCreateTextures(target, n, ptr_textures); return textures; }
+    /// <summary>
+    /// Generate a single texture name.
+    /// </summary>
+    /// <param name="target">Specifies the target of the texture.</param>
+    /// <returns>Generated texture name.</returns>
     public static GLuint glCreateTexture(GLenum target) => glCreateTextures(target, 1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREBUFFERPROC(GLuint texture, GLenum internalformat, GLuint buffer);
     private static PFNGLTEXTUREBUFFERPROC _glTextureBuffer;
+    /// <summary>
+    /// Attach a buffer object's data store to a buffer texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture to which to attach the buffer object.</param>
+    /// <param name="internalformat">Specifies the internal format of the data in the store belonging to buffer.</param>
+    /// <param name="buffer">Specifies the name of the buffer object whose storage to attach to the active buffer texture.</param>
     public static void glTextureBuffer(GLuint texture, GLenum internalformat, GLuint buffer) => _glTextureBuffer(texture, internalformat, buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREBUFFERRANGEPROC(GLuint texture, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);
     private static PFNGLTEXTUREBUFFERRANGEPROC _glTextureBufferRange;
+    /// <summary>
+    /// Attach a range of a buffer object's data store to a buffer texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture to which to attach the buffer object.</param>
+    /// <param name="internalformat">Specifies the internal format of the data in the store belonging to buffer.</param>
+    /// <param name="buffer">Specifies the name of the buffer object whose storage to attach to the active buffer texture.</param>
+    /// <param name="offset">Specifies the offset of the start of the range of the buffer's data store to attach.</param>
+    /// <param name="size">Specifies the size of the range of the buffer's data store to attach.</param>
     public static void glTextureBufferRange(GLuint texture, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size) => _glTextureBufferRange(texture, internalformat, buffer, offset, size);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTURESTORAGE1DPROC(GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width);
     private static PFNGLTEXTURESTORAGE1DPROC _glTextureStorage1D;
+    /// <summary>
+    /// Specify storage for a one-dimensional texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object for which to allocate storage.</param>
+    /// <param name="levels">Specifies the number of levels of detail in the texture.</param>
+    /// <param name="internalformat">Specifies the sized internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
     public static void glTextureStorage1D(GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width) => _glTextureStorage1D(texture, levels, internalformat, width);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTURESTORAGE2DPROC(GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
     private static PFNGLTEXTURESTORAGE2DPROC _glTextureStorage2D;
+    /// <summary>
+    /// Specify storage for a two-dimensional texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object for which to allocate storage.</param>
+    /// <param name="levels">Specifies the number of levels of detail in the texture.</param>
+    /// <param name="internalformat">Specifies the sized internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
+    /// <param name="height">Specifies the height of the texture, in texels.</param>
     public static void glTextureStorage2D(GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height) => _glTextureStorage2D(texture, levels, internalformat, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTURESTORAGE3DPROC(GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
     private static PFNGLTEXTURESTORAGE3DPROC _glTextureStorage3D;
+    /// <summary>
+    /// Specify storage for a three-dimensional texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object for which to allocate storage.</param>
+    /// <param name="levels">Specifies the number of levels of detail in the texture.</param>
+    /// <param name="internalformat">Specifies the sized internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
+    /// <param name="height">Specifies the height of the texture, in texels.</param>
+    /// <param name="depth">Specifies the depth of the texture, in texels.</param>
     public static void glTextureStorage3D(GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth) => _glTextureStorage3D(texture, levels, internalformat, width, height, depth);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTURESTORAGE2DMULTISAMPLEPROC(GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations);
     private static PFNGLTEXTURESTORAGE2DMULTISAMPLEPROC _glTextureStorage2DMultisample;
+    /// <summary>
+    /// Specify storage for a two-dimensional multisample texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object for which to allocate storage.</param>
+    /// <param name="samples">Specifies the number of samples in the texture.</param>
+    /// <param name="internalformat">Specifies the internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
+    /// <param name="height">Specifies the height of the texture, in texels.</param>
+    /// <param name="fixedsamplelocations">Specifies whether the image will use identical sample locations and the same number of samples for all texels in the image, and the sample locations will not depend on the internal format or size of the image.</param>
     public static void glTextureStorage2DMultisample(GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations) => _glTextureStorage2DMultisample(texture, samples, internalformat, width, height, fixedsamplelocations);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTURESTORAGE3DMULTISAMPLEPROC(GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations);
     private static PFNGLTEXTURESTORAGE3DMULTISAMPLEPROC _glTextureStorage3DMultisample;
+    /// <summary>
+    /// Specify storage for a three-dimensional multisample texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object for which to allocate storage.</param>
+    /// <param name="samples">Specifies the number of samples in the texture.</param>
+    /// <param name="internalformat">Specifies the internal format to be used to store texture image data.</param>
+    /// <param name="width">Specifies the width of the texture, in texels.</param>
+    /// <param name="height">Specifies the height of the texture, in texels.</param>
+    /// <param name="depth">Specifies the depth of the texture, in texels.</param>
+    /// <param name="fixedsamplelocations">Specifies whether the image will use identical sample locations and the same number of samples for all texels in the image, and the sample locations will not depend on the internal format or size of the image.</param>
     public static void glTextureStorage3DMultisample(GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations) => _glTextureStorage3DMultisample(texture, samples, internalformat, width, height, depth, fixedsamplelocations);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTURESUBIMAGE1DPROC(GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXTURESUBIMAGE1DPROC _glTextureSubImage1D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTextureSubImage1D(GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, void* pixels) => _glTextureSubImage1D(texture, level, xoffset, width, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="pixels">Specifies an array containing the image data.</param>
     public static void glTextureSubImage1D<T>(GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (T* ptr_pixels = &pixels[0]) _glTextureSubImage1D(texture, level, xoffset, width, format, type, ptr_pixels); }
 #endif
 
@@ -12433,9 +13023,33 @@ public unsafe static class GL
     private delegate void PFNGLTEXTURESUBIMAGE2DPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXTURESUBIMAGE2DPROC _glTextureSubImage2D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTextureSubImage2D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, void* pixels) => _glTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="pixels">Specifies an array containing the image data.</param>
     public static void glTextureSubImage2D<T>(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (T* ptr_pixels = &pixels[0]) _glTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, type, ptr_pixels); }
 #endif
 
@@ -12443,9 +13057,37 @@ public unsafe static class GL
     private delegate void PFNGLTEXTURESUBIMAGE3DPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void* pixels);
     private static PFNGLTEXTURESUBIMAGE3DPROC _glTextureSubImage3D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="pixels">Specifies a pointer to the image data in memory.</param>
     public static void glTextureSubImage3D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void* pixels) => _glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="pixels">Specifies an array containing the image data.</param>
     public static void glTextureSubImage3D<T>(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, T[] pixels) where T : unmanaged { fixed (T* ptr_pixels = &pixels[0]) _glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, ptr_pixels); }
 #endif
 
@@ -12453,9 +13095,29 @@ public unsafe static class GL
     private delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC(GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC _glCompressedTextureSubImage1D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage in a compressed format.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the compressed image data stored at address data.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of compressed texture data starting at address data.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTextureSubImage1D(GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, void* data) => _glCompressedTextureSubImage1D(texture, level, xoffset, width, format, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a one-dimensional texture subimage in a compressed format.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the compressed image data stored at address data.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of compressed texture data starting at address data.</param>
+    /// <param name="data">Specifies an array containing the compressed image data.</param>
     public static void glCompressedTextureSubImage1D(GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, byte[] data) { fixed (byte* ptr_data = &data[0]) _glCompressedTextureSubImage1D(texture, level, xoffset, width, format, imageSize, ptr_data); }
 #endif
 
@@ -12463,9 +13125,33 @@ public unsafe static class GL
     private delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC _glCompressedTextureSubImage2D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage in a compressed format.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the compressed image data stored at address data.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of compressed texture data starting at address data.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTextureSubImage2D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, void* data) => _glCompressedTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a two-dimensional texture subimage in a compressed format.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the compressed image data stored at address data.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of compressed texture data starting at address data.</param>
+    /// <param name="data">Specifies an array containing the compressed image data.</param>
     public static void glCompressedTextureSubImage2D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, byte[] data) { fixed (byte* ptr_data = &data[0]) _glCompressedTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, imageSize, ptr_data); }
 #endif
 
@@ -12473,54 +13159,150 @@ public unsafe static class GL
     private delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, void* data);
     private static PFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC _glCompressedTextureSubImage3D;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage in a compressed format.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the compressed image data stored at address data.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of compressed texture data starting at address data.</param>
+    /// <param name="data">Specifies a pointer to the compressed image data in memory.</param>
     public static void glCompressedTextureSubImage3D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, void* data) => _glCompressedTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Specify a three-dimensional texture subimage in a compressed format.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to be modified.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the compressed image data stored at address data.</param>
+    /// <param name="imageSize">Specifies the number of unsigned bytes of compressed texture data starting at address data.</param>
+    /// <param name="data">Specifies an array containing the compressed image data.</param>
     public static void glCompressedTextureSubImage3D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, byte[] data) { fixed (byte* ptr_data = &data[0]) _glCompressedTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, ptr_data); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXTURESUBIMAGE1DPROC(GLuint texture, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
     private static PFNGLCOPYTEXTURESUBIMAGE1DPROC _glCopyTextureSubImage1D;
+    /// <summary>
+    /// Copy a one-dimensional texture subimage from the framebuffer to a one-dimensional texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to which to copy.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="x">Specify the window coordinates of the left corners of the row of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the left corners of the row of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
     public static void glCopyTextureSubImage1D(GLuint texture, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width) => _glCopyTextureSubImage1D(texture, level, xoffset, x, y, width);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXTURESUBIMAGE2DPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
     private static PFNGLCOPYTEXTURESUBIMAGE2DPROC _glCopyTextureSubImage2D;
+    /// <summary>
+    /// Copy a two-dimensional texture subimage from the framebuffer to a two-dimensional texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to which to copy.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="x">Specify the window coordinates of the left corners of the row of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the left corners of the row of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
     public static void glCopyTextureSubImage2D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height) => _glCopyTextureSubImage2D(texture, level, xoffset, yoffset, x, y, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCOPYTEXTURESUBIMAGE3DPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
     private static PFNGLCOPYTEXTURESUBIMAGE3DPROC _glCopyTextureSubImage3D;
+    /// <summary>
+    /// Copy a three-dimensional texture subimage from the framebuffer to a three-dimensional texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object to which to copy.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="x">Specify the window coordinates of the left corners of the row of pixels to be copied.</param>
+    /// <param name="y">Specify the window coordinates of the left corners of the row of pixels to be copied.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
     public static void glCopyTextureSubImage3D(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height) => _glCopyTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, x, y, width, height);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREPARAMETERFPROC(GLuint texture, GLenum pname, GLfloat param);
     private static PFNGLTEXTUREPARAMETERFPROC _glTextureParameterf;
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterf(GLuint texture, GLenum pname, GLfloat param) => _glTextureParameterf(texture, pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREPARAMETERFVPROC(GLuint texture, GLenum pname, GLfloat* param);
     private static PFNGLTEXTUREPARAMETERFVPROC _glTextureParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterfv(GLuint texture, GLenum pname, GLfloat* param) => _glTextureParameterfv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterfv(GLuint texture, GLenum pname, GLfloat[] param) { fixed (GLfloat* ptr_param = &param[0]) _glTextureParameterfv(texture, pname, ptr_param); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREPARAMETERIPROC(GLuint texture, GLenum pname, GLint param);
     private static PFNGLTEXTUREPARAMETERIPROC _glTextureParameteri;
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameteri(GLuint texture, GLenum pname, GLint param) => _glTextureParameteri(texture, pname, param);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREPARAMETERIIVPROC(GLuint texture, GLenum pname, GLint* param);
     private static PFNGLTEXTUREPARAMETERIIVPROC _glTextureParameterIiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterIiv(GLuint texture, GLenum pname, GLint* param) => _glTextureParameterIiv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterIiv(GLuint texture, GLenum pname, GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glTextureParameterIiv(texture, pname, ptr_param); }
 #endif
 
@@ -12528,9 +13310,21 @@ public unsafe static class GL
     private delegate void PFNGLTEXTUREPARAMETERIUIVPROC(GLuint texture, GLenum pname, GLuint* param);
     private static PFNGLTEXTUREPARAMETERIUIVPROC _glTextureParameterIuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterIuiv(GLuint texture, GLenum pname, GLuint* param) => _glTextureParameterIuiv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameterIuiv(GLuint texture, GLenum pname, GLuint[] param) { fixed (GLuint* ptr_param = &param[0]) _glTextureParameterIuiv(texture, pname, ptr_param); }
 #endif
 
@@ -12538,29 +13332,68 @@ public unsafe static class GL
     private delegate void PFNGLTEXTUREPARAMETERIVPROC(GLuint texture, GLenum pname, GLint* param);
     private static PFNGLTEXTUREPARAMETERIVPROC _glTextureParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameteriv(GLuint texture, GLenum pname, GLint* param) => _glTextureParameteriv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Set texture parameter.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the value of pname.</param>
     public static void glTextureParameteriv(GLuint texture, GLenum pname, GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glTextureParameteriv(texture, pname, ptr_param); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGENERATETEXTUREMIPMAPPROC(GLuint texture);
     private static PFNGLGENERATETEXTUREMIPMAPPROC _glGenerateTextureMipmap;
+    /// <summary>
+    /// Generate mipmaps for a specified texture object.
+    /// </summary>
+    /// <param name="texture">Specifies the texture object to which to generate mipmaps.</param>
     public static void glGenerateTextureMipmap(GLuint texture) => _glGenerateTextureMipmap(texture);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDTEXTUREUNITPROC(GLuint unit, GLuint texture);
     private static PFNGLBINDTEXTUREUNITPROC _glBindTextureUnit;
+    /// <summary>
+    /// Bind a named texture to a texturing target.
+    /// </summary>
+    /// <param name="unit">Specifies the index of the texture unit to which to bind the texture.</param>
+    /// <param name="texture">Specifies the name of a texture.</param>
     public static void glBindTextureUnit(GLuint unit, GLuint texture) => _glBindTextureUnit(unit, texture);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETTEXTUREIMAGEPROC(GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize, void* pixels);
     private static PFNGLGETTEXTUREIMAGEPROC _glGetTextureImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture image data.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture image data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given in pixels.</param>
+    /// <param name="pixels">Specifies a pointer to the buffer into which to place the returned data.</param>
     public static void glGetTextureImage(GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize, void* pixels) => _glGetTextureImage(texture, level, format, type, bufSize, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture image data.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture image data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the maximum number of values of type <typeparamref name="T"/> that can be returned.</param>
+    /// <returns>The texture image data.</returns>
     public static T[] glGetTextureImage<T>(GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize) where T : unmanaged { T[] pixels = new T[bufSize]; fixed (T* ptr_pixels = &pixels[0]) _glGetTextureImage(texture, level, format, type, bufSize, ptr_pixels); return pixels; }
 #endif
 
@@ -12568,9 +13401,22 @@ public unsafe static class GL
     private delegate void PFNGLGETCOMPRESSEDTEXTUREIMAGEPROC(GLuint texture, GLint level, GLsizei bufSize, void* pixels);
     private static PFNGLGETCOMPRESSEDTEXTUREIMAGEPROC _glGetCompressedTextureImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return the compressed texture image data.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture image data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="bufSize">Specifies the size of the buffer whose address is given in pixels.</param>
+    /// <param name="pixels">Specifies a pointer to the buffer into which to place the returned data.</param>
     public static void glGetCompressedTextureImage(GLuint texture, GLint level, GLsizei bufSize, void* pixels) => _glGetCompressedTextureImage(texture, level, bufSize, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return the compressed texture image data.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture image data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="bufSize">Specifies the maximum number of bytes of compressed texture image data that may be returned.</param>
     public static byte[] glGetCompressedTextureImage(GLuint texture, GLint level, GLsizei bufSize) { byte[] pixels = new byte[bufSize]; fixed (byte* ptr_pixels = &pixels[0]) _glGetCompressedTextureImage(texture, level, bufSize, ptr_pixels); return pixels; }
 #endif
 
@@ -12578,9 +13424,23 @@ public unsafe static class GL
     private delegate void PFNGLGETTEXTURELEVELPARAMETERFVPROC(GLuint texture, GLint level, GLenum pname, GLfloat* param);
     private static PFNGLGETTEXTURELEVELPARAMETERFVPROC _glGetTextureLevelParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture parameter values for a specific level of detail.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the texture parameter specified by <paramref name="pname"/> at the level of detail specified by <paramref name="level"/>.</param>
     public static void glGetTextureLevelParameterfv(GLuint texture, GLint level, GLenum pname, GLfloat* param) => _glGetTextureLevelParameterfv(texture, level, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture parameter values for a specific level of detail.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies an array to receive the value of the texture parameter specified by <paramref name="pname"/> at the level of detail specified by <paramref name="level"/>.</param>
     public static void glGetTextureLevelParameterfv(GLuint texture, GLint level, GLenum pname, ref GLfloat[] param) { fixed (GLfloat* ptr_param = &param[0]) _glGetTextureLevelParameterfv(texture, level, pname, ptr_param); }
 #endif
 
@@ -12588,9 +13448,23 @@ public unsafe static class GL
     private delegate void PFNGLGETTEXTURELEVELPARAMETERIVPROC(GLuint texture, GLint level, GLenum pname, GLint* param);
     private static PFNGLGETTEXTURELEVELPARAMETERIVPROC _glGetTextureLevelParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture parameter values for a specific level of detail.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the texture parameter specified by <paramref name="pname"/> at the level of detail specified by <paramref name="level"/>.</param>
     public static void glGetTextureLevelParameteriv(GLuint texture, GLint level, GLenum pname, GLint* param) => _glGetTextureLevelParameteriv(texture, level, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture parameter values for a specific level of detail.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies an array to receive the value of the texture parameter specified by <paramref name="pname"/> at the level of detail specified by <paramref name="level"/>.</param>
     public static void glGetTextureLevelParameteriv(GLuint texture, GLint level, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetTextureLevelParameteriv(texture, level, pname, ptr_param); }
 #endif
 
@@ -12598,9 +13472,21 @@ public unsafe static class GL
     private delegate void PFNGLGETTEXTUREPARAMETERFVPROC(GLuint texture, GLenum pname, GLfloat* param);
     private static PFNGLGETTEXTUREPARAMETERFVPROC _glGetTextureParameterfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameterfv(GLuint texture, GLenum pname, GLfloat* param) => _glGetTextureParameterfv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies an array to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameterfv(GLuint texture, GLenum pname, ref GLfloat[] param) { fixed (GLfloat* ptr_param = &param[0]) _glGetTextureParameterfv(texture, pname, ptr_param); }
 #endif
 
@@ -12608,9 +13494,21 @@ public unsafe static class GL
     private delegate void PFNGLGETTEXTUREPARAMETERIIVPROC(GLuint texture, GLenum pname, GLint* param);
     private static PFNGLGETTEXTUREPARAMETERIIVPROC _glGetTextureParameterIiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameterIiv(GLuint texture, GLenum pname, GLint* param) => _glGetTextureParameterIiv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies an array to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameterIiv(GLuint texture, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetTextureParameterIiv(texture, pname, ptr_param); }
 #endif
 
@@ -12618,9 +13516,21 @@ public unsafe static class GL
     private delegate void PFNGLGETTEXTUREPARAMETERIUIVPROC(GLuint texture, GLenum pname, GLuint* param);
     private static PFNGLGETTEXTUREPARAMETERIUIVPROC _glGetTextureParameterIuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameterIuiv(GLuint texture, GLenum pname, GLuint* param) => _glGetTextureParameterIuiv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies an array to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameterIuiv(GLuint texture, GLenum pname, ref GLuint[] param) { fixed (GLuint* ptr_param = &param[0]) _glGetTextureParameterIuiv(texture, pname, ptr_param); }
 #endif
 
@@ -12628,9 +13538,21 @@ public unsafe static class GL
     private delegate void PFNGLGETTEXTUREPARAMETERIVPROC(GLuint texture, GLenum pname, GLint* param);
     private static PFNGLGETTEXTUREPARAMETERIVPROC _glGetTextureParameteriv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies the address of a variable to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameteriv(GLuint texture, GLenum pname, GLint* param) => _glGetTextureParameteriv(texture, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return texture parameter values.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture parameter values.</param>
+    /// <param name="pname">Specifies the symbolic name of a texture parameter.</param>
+    /// <param name="param">Specifies an array to receive the value of the texture parameter specified by <paramref name="pname"/>.</param>
     public static void glGetTextureParameteriv(GLuint texture, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetTextureParameteriv(texture, pname, ptr_param); }
 #endif
 
@@ -12638,75 +13560,178 @@ public unsafe static class GL
     private delegate void PFNGLCREATEVERTEXARRAYSPROC(GLsizei n, GLuint* arrays);
     private static PFNGLCREATEVERTEXARRAYSPROC _glCreateVertexArrays;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate vertex array object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of vertex array object names to generate.</param>
+    /// <param name="arrays">Specifies an array in which to place the generated vertex array object names.</param>
     public static void glCreateVertexArrays(GLsizei n, GLuint* arrays) => _glCreateVertexArrays(n, arrays);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate vertex array object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of vertex array object names to generate.</param>
+    /// <returns>Array of generated vertex array object names.</returns>
     public static GLuint[] glCreateVertexArrays(GLsizei n) { var arrays = new GLuint[n]; fixed (GLuint* ptr_arrays = &arrays[0]) _glCreateVertexArrays(n, ptr_arrays); return arrays; }
+    /// <summary>
+    /// Generate a single vertex array object name.
+    /// </summary>
+    /// <returns>Generated vertex array object name.</returns>
     public static GLuint glCreateVertexArray() => glCreateVertexArrays(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDISABLEVERTEXARRAYATTRIBPROC(GLuint vaobj, GLuint index);
     private static PFNGLDISABLEVERTEXARRAYATTRIBPROC _glDisableVertexArrayAttrib;
+    /// <summary>
+    /// Disable a generic vertex attribute array.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be disabled.</param>
     public static void glDisableVertexArrayAttrib(GLuint vaobj, GLuint index) => _glDisableVertexArrayAttrib(vaobj, index);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLENABLEVERTEXARRAYATTRIBPROC(GLuint vaobj, GLuint index);
     private static PFNGLENABLEVERTEXARRAYATTRIBPROC _glEnableVertexArrayAttrib;
+    /// <summary>
+    /// Enable a generic vertex attribute array.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="index">Specifies the index of the generic vertex attribute to be enabled.</param>
     public static void glEnableVertexArrayAttrib(GLuint vaobj, GLuint index) => _glEnableVertexArrayAttrib(vaobj, index);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYELEMENTBUFFERPROC(GLuint vaobj, GLuint buffer);
     private static PFNGLVERTEXARRAYELEMENTBUFFERPROC _glVertexArrayElementBuffer;
+    /// <summary>
+    /// Bind a buffer object to an element array buffer binding point of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="buffer">Specifies the name of an existing buffer object that contains the index array data.</param>
     public static void glVertexArrayElementBuffer(GLuint vaobj, GLuint buffer) => _glVertexArrayElementBuffer(vaobj, buffer);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYVERTEXBUFFERPROC(GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride);
     private static PFNGLVERTEXARRAYVERTEXBUFFERPROC _glVertexArrayVertexBuffer;
+    /// <summary>
+    /// Bind a buffer object to a vertex buffer binding point of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="bindingindex">Specifies the index of the vertex buffer binding point to which to bind the buffer.</param>
+    /// <param name="buffer">Specifies the name of an existing buffer object that contains the data store to be associated with the vertex array object.</param>
+    /// <param name="offset">Specifies the offset of the first element of the buffer bound to the vertex buffer binding point.</param>
+    /// <param name="stride">Specifies the distance between consecutive elements within the buffer.</param>
     public static void glVertexArrayVertexBuffer(GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride) => _glVertexArrayVertexBuffer(vaobj, bindingindex, buffer, offset, stride);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYVERTEXBUFFERSPROC(GLuint vaobj, GLuint first, GLsizei count, GLuint* buffers, GLintptr* offsets, GLsizei* strides);
     private static PFNGLVERTEXARRAYVERTEXBUFFERSPROC _glVertexArrayVertexBuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind an array of buffer objects to vertex buffer binding points of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="first">Specifies the index of the first vertex buffer binding point to which to bind a buffer.</param>
+    /// <param name="count">Specifies the number of buffers to bind.</param>
+    /// <param name="buffers">Specifies an array of names of existing buffer objects that contain the data stores to be associated with the vertex array object.</param>
+    /// <param name="offsets">Specifies an array of offsets into the buffer objects.</param>
+    /// <param name="strides">Specifies an array of stride values.</param>
     public static void glVertexArrayVertexBuffers(GLuint vaobj, GLuint first, GLsizei count, GLuint* buffers, GLintptr* offsets, GLsizei* strides) => _glVertexArrayVertexBuffers(vaobj, first, count, buffers, offsets, strides);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind an array of buffer objects to vertex buffer binding points of a vertex array object.   
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="first">Specifies the index of the first vertex buffer binding point to which to bind a buffer.</param>
+    /// <param name="buffers">Specifies an array of names of existing buffer objects that contain the data stores to be associated with the vertex array object.</param>
+    /// <param name="offsets">Specifies an array of offsets into the buffer objects.</param>
+    /// <param name="strides">Specifies an array of stride values.</param>
     public static void glVertexArrayVertexBuffers(GLuint vaobj, GLuint first, GLuint[] buffers, GLintptr[] offsets, GLsizei[] strides) { fixed (GLuint* ptr_buffers = &buffers[0]) fixed (GLintptr* ptr_offsets = &offsets[0]) fixed (GLsizei* ptr_strides = &strides[0]) _glVertexArrayVertexBuffers(vaobj, first, (GLsizei)buffers.Length, ptr_buffers, ptr_offsets, ptr_strides); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYATTRIBBINDINGPROC(GLuint vaobj, GLuint attribindex, GLuint bindingindex);
     private static PFNGLVERTEXARRAYATTRIBBINDINGPROC _glVertexArrayAttribBinding;
+    /// <summary>
+    /// Associate a vertex attribute and a vertex buffer binding.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="attribindex">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="bindingindex">Specifies the index of the binding whose vertex buffer data is to be used by the generic vertex attribute at index attribindex.</param>
     public static void glVertexArrayAttribBinding(GLuint vaobj, GLuint attribindex, GLuint bindingindex) => _glVertexArrayAttribBinding(vaobj, attribindex, bindingindex);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYATTRIBFORMATPROC(GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset);
     private static PFNGLVERTEXARRAYATTRIBFORMATPROC _glVertexArrayAttribFormat;
+    /// <summary>
+    /// Specify the organization of vertex arrays.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="attribindex">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="size">Specifies the number of components per attribute. Must be 1, 2, 3, 4, or GL_BGRA.</param>
+    /// <param name="type">Specifies the data type of each component.</param>
+    /// <param name="normalized">Specifies whether fixed-point data values should be normalized (GL_TRUE) or converted directly as fixed-point values (GL_FALSE) when they are accessed.</param>
+    /// <param name="relativeoffset">Specifies the offset of the first component of the first generic vertex attribute in the array in the data store of the buffer currently bound to the binding point specified by bindingindex.</param>
     public static void glVertexArrayAttribFormat(GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset) => _glVertexArrayAttribFormat(vaobj, attribindex, size, type, normalized, relativeoffset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYATTRIBIFORMATPROC(GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
     private static PFNGLVERTEXARRAYATTRIBIFORMATPROC _glVertexArrayAttribIFormat;
+    /// <summary>
+    /// Specify the organization of vertex arrays.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="attribindex">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="size">Specifies the number of components per attribute. Must be 1, 2, 3, 4, or GL_BGRA.</param>
+    /// <param name="type">Specifies the data type of each component.</param>
+    /// <param name="relativeoffset">Specifies the offset of the first component of the first generic vertex attribute in the array in the data store of the buffer currently bound to the binding point specified by bindingindex.</param>
     public static void glVertexArrayAttribIFormat(GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset) => _glVertexArrayAttribIFormat(vaobj, attribindex, size, type, relativeoffset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYATTRIBLFORMATPROC(GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset);
     private static PFNGLVERTEXARRAYATTRIBLFORMATPROC _glVertexArrayAttribLFormat;
+    /// <summary>
+    /// Specify the organization of vertex arrays.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="attribindex">Specifies the index of the generic vertex attribute to be modified.</param>
+    /// <param name="size">Specifies the number of components per attribute. Must be 1, 2, 3, 4, or GL_BGRA.</param>
+    /// <param name="type">Specifies the data type of each component.</param>
+    /// <param name="relativeoffset">Specifies the offset of the first component of the first generic vertex attribute in the array in the data store of the buffer currently bound to the binding point specified by bindingindex.</param>
     public static void glVertexArrayAttribLFormat(GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset) => _glVertexArrayAttribLFormat(vaobj, attribindex, size, type, relativeoffset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLVERTEXARRAYBINDINGDIVISORPROC(GLuint vaobj, GLuint bindingindex, GLuint divisor);
     private static PFNGLVERTEXARRAYBINDINGDIVISORPROC _glVertexArrayBindingDivisor;
+    /// <summary>
+    /// Modify the rate at which generic vertex attributes advance during instanced rendering.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="bindingindex">Specifies the index of the binding whose divisor to modify.</param>
+    /// <param name="divisor">Specifies the new value for the instance step rate.</param>
     public static void glVertexArrayBindingDivisor(GLuint vaobj, GLuint bindingindex, GLuint divisor) => _glVertexArrayBindingDivisor(vaobj, bindingindex, divisor);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETVERTEXARRAYIVPROC(GLuint vaobj, GLenum pname, GLint* param);
     private static PFNGLGETVERTEXARRAYIVPROC _glGetVertexArrayiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="pname">Specifies the parameter value to return.</param>
+    /// <param name="param">Specifies the address of a variable to receive the parameter value.</param>
     public static void glGetVertexArrayiv(GLuint vaobj, GLenum pname, GLint* param) => _glGetVertexArrayiv(vaobj, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="pname">Specifies the parameter value to return.</param>
+    /// <param name="param">Specifies an array to receive the parameter value.</param>
     public static void glGetVertexArrayiv(GLuint vaobj, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetVertexArrayiv(vaobj, pname, ptr_param); }
 #endif
 
@@ -12714,9 +13739,23 @@ public unsafe static class GL
     private delegate void PFNGLGETVERTEXARRAYINDEXEDIVPROC(GLuint vaobj, GLuint index, GLenum pname, GLint* param);
     private static PFNGLGETVERTEXARRAYINDEXEDIVPROC _glGetVertexArrayIndexediv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="index">Specifies the index of the vertex array object entry to be queried.</param>
+    /// <param name="pname">Specifies the parameter value to return.</param>
+    /// <param name="param">Specifies the address of a variable to receive the parameter value.</param>
     public static void glGetVertexArrayIndexediv(GLuint vaobj, GLuint index, GLenum pname, GLint* param) => _glGetVertexArrayIndexediv(vaobj, index, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="index">Specifies the index of the vertex array object entry to be queried.</param>
+    /// <param name="pname">Specifies the parameter value to return.</param>
+    /// <param name="param">Specifies an array to receive the parameter value.</param>
     public static void glGetVertexArrayIndexediv(GLuint vaobj, GLuint index, GLenum pname, ref GLint[] param) { fixed (GLint* ptr_param = &param[0]) _glGetVertexArrayIndexediv(vaobj, index, pname, ptr_param); }
 #endif
 
@@ -12724,9 +13763,23 @@ public unsafe static class GL
     private delegate void PFNGLGETVERTEXARRAYINDEXED64IVPROC(GLuint vaobj, GLuint index, GLenum pname, GLint64* param);
     private static PFNGLGETVERTEXARRAYINDEXED64IVPROC _glGetVertexArrayIndexed64iv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return parameters of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="index">Specifies the index of the vertex array object entry to be queried.</param>
+    /// <param name="pname">Specifies the parameter value to return.</param>
+    /// <param name="param">Specifies the address of a variable to receive the parameter value.</param>
     public static void glGetVertexArrayIndexed64iv(GLuint vaobj, GLuint index, GLenum pname, GLint64* param) => _glGetVertexArrayIndexed64iv(vaobj, index, pname, param);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return parameters of a vertex array object.
+    /// </summary>
+    /// <param name="vaobj">Specifies the name of the vertex array object.</param>
+    /// <param name="index">Specifies the index of the vertex array object entry to be queried.</param>
+    /// <param name="pname">Specifies the parameter value to return.</param>
+    /// <param name="param">Specifies an array to receive the parameter value.</param>
     public static void glGetVertexArrayIndexed64iv(GLuint vaobj, GLuint index, GLenum pname, ref GLint64[] param) { fixed (GLint64* ptr_param = &param[0]) _glGetVertexArrayIndexed64iv(vaobj, index, pname, ptr_param); }
 #endif
 
@@ -12734,10 +13787,24 @@ public unsafe static class GL
     private delegate void PFNGLCREATESAMPLERSPROC(GLsizei n, GLuint* samplers);
     private static PFNGLCREATESAMPLERSPROC _glCreateSamplers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate sampler object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of sampler object names to generate.</param>
+    /// <param name="samplers">Specifies an array in which the generated sampler object names are stored.</param>
     public static void glCreateSamplers(GLsizei n, GLuint* samplers) => _glCreateSamplers(n, samplers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate sampler object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of sampler object names to generate.</param>
+    /// <returns>Array of generated sampler object names.</returns>
     public static GLuint[] glCreateSamplers(GLsizei n) { GLuint[] samplers = new GLuint[n]; fixed (GLuint* ptr_samplers = &samplers[0]) _glCreateSamplers(n, ptr_samplers); return samplers; }
+    /// <summary>
+    /// Generate a single sampler object name.
+    /// </summary>
+    /// <returns>The generated sampler object name.</returns>
     public static GLuint glCreateSamplers() => glCreateSamplers(1)[0];
 #endif
 
@@ -12745,55 +13812,149 @@ public unsafe static class GL
     private delegate void PFNGLCREATEPROGRAMPIPELINESPROC(GLsizei n, GLuint* pipelines);
     private static PFNGLCREATEPROGRAMPIPELINESPROC _glCreateProgramPipelines;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate program pipeline object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of program pipeline object names to generate.</param>
+    /// <param name="pipelines">Specifies an array in which the generated program pipeline object names are stored.</param>
     public static void glCreateProgramPipelines(GLsizei n, GLuint* pipelines) => _glCreateProgramPipelines(n, pipelines);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate program pipeline object names.
+    /// </summary>
+    /// <param name="n">Specifies the number of program pipeline object names to generate.</param>
+    /// <returns>Array of generated program pipeline object names.</returns>
     public static GLuint[] glCreateProgramPipelines(GLsizei n) { GLuint[] pipelines = new GLuint[n]; fixed (GLuint* ptr_pipelines = &pipelines[0]) _glCreateProgramPipelines(n, ptr_pipelines); return pipelines; }
+    /// <summary>
+    /// Generate a single program pipeline object name.
+    /// </summary>
+    /// <returns>The generated program pipeline object name.</returns>
+    public static GLuint glCreateProgramPipeline() => glCreateProgramPipelines(1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCREATEQUERIESPROC(GLenum target, GLsizei n, GLuint* ids);
     private static PFNGLCREATEQUERIESPROC _glCreateQueries;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Generate query object names.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object.</param>
+    /// <param name="n">Specifies the number of query object names to generate.</param>
+    /// <param name="ids">Specifies an array in which the generated query object names are stored.</param>
     public static void glCreateQueries(GLenum target, GLsizei n, GLuint* ids) => _glCreateQueries(target, n, ids);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Generate query object names.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object.</param>
+    /// <param name="n">Specifies the number of query object names to generate.</param>
+    /// <returns>Array of generated query object names.</returns>
     public static GLuint[] glCreateQueries(GLenum target, GLsizei n) { GLuint[] ids = new GLuint[n]; fixed (GLuint* ptr_ids = &ids[0]) _glCreateQueries(target, n, ptr_ids); return ids; }
+    /// <summary>
+    /// Generate a single query object name.
+    /// </summary>
+    /// <param name="target">Specifies the target of the query object.</param>
+    /// <returns>The generated query object name.</returns>
     public static GLuint glCreateQuery(GLenum target) => glCreateQueries(target, 1)[0];
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYBUFFEROBJECTI64VPROC(GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
     private static PFNGLGETQUERYBUFFEROBJECTI64VPROC _glGetQueryBufferObjecti64v;
+    /// <summary>
+    /// Retrieve the value of a query object parameter.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="buffer">Specifies the name of a buffer object into which to place the returned data.</param>
+    /// <param name="pname">Specifies the name of the query parameter to retrieve.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data will be placed.</param>
     public static void glGetQueryBufferObjecti64v(GLuint id, GLuint buffer, GLenum pname, GLintptr offset) => _glGetQueryBufferObjecti64v(id, buffer, pname, offset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYBUFFEROBJECTIVPROC(GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
     private static PFNGLGETQUERYBUFFEROBJECTIVPROC _glGetQueryBufferObjectiv;
+    /// <summary>
+    /// Retrieve the value of a query object parameter.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="buffer">Specifies the name of a buffer object into which to place the returned data.</param>
+    /// <param name="pname">Specifies the name of the query parameter to retrieve.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data will be placed.</param>
     public static void glGetQueryBufferObjectiv(GLuint id, GLuint buffer, GLenum pname, GLintptr offset) => _glGetQueryBufferObjectiv(id, buffer, pname, offset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYBUFFEROBJECTUI64VPROC(GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
     private static PFNGLGETQUERYBUFFEROBJECTUI64VPROC _glGetQueryBufferObjectui64v;
+    /// <summary>
+    /// Retrieve the value of a query object parameter.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="buffer">Specifies the name of a buffer object into which to place the returned data.</param>
+    /// <param name="pname">Specifies the name of the query parameter to retrieve.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data will be placed.</param>
     public static void glGetQueryBufferObjectui64v(GLuint id, GLuint buffer, GLenum pname, GLintptr offset) => _glGetQueryBufferObjectui64v(id, buffer, pname, offset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETQUERYBUFFEROBJECTUIVPROC(GLuint id, GLuint buffer, GLenum pname, GLintptr offset);
     private static PFNGLGETQUERYBUFFEROBJECTUIVPROC _glGetQueryBufferObjectuiv;
+    /// <summary>
+    /// Retrieve the value of a query object parameter.
+    /// </summary>
+    /// <param name="id">Specifies the name of a query object.</param>
+    /// <param name="buffer">Specifies the name of a buffer object into which to place the returned data.</param>
+    /// <param name="pname">Specifies the name of the query parameter to retrieve.</param>
+    /// <param name="offset">Specifies the offset into the buffer object's data store where data will be placed.</param>
     public static void glGetQueryBufferObjectuiv(GLuint id, GLuint buffer, GLenum pname, GLintptr offset) => _glGetQueryBufferObjectuiv(id, buffer, pname, offset);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLMEMORYBARRIERBYREGIONPROC(GLbitfield barriers);
     private static PFNGLMEMORYBARRIERBYREGIONPROC _glMemoryBarrierByRegion;
+    /// <summary>
+    /// Specify the execution memory barriers to be applied.
+    /// </summary>
+    /// <param name="barriers">Specifies the barriers to be applied.</param>
     public static void glMemoryBarrierByRegion(GLbitfield barriers) => _glMemoryBarrierByRegion(barriers);
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETTEXTURESUBIMAGEPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei bufSize, void* pixels);
     private static PFNGLGETTEXTURESUBIMAGEPROC _glGetTextureSubImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a subregion of a texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the size in basic machine units of the buffer addressed by pixels.</param>
+    /// <param name="pixels">Specifies a pointer to the buffer into which to place the returned pixel data.</param>
     public static void glGetTextureSubImage(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei bufSize, void* pixels) => _glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, bufSize, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a subregion of a texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the size in basic machine units of the buffer addressed by pixels.</param>
+    /// <returns>The pixel data.</returns>
     public static byte[] glGetTextureSubImage(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei bufSize) { byte[] pixels = new byte[bufSize]; fixed (void* ptr_pixels = &pixels[0]) _glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, bufSize, ptr_pixels); return pixels; }
 #endif
 
@@ -12801,24 +13962,68 @@ public unsafe static class GL
     private delegate void PFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei bufSize, void* pixels);
     private static PFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC _glGetCompressedTextureSubImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a subregion of a compressed texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="bufSize">Specifies the size in basic machine units of the buffer addressed by pixels.</param>
+    /// <param name="pixels">Specifies a pointer to the buffer into which to place the returned pixel data.</param>
     public static void glGetCompressedTextureSubImage(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei bufSize, void* pixels) => _glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, bufSize, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a subregion of a compressed texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture object from which to retrieve texture data.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="xoffset">Specifies a texel offset in the x direction within the texture array.</param>
+    /// <param name="yoffset">Specifies a texel offset in the y direction within the texture array.</param>
+    /// <param name="zoffset">Specifies a texel offset in the z direction within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="bufSize">Specifies the size in basic machine units of the buffer addressed by pixels.</param>
+    /// <returns>The pixel data.</returns>
     public static byte[] glGetCompressedTextureSubImage(GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei bufSize) { byte[] pixels = new byte[bufSize]; fixed (void* ptr_pixels = &pixels[0]) _glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, bufSize, ptr_pixels); return pixels; }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate GLenum PFNGLGETGRAPHICSRESETSTATUSPROC();
     private static PFNGLGETGRAPHICSRESETSTATUSPROC _glGetGraphicsResetStatus;
+    /// <summary>
+    /// Return the reset status of the specified reset target.
+    /// </summary>
+    /// <returns>The reset status of the specified reset target.</returns>
     public static GLenum glGetGraphicsResetStatus() => _glGetGraphicsResetStatus();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLGETNCOMPRESSEDTEXIMAGEPROC(GLenum target, GLint lod, GLsizei bufSize, void* pixels);
     private static PFNGLGETNCOMPRESSEDTEXIMAGEPROC _glGetnCompressedTexImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a compressed texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be GL_TEXTURE_2D, GL_TEXTURE_2D_ARRAY, GL_TEXTURE_3D, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_RECTANGLE, GL_TEXTURE_BUFFER, GL_TEXTURE_2D_MULTISAMPLE, or GL_TEXTURE_2D_MULTISAMPLE_ARRAY.</param>
+    /// <param name="lod">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="bufSize">Specifies the size in basic machine units of the buffer addressed by pixels.</param>
+    /// <param name="pixels">Specifies a pointer to the buffer into which to place the returned pixel data.</param>
     public static void glGetnCompressedTexImage(GLenum target, GLint lod, GLsizei bufSize, void* pixels) => _glGetnCompressedTexImage(target, lod, bufSize, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a compressed texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture.</param>
+    /// <param name="lod">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="bufSize">Specifies the maximum amount of bytes to return.</param>
+    /// <returns>The pixel data.</returns>
     public static byte[] glGetnCompressedTexImage(GLenum target, GLint lod, GLsizei bufSize) { byte[] pixels = new byte[bufSize]; fixed (void* ptr_pixels = &pixels[0]) _glGetnCompressedTexImage(target, lod, bufSize, ptr_pixels); return pixels; }
 #endif
 
@@ -12826,9 +14031,27 @@ public unsafe static class GL
     private delegate void PFNGLGETNTEXIMAGEPROC(GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void* pixels);
     private static PFNGLGETNTEXIMAGEPROC _glGetnTexImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture. Must be GL_TEXTURE_2D, GL_TEXTURE_2D_ARRAY, GL_TEXTURE_3D, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_RECTANGLE, GL_TEXTURE_BUFFER, GL_TEXTURE_2D_MULTISAMPLE, or GL_TEXTURE_2D_MULTISAMPLE_ARRAY.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the size in basic machine units of the buffer addressed by pixels.</param>
+    /// <param name="pixels">Specifies a pointer to the buffer into which to place the returned pixel data.</param>
     public static void glGetnTexImage(GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void* pixels) => _glGetnTexImage(target, level, format, type, bufSize, pixels);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a texture image.
+    /// </summary>
+    /// <param name="target">Specifies the target texture.</param>
+    /// <param name="level">Specifies the level-of-detail number of the desired image.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the maximum amount of bytes to return.</param>
+    /// <returns>The pixel data.</returns>
     public static byte[] glGetnTexImage(GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize) { byte[] pixels = new byte[bufSize]; fixed (void* ptr_pixels = &pixels[0]) _glGetnTexImage(target, level, format, type, bufSize, ptr_pixels); return pixels; }
 #endif
 
@@ -12836,9 +14059,23 @@ public unsafe static class GL
     private delegate void PFNGLGETNUNIFORMDVPROC(GLuint program, GLint location, GLsizei bufSize, GLdouble* parameters);
     private static PFNGLGETNUNIFORMDVPROC _glGetnUniformdv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a double-precision uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of double-precision floating-point values that may be written to params.</param>
+    /// <param name="parameters">Specifies the address of a variable into which the double-precision floating-point values are written.</param>
     public static void glGetnUniformdv(GLuint program, GLint location, GLsizei bufSize, GLdouble* parameters) => _glGetnUniformdv(program, location, bufSize, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a double-precision uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of double-precision floating-point values that may be written to params.</param>
+    /// <param name="parameters">Specifies an array into which the double-precision floating-point values are written.</param>
     public static void glGetnUniformdv(GLuint program, GLint location, GLsizei bufSize, ref GLdouble[] parameters) { fixed (void* ptr_parameters = &parameters[0]) _glGetnUniformdv(program, location, bufSize, (GLdouble*)ptr_parameters); }
 #endif
 
@@ -12846,9 +14083,23 @@ public unsafe static class GL
     private delegate void PFNGLGETNUNIFORMFVPROC(GLuint program, GLint location, GLsizei bufSize, GLfloat* parameters);
     private static PFNGLGETNUNIFORMFVPROC _glGetnUniformfv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return a float uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of float values that may be written to params.</param>
+    /// <param name="parameters">Specifies the address of a variable into which the float values are written.</param>
     public static void glGetnUniformfv(GLuint program, GLint location, GLsizei bufSize, GLfloat* parameters) => _glGetnUniformfv(program, location, bufSize, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return a float uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of float values that may be written to params.</param>
+    /// <param name="parameters">Specifies an array into which the float values are written.</param>
     public static void glGetnUniformfv(GLuint program, GLint location, GLsizei bufSize, ref GLfloat[] parameters) { fixed (void* ptr_parameters = &parameters[0]) _glGetnUniformfv(program, location, bufSize, (GLfloat*)ptr_parameters); }
 #endif
 
@@ -12856,9 +14107,23 @@ public unsafe static class GL
     private delegate void PFNGLGETNUNIFORMIVPROC(GLuint program, GLint location, GLsizei bufSize, GLint* parameters);
     private static PFNGLGETNUNIFORMIVPROC _glGetnUniformiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return an integer uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of integer values that may be written to params.</param>
+    /// <param name="parameters">Specifies the address of a variable into which the integer values are written.</param>
     public static void glGetnUniformiv(GLuint program, GLint location, GLsizei bufSize, GLint* parameters) => _glGetnUniformiv(program, location, bufSize, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return an integer uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of integer values that may be written to params.</param>
+    /// <param name="parameters">Specifies an array into which the integer values are written.</param>
     public static void glGetnUniformiv(GLuint program, GLint location, GLsizei bufSize, ref GLint[] parameters) { fixed (void* ptr_parameters = &parameters[0]) _glGetnUniformiv(program, location, bufSize, (GLint*)ptr_parameters); }
 #endif
 
@@ -12866,9 +14131,23 @@ public unsafe static class GL
     private delegate void PFNGLGETNUNIFORMUIVPROC(GLuint program, GLint location, GLsizei bufSize, GLuint* parameters);
     private static PFNGLGETNUNIFORMUIVPROC _glGetnUniformuiv;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Return an unsigned integer uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of unsigned integer values that may be written to params.</param>
+    /// <param name="parameters">Specifies the address of a variable into which the unsigned integer values are written.</param>
     public static void glGetnUniformuiv(GLuint program, GLint location, GLsizei bufSize, GLuint* parameters) => _glGetnUniformuiv(program, location, bufSize, parameters);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Return an unsigned integer uniform variable from the specified program object.
+    /// </summary>
+    /// <param name="program">Specifies the program object to be queried.</param>
+    /// <param name="location">Specifies the uniform variable location to be queried.</param>
+    /// <param name="bufSize">Specifies the maximum number of unsigned integer values that may be written to params.</param>
+    /// <param name="parameters">Specifies an array into which the unsigned integer values are written.</param>
     public static void glGetnUniformuiv(GLuint program, GLint location, GLsizei bufSize, ref GLuint[] parameters) { fixed (void* ptr_parameters = &parameters[0]) _glGetnUniformuiv(program, location, bufSize, (GLuint*)ptr_parameters); }
 #endif
 
@@ -12876,17 +14155,41 @@ public unsafe static class GL
     private delegate void PFNGLREADNPIXELSPROC(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void* data);
     private static PFNGLREADNPIXELSPROC _glReadnPixels;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Read a block of pixels from the frame buffer.
+    /// </summary>
+    /// <param name="x">Specify the window coordinates of the first pixel that is read from the frame buffer. This location is the lower left corner of a rectangular block of pixels.</param>
+    /// <param name="y">Specify the window coordinates of the first pixel that is read from the frame buffer. This location is the lower left corner of a rectangular block of pixels.</param>
+    /// <param name="width">Specify the dimensions of the pixel rectangle. width and height of one correspond to a single pixel.</param>
+    /// <param name="height">Specify the dimensions of the pixel rectangle. width and height of one correspond to a single pixel.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the size in bytes of the buffer pointed to by data.</param>
+    /// <param name="data">Returns the pixel data.</param>
     public static void glReadnPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void* data) => _glReadnPixels(x, y, width, height, format, type, bufSize, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Read a block of pixels from the frame buffer.
+    /// </summary>
+    /// <param name="x">Specify the window coordinates of the first pixel that is read from the frame buffer. This location is the lower left corner of a rectangular block of pixels.</param>
+    /// <param name="y">Specify the window coordinates of the first pixel that is read from the frame buffer. This location is the lower left corner of a rectangular block of pixels.</param>
+    /// <param name="width">Specify the dimensions of the pixel rectangle. width and height of one correspond to a single pixel.</param>
+    /// <param name="height">Specify the dimensions of the pixel rectangle. width and height of one correspond to a single pixel.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="bufSize">Specifies the maximum amount of bytes to be returned.</param>
+    /// <returns>Returns the pixel data.</returns>
     public static byte[] glReadnPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize) { byte[] data = new byte[bufSize]; fixed (void* ptr_data = &data[0]) _glReadnPixels(x, y, width, height, format, type, bufSize, ptr_data); return data; }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLTEXTUREBARRIERPROC();
     private static PFNGLTEXTUREBARRIERPROC _glTextureBarrier;
+    /// <summary>
+    /// Insert a memory barrier to ensure that texture writes have completed.
+    /// </summary>
     public static void glTextureBarrier() => _glTextureBarrier();
-
 
 #endif
 
