@@ -11726,9 +11726,23 @@ public unsafe static class GL
     private delegate void PFNGLBUFFERSTORAGEPROC(GLenum target, GLsizeiptr size, void* data, GLbitfield flags);
     private static PFNGLBUFFERSTORAGEPROC _glBufferStorage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffer object is bound.</param>
+    /// <param name="size">Specifies the size in bytes of the buffer object's new data store.</param>
+    /// <param name="data">Specifies a pointer to data that will be copied into the data store for initialization, or NULL if no data is to be copied.</param>
+    /// <param name="flags">Specifies flags indicating the intended usage of the buffer object's data store.</param>
     public static void glBufferStorage(GLenum target, GLsizeiptr size, void* data, GLbitfield flags) => _glBufferStorage(target, size, data, flags);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Create and initialize a buffer object's data store.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to be copied into the data store.</typeparam>
+    /// <param name="target">Specifies the target to which the buffer object is bound.</param>
+    /// <param name="data">Specifies data that will be copied into the data store for initialization.</param>
+    /// <param name="flags">Specifies flags indicating the intended usage of the buffer object's data store.</param>
     public static void glBufferStorage<T>(GLenum target, T[] data, GLbitfield flags) where T : unmanaged { fixed (void* p_data = &data[0]) { _glBufferStorage(target, data.Length * sizeof(T), p_data, flags); } }
 #endif
 
@@ -11736,29 +11750,88 @@ public unsafe static class GL
     private delegate void PFNGLCLEARTEXIMAGEPROC(GLuint texture, GLint level, GLenum format, GLenum type, void* data);
     private static PFNGLCLEARTEXIMAGEPROC _glClearTexImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear image in a texture.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies a pointer to the image data in memory.</param>
     public static void glClearTexImage(GLuint texture, GLint level, GLenum format, GLenum type, void* data) => _glClearTexImage(texture, level, format, type, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glClearTexImage<T>(GLuint texture, GLint level, GLenum format, GLenum type, T data) where T : unmanaged { _glClearTexImage(texture, level, format, type, &data); }
+    /// <summary>
+    /// Clear image in a texture.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to be copied into the data store.</typeparam>
+    /// <param name="texture">Specifies the name of the texture.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies the image data.</param>
+    public static void glClearTexImage<T>(GLuint texture, GLint level, GLenum format, GLenum type, T[] data) where T : unmanaged { fixed (T* t = &data[0]) _glClearTexImage(texture, level, format, type, t); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLCLEARTEXSUBIMAGEPROC(GLuint texture, GLint level, GLint xOffset, GLint yOffset, GLint zOffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void* data);
     private static PFNGLCLEARTEXSUBIMAGEPROC _glClearTexSubImage;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Clear a region of a texture image.
+    /// </summary>
+    /// <param name="texture">Specifies the name of the texture.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xOffset">Specifies the x coordinate of the texel offset within the texture array.</param>
+    /// <param name="yOffset">Specifies the y coordinate of the texel offset within the texture array.</param>
+    /// <param name="zOffset">Specifies the z coordinate of the texel offset within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies a pointer to the image data in memory.</param>
     public static void glClearTexSubImage(GLuint texture, GLint level, GLint xOffset, GLint yOffset, GLint zOffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, void* data) => _glClearTexSubImage(texture, level, xOffset, yOffset, zOffset, width, height, depth, format, type, data);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
-    public static void glClearTexSubImage<T>(GLuint texture, GLint level, GLint xOffset, GLint yOffset, GLint zOffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, T data) where T : unmanaged { _glClearTexSubImage(texture, level, xOffset, yOffset, zOffset, width, height, depth, format, type, &data); }
+    /// <summary>
+    /// Clear a region of a texture image.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to be copied into the data store.</typeparam>
+    /// <param name="texture">Specifies the name of the texture.</param>
+    /// <param name="level">Specifies the level-of-detail number.</param>
+    /// <param name="xOffset">Specifies the x coordinate of the texel offset within the texture array.</param>
+    /// <param name="yOffset">Specifies the y coordinate of the texel offset within the texture array.</param>
+    /// <param name="zOffset">Specifies the z coordinate of the texel offset within the texture array.</param>
+    /// <param name="width">Specifies the width of the texture subimage.</param>
+    /// <param name="height">Specifies the height of the texture subimage.</param>
+    /// <param name="depth">Specifies the depth of the texture subimage.</param>
+    /// <param name="format">Specifies the format of the pixel data.</param>
+    /// <param name="type">Specifies the data type of the pixel data.</param>
+    /// <param name="data">Specifies the image data.</param>
+    public static void glClearTexSubImage<T>(GLuint texture, GLint level, GLint xOffset, GLint yOffset, GLint zOffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, T[] data) where T : unmanaged { fixed (T* t = &data[0]) _glClearTexSubImage(texture, level, xOffset, yOffset, zOffset, width, height, depth, format, type, t); }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBINDBUFFERSBASEPROC(GLenum target, GLuint first, GLsizei count, GLuint* buffers);
     private static PFNGLBINDBUFFERSBASEPROC _glBindBuffersBase;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind a range of buffer objects to a binding point.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffers are bound.</param>
+    /// <param name="first">Specifies the index of the first binding point to which to bind buffers.</param>
+    /// <param name="count">Specifies the number of buffers to bind.</param>
+    /// <param name="buffers">Specifies an array of buffer objects whose names to bind.</param>
     public static void glBindBuffersBase(GLenum target, GLuint first, GLsizei count, GLuint* buffers) => _glBindBuffersBase(target, first, count, buffers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind a range of buffer objects to a binding point.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffers are bound.</param>
+    /// <param name="first">Specifies the index of the first binding point to which to bind buffers.</param>
+    /// <param name="buffers">Specifies an array of buffer objects whose names to bind.</param>
     public static void glBindBuffersBase(GLenum target, GLuint first, GLuint[] buffers) { fixed (GLuint* p_buffers = &buffers[0]) { _glBindBuffersBase(target, first, buffers.Length, p_buffers); } }
 #endif
 
@@ -11766,9 +11839,26 @@ public unsafe static class GL
     private delegate void PFNGLBINDBUFFERSRANGEPROC(GLenum target, GLuint first, GLsizei count, GLuint* buffers, GLintptr* offsets, GLsizeiptr* sizes);
     private static PFNGLBINDBUFFERSRANGEPROC _glBindBuffersRange;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind a range of buffer objects to a binding point.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffers are bound.</param>
+    /// <param name="first">Specifies the index of the first binding point to which to bind buffers.</param>
+    /// <param name="count">Specifies the number of buffers to bind.</param>
+    /// <param name="buffers">Specifies an array of buffer objects whose names to bind.</param>
+    /// <param name="offsets">Specifies an array of offsets into the buffer objects.</param>
+    /// <param name="sizes">Specifies an array of sizes of the buffer object regions.</param>
     public static void glBindBuffersRange(GLenum target, GLuint first, GLsizei count, GLuint* buffers, GLintptr* offsets, GLsizeiptr* sizes) => _glBindBuffersRange(target, first, count, buffers, offsets, sizes);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind a range of buffer objects to a binding point.
+    /// </summary>
+    /// <param name="target">Specifies the target to which the buffers are bound.</param>
+    /// <param name="first">Specifies the index of the first binding point to which to bind buffers.</param>
+    /// <param name="buffers">Specifies an array of buffer objects whose names to bind.</param>
+    /// <param name="offsets">Specifies an array of offsets into the buffer objects.</param>
+    /// <param name="sizes">Specifies an array of sizes of the buffer object regions.</param>
     public static void glBindBuffersRange(GLenum target, GLuint first, GLuint[] buffers, GLintptr[] offsets, GLsizeiptr[] sizes) { fixed (GLuint* p_buffers = &buffers[0]) { fixed (GLintptr* p_offsets = &offsets[0]) { fixed (GLsizeiptr* p_sizes = &sizes[0]) { _glBindBuffersRange(target, first, buffers.Length, p_buffers, p_offsets, p_sizes); } } } }
 #endif
 
@@ -11776,9 +11866,20 @@ public unsafe static class GL
     private delegate void PFNGLBINDTEXTURESPROC(GLuint first, GLsizei count, GLuint* textures);
     private static PFNGLBINDTEXTURESPROC _glBindTextures;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind an array of textures to a set of consecutive texture units.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first texture unit to which to bind textures.</param>
+    /// <param name="count">Specifies the number of textures to bind.</param>
+    /// <param name="textures">Specifies an array of textures whose names to bind.</param>
     public static void glBindTextures(GLuint first, GLsizei count, GLuint* textures) => _glBindTextures(first, count, textures);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind an array of textures to a set of consecutive texture units.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first texture unit to which to bind textures.</param>
+    /// <param name="textures">Specifies an array of textures whose names to bind.</param>
     public static void glBindTextures(GLuint first, GLuint[] textures) { fixed (GLuint* p_textures = &textures[0]) { _glBindTextures(first, textures.Length, p_textures); } }
 #endif
 
@@ -11786,9 +11887,20 @@ public unsafe static class GL
     private delegate void PFNGLBINDSAMPLERSPROC(GLuint first, GLsizei count, GLuint* samplers);
     private static PFNGLBINDSAMPLERSPROC _glBindSamplers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind an array of samplers to a set of consecutive texture units.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first texture unit to which to bind samplers.</param>
+    /// <param name="count">Specifies the number of samplers to bind.</param>
+    /// <param name="samplers">Specifies an array of samplers whose names to bind.</param>
     public static void glBindSamplers(GLuint first, GLsizei count, GLuint* samplers) => _glBindSamplers(first, count, samplers);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind an array of samplers to a set of consecutive texture units.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first texture unit to which to bind samplers.</param>
+    /// <param name="samplers">Specifies an array of samplers whose names to bind.</param>
     public static void glBindSamplers(GLuint first, GLuint[] samplers) { fixed (GLuint* p_samplers = &samplers[0]) { _glBindSamplers(first, samplers.Length, p_samplers); } }
 #endif
 
@@ -11796,9 +11908,20 @@ public unsafe static class GL
     private delegate void PFNGLBINDIMAGETEXTURESPROC(GLuint first, GLsizei count, GLuint* textures);
     private static PFNGLBINDIMAGETEXTURESPROC _glBindImageTextures;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind an array of textures to a set of consecutive image units.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first image unit to which to bind textures.</param>
+    /// <param name="count">Specifies the number of textures to bind.</param>
+    /// <param name="textures">Specifies an array of textures whose names to bind.</param>
     public static void glBindImageTextures(GLuint first, GLsizei count, GLuint* textures) => _glBindImageTextures(first, count, textures);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind an array of textures to a set of consecutive image units.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first image unit to which to bind textures.</param>
+    /// <param name="textures">Specifies an array of textures whose names to bind.</param>
     public static void glBindImageTextures(GLuint first, GLuint[] textures) { fixed (GLuint* p_textures = &textures[0]) { _glBindImageTextures(first, textures.Length, p_textures); } }
 #endif
 
@@ -11806,9 +11929,24 @@ public unsafe static class GL
     private delegate void PFNGLBINDVERTEXBUFFERSPROC(GLuint first, GLsizei count, GLuint* buffers, GLintptr* offsets, GLsizei* strides);
     private static PFNGLBINDVERTEXBUFFERSPROC _glBindVertexBuffers;
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_UNSAFE
+    /// <summary>
+    /// Bind an array of buffer objects to a sequence of consecutive vertex buffer binding points.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first vertex buffer binding point to which to bind buffer.</param>
+    /// <param name="count">Specifies the number of buffer binding points to which to bind buffers.</param>
+    /// <param name="buffers">Specifies an array of buffer objects whose names to bind.</param>
+    /// <param name="offsets">Specifies an array of offsets into each buffer object being bound.</param>
+    /// <param name="strides">Specifies an array of stride values.</param>
     public static void glBindVertexBuffers(GLuint first, GLsizei count, GLuint* buffers, GLintptr* offsets, GLsizei* strides) => _glBindVertexBuffers(first, count, buffers, offsets, strides);
 #endif
 #if OGL_WRAPPER_API_BOTH || OGL_WRAPPER_API_SAFE
+    /// <summary>
+    /// Bind an array of buffer objects to a sequence of consecutive vertex buffer binding points.
+    /// </summary>
+    /// <param name="first">Specifies the index of the first vertex buffer binding point to which to bind buffer.</param>
+    /// <param name="buffers">Specifies an array of buffer objects whose names to bind.</param>
+    /// <param name="offsets">Specifies an array of offsets into each buffer object being bound.</param>
+    /// <param name="strides">Specifies an array of stride values.</param>
     public static void glBindVertexBuffers(GLuint first, GLuint[] buffers, GLintptr[] offsets, GLsizei[] strides) { fixed (GLuint* p_buffers = &buffers[0]) { fixed (GLintptr* p_offsets = &offsets[0]) { fixed (GLsizei* p_strides = &strides[0]) { _glBindVertexBuffers(first, buffers.Length, p_buffers, p_offsets, p_strides); } } } }
 #endif
 
