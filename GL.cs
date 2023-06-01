@@ -41,7 +41,7 @@ using System.Runtime.InteropServices;
 
 #if OGL_V_1_0 || OGL_V_1_1 || OGL_V_1_2 || OGL_V_1_3 || OGL_V_1_4 || OGL_V_1_5 || OGL_V_2_0 || OGL_V_2_1 || OGL_V_3_0 || OGL_V_3_1 || OGL_V_3_2 || OGL_V_3_3 || OGL_V_4_0 || OGL_V_4_1 || OGL_V_4_2 || OGL_V_4_3 || OGL_V_4_4 || OGL_V_4_5 || OGL_V_4_6
 
-using GLenum = System.UInt32;
+using GLenum = System.Int32;
 using GLfloat = System.Single;
 using GLint = System.Int32;
 using GLsizei = System.Int32;
@@ -4795,7 +4795,7 @@ public unsafe static class GL
     /// </summary>
     /// <param name="target">Specifies the target to be clamped. Must be <see cref="GL_CLAMP_READ_COLOR" />.</param>
     /// <param name="clamp">Specifies whether to apply color clamping. <see langword="true" /> specifies that clamping is enabled, <see langword="false" /> specifies that clamping is disabled.</param>
-    public static void glClampColor(GLenum target, GLboolean clamp) { _glClampColor(target, clamp ? (uint)GL_TRUE : (uint)GL_FALSE); }
+    public static void glClampColor(GLenum target, GLboolean clamp) { _glClampColor(target, clamp ? GL_TRUE : GL_FALSE); }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLBEGINCONDITIONALRENDERPROC(GLuint id, GLenum mode);
