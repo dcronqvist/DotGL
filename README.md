@@ -4,6 +4,18 @@ A low level OpenGL 4.6 binding for C#. Contains exact function signatures (unsaf
 
 ## How to use
 
+#### Include script
+
+The easiest way to include this binding in your project is to use the [Include.ps1](Include.ps1) script. The script will download the latest [GL.cs](/GL.cs) file, and put it next to your `.csproj` file. It will also add the necessary configuration to your `.csproj` file.
+
+The following command can be run either in the same directory as the `.csproj` file you wish to include it for, or next to the `.sln` file, where it will be simply include it in the first `.csproj` file it finds. 
+
+```powershell
+$(iwr https://raw.githubusercontent.com/dcronqvist/DotGL/master/Include.ps1).Content | iex
+```
+
+#### Manually
+
 1. Download the [GL.cs](/GL.cs) file and add it to your project somewhere.
 2. Include the following in your `.csproj` file.
     - Configure `OpenGLVersionMajor` and `OpenGLVersionMinor` to your desired OpenGL version.
