@@ -45,6 +45,11 @@ $NewRawXMLToInsert = @'
 </PropertyGroup>
 '@
 
+# Add <AllowUnsafeBlocks>true</AllowUnsafeBlocks> to the first PropertyGroup in the .csproj file.
+$FirstPropertyGroup = $CSProjFile.FirstChild.FirstChild;
+$AllowUnsafeBlock = $FirstPropertyGroup.AppendChild($CSProjFile.CreateElement("AllowUnsafeBlocks"));
+$AllowUnsafeBlock.InnerText = "true";
+
 $NewNode = $CSProjFile.CreateDocumentFragment();
 $NewNode.InnerXml = $NewRawXMLToInsert;
 
