@@ -21,6 +21,7 @@ $(iwr "https://raw.githubusercontent.com/dcronqvist/DotGL/master/Include.ps1").C
     - Configure `OpenGLVersionMajor` and `OpenGLVersionMinor` to your desired OpenGL version.
     - Configure `OpenGLProfile` to either `CORE` or `COMPAT`. (`COMPAT` not implemented yet)
     - Configure `OpenGLWrapperAPI` to either `SAFE`, `UNSAFE` or `BOTH`.
+3. Make sure to add `<AllowUnsafeBlocks>true<AllowUnsafeBlocks>` to your `.csproj` file if you want to use the unsafe functions.
 
 ```xml
 <Project ...>
@@ -49,7 +50,7 @@ $(iwr "https://raw.githubusercontent.com/dcronqvist/DotGL/master/Include.ps1").C
 </Project>
 ```
 
-3. Done!
+4. Done!
 
 ## Example with [DotGLFW](https://github.com/dcronqvist/DotGLFW)
 
