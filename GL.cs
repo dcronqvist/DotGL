@@ -101,6 +101,8 @@ public unsafe static class GL
     /// </summary>
     public static readonly void* NULL = (void*)0;
 
+    static GLDEBUGPROC callbackUnsafe;
+
     /// <summary>
     /// Useful helper function for getting the major OpenGL version of the project as defined by the preprocessor.
     /// In cases where no version is defined, a compile time error will be thrown to prevent the project from compiling.
@@ -11474,7 +11476,7 @@ public unsafe static class GL
     /// <param name="userParam">Specifies a user-defined value that will be passed to the callback function when it is called.</param>
     public static void glDebugMessageCallback(GLDEBUGPROCSAFE callback, void* userParam)
     {
-        GLDEBUGPROC callbackUnsafe = (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar* message, void* userParam) =>
+        callbackUnsafe = (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar* message, void* userParam) =>
         {
             string messageString = new string((sbyte*)message, 0, length, Encoding.UTF8);
             callback(source, type, id, severity, messageString, userParam);
