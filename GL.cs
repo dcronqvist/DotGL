@@ -11453,6 +11453,7 @@ public unsafe static class GL
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void GLDEBUGPROC(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar* message, void* userParam);
+    private static GLDEBUGPROC _unsafeDebugCallbackToPreventGC;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void PFNGLDEBUGMESSAGECALLBACKPROC(GLDEBUGPROC callback, void* userParam);
@@ -11474,12 +11475,12 @@ public unsafe static class GL
     /// <param name="userParam">Specifies a user-defined value that will be passed to the callback function when it is called.</param>
     public static void glDebugMessageCallback(GLDEBUGPROCSAFE callback, void* userParam)
     {
-        GLDEBUGPROC callbackUnsafe = (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar* message, void* userParam) =>
+        _unsafeDebugCallbackToPreventGC = (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar* message, void* userParam) =>
         {
             string messageString = new string((sbyte*)message, 0, length, Encoding.UTF8);
             callback(source, type, id, severity, messageString, userParam);
         };
-        _glDebugMessageCallback(callbackUnsafe, userParam);
+        _glDebugMessageCallback(_unsafeDebugCallbackToPreventGC, userParam);
     }
 #endif
 
