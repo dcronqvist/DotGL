@@ -2,7 +2,7 @@
 
 MIT License
 
-Copyright (c) 2023 dcronqvist (Daniel Cronqvist <daniel@dcronqvist.se>)
+Copyright (c) 2025 dcronqvist (Daniel Cronqvist <daniel@dcronqvist.se>)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -222,6 +222,15 @@ public unsafe static class GL
 #error "OpenGL profile not defined"
 #endif
         return profile;
+    }
+
+    private static byte[] ManagedStringToNullTerminatedUTF8(string str)
+    {
+        int byteCount = Encoding.UTF8.GetByteCount(str);
+        byte[] utf8Bytes = new byte[byteCount + 1]; // +1 for null terminator
+        Encoding.UTF8.GetBytes(str, 0, str.Length, utf8Bytes, 0);
+        utf8Bytes[byteCount] = 0; // Null terminator
+        return utf8Bytes;
     }
 
 #if OGL_P_CORE
@@ -2600,7 +2609,7 @@ public unsafe static class GL
     /// <param name="name">Specifies a string containing the name of the vertex shader attribute variable to which index is to be bound.</param>
     public static void glBindAttribLocation(GLuint program, GLuint index, string name)
     {
-        var utf8 = Encoding.UTF8.GetBytes(name);
+        var utf8 = ManagedStringToNullTerminatedUTF8(name);
         fixed (byte* putf8 = &utf8[0])
         {
             _glBindAttribLocation(program, index, (GLchar*)putf8);
@@ -2817,7 +2826,7 @@ public unsafe static class GL
     /// <returns>Returns the location of the attribute variable name if it is found in program. If name starts with the reserved prefix "gl_", a location of -1 is returned.</returns>
     public static GLint glGetAttribLocation(GLuint program, string name)
     {
-        fixed (GLchar* pname = Encoding.UTF8.GetBytes(name))
+        fixed (GLchar* pname = ManagedStringToNullTerminatedUTF8(name))
         {
             return _glGetAttribLocation(program, pname);
         }
@@ -2974,7 +2983,7 @@ public unsafe static class GL
     /// <param name="name">A string containing the name of the uniform variable whose location is to be queried.</param>
     public static GLint glGetUniformLocation(GLuint program, string name)
     {
-        fixed (byte* pname = Encoding.UTF8.GetBytes(name))
+        fixed (byte* pname = ManagedStringToNullTerminatedUTF8(name))
         {
             return _glGetUniformLocation(program, (GLchar*)pname);
         }
@@ -3177,7 +3186,7 @@ public unsafe static class GL
 
         for (int i = 0; i < count; i++)
         {
-            strings[i] = Encoding.UTF8.GetBytes(@string[i]);
+            strings[i] = ManagedStringToNullTerminatedUTF8(@string[i]);
             lengths[i] = @string[i].Length;
         }
 
@@ -4734,7 +4743,7 @@ public unsafe static class GL
         GLchar[][] varyingsBytes = new GLchar[varyings.Length][];
         for (int i = 0; i < varyings.Length; i++)
         {
-            varyingsBytes[i] = Encoding.UTF8.GetBytes(varyings[i]);
+            varyingsBytes[i] = ManagedStringToNullTerminatedUTF8(varyings[i]);
         }
         GLchar*[] varyingsPtrs = new GLchar*[varyings.Length];
         for (int i = 0; i < varyings.Length; i++)
@@ -5262,7 +5271,7 @@ public unsafe static class GL
     /// <param name="program">Specifies the program object in which the binding is to occur.</param>
     /// <param name="color">Specifies the color number to which the user-defined varying out variable is to be bound.</param>
     /// <param name="name">Specifies the name of the user-defined varying out variable to whose bound location to set.</param>
-    public static void glBindFragDataLocation(GLuint program, GLuint color, string name) { GLchar[] narr = Encoding.UTF8.GetBytes(name); fixed (GLchar* p = &narr[0]) { _glBindFragDataLocation(program, color, p); } }
+    public static void glBindFragDataLocation(GLuint program, GLuint color, string name) { GLchar[] narr = ManagedStringToNullTerminatedUTF8(name); fixed (GLchar* p = &narr[0]) { _glBindFragDataLocation(program, color, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -5284,7 +5293,7 @@ public unsafe static class GL
     /// <param name="program">Specifies the program object to be queried.</param>
     /// <param name="name">Specifies the name of the user-defined varying out variable whose location is to be queried.</param>
     /// <returns>The location of the user-defined varying out variable specified by <paramref name="name"/> is returned.</returns>
-    public static GLint glGetFragDataLocation(GLuint program, string name) { GLchar[] narr = Encoding.UTF8.GetBytes(name); fixed (GLchar* p = &narr[0]) { return _glGetFragDataLocation(program, p); } }
+    public static GLint glGetFragDataLocation(GLuint program, string name) { GLchar[] narr = ManagedStringToNullTerminatedUTF8(name); fixed (GLchar* p = &narr[0]) { return _glGetFragDataLocation(program, p); } }
 #endif
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -6182,7 +6191,7 @@ public unsafe static class GL
 
         for (int i = 0; i < uniformCount; i++)
         {
-            uniformNamesPtrs[i] = Encoding.UTF8.GetBytes(uniformNames[i]);
+            uniformNamesPtrs[i] = ManagedStringToNullTerminatedUTF8(uniformNames[i]);
         }
 
         GLchar** pUniformNames = stackalloc GLchar*[uniformCount];
@@ -6289,7 +6298,7 @@ public unsafe static class GL
     /// <param name="uniformBlockName">Contains the name of the uniform block whose index to query.</param>
     public static GLuint glGetUniformBlockIndex(GLuint program, string uniformBlockName)
     {
-        byte[] uniformBlockNameBytes = Encoding.UTF8.GetBytes(uniformBlockName);
+        byte[] uniformBlockNameBytes = ManagedStringToNullTerminatedUTF8(uniformBlockName);
         fixed (GLchar* p = &uniformBlockNameBytes[0])
         {
             return _glGetUniformBlockIndex(program, p);
@@ -6894,7 +6903,7 @@ public unsafe static class GL
     /// <param name="name">Specifies the name of the user-defined varying out variable whose binding to modify.</param>
     public static void glBindFragDataLocationIndexed(GLuint program, GLuint colorNumber, GLuint index, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p = &nameBytes[0])
             _glBindFragDataLocationIndexed(program, colorNumber, index, p);
     }
@@ -6921,7 +6930,7 @@ public unsafe static class GL
     /// <returns>The index of the user-defined varying out variable.</returns>
     public static GLint glGetFragDataIndex(GLuint program, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p = &nameBytes[0])
             return _glGetFragDataIndex(program, p);
     }
@@ -7958,7 +7967,7 @@ public unsafe static class GL
     /// <returns>The location of the subroutine uniform variable.</returns>
     public static GLint glGetSubroutineUniformLocation(GLuint program, GLenum shadertype, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p = &nameBytes[0])
         {
             return _glGetSubroutineUniformLocation(program, shadertype, p);
@@ -7989,7 +7998,7 @@ public unsafe static class GL
     /// <returns>The index of the subroutine uniform variable.</returns>
     public static GLuint glGetSubroutineIndex(GLuint program, GLenum shadertype, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p = &nameBytes[0])
         {
             return _glGetSubroutineIndex(program, shadertype, p);
@@ -8593,7 +8602,7 @@ public unsafe static class GL
         GLchar[][] stringsBytes = new GLchar[strings.Length][];
         for (int i = 0; i < strings.Length; i++)
         {
-            stringsBytes[i] = Encoding.UTF8.GetBytes(strings[i]);
+            stringsBytes[i] = ManagedStringToNullTerminatedUTF8(strings[i]);
         }
 
         GLchar*[] stringsPtrs = new GLchar*[strings.Length];
@@ -11111,7 +11120,7 @@ public unsafe static class GL
     /// <returns>The index of the named resource within the specified program interface.</returns>
     public static GLuint glGetProgramResourceIndex(GLuint program, GLenum programInterface, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p_name = &nameBytes[0])
         {
             return _glGetProgramResourceIndex(program, programInterface, p_name);
@@ -11216,7 +11225,7 @@ public unsafe static class GL
     /// <returns>The location of the named resource.</returns>
     public static GLint glGetProgramResourceLocation(GLuint program, GLenum programInterface, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p_name = &nameBytes[0])
         {
             return _glGetProgramResourceLocation(program, programInterface, p_name);
@@ -11247,7 +11256,7 @@ public unsafe static class GL
     /// <returns>The index of the named resource.</returns>
     public static GLint glGetProgramResourceLocationIndex(GLuint program, GLenum programInterface, string name)
     {
-        GLchar[] nameBytes = Encoding.UTF8.GetBytes(name);
+        GLchar[] nameBytes = ManagedStringToNullTerminatedUTF8(name);
         fixed (GLchar* p_name = &nameBytes[0])
         {
             return _glGetProgramResourceLocationIndex(program, programInterface, p_name);
@@ -11446,7 +11455,7 @@ public unsafe static class GL
     /// <param name="buf">Specifies the message to be inserted.</param>
     public static void glDebugMessageInsert(GLenum source, GLenum type, GLuint id, GLenum severity, string buf)
     {
-        GLchar[] bufBytes = Encoding.UTF8.GetBytes(buf);
+        GLchar[] bufBytes = ManagedStringToNullTerminatedUTF8(buf);
         fixed (GLchar* p_bufBytes = bufBytes) { _glDebugMessageInsert(source, type, id, severity, bufBytes.Length, p_bufBytes); }
     }
 #endif
@@ -11570,7 +11579,7 @@ public unsafe static class GL
     /// <param name="message">Specifies a string containing the message.</param>
     public static void glPushDebugGroup(GLenum source, GLuint id, string message)
     {
-        GLchar[] messageBytes = Encoding.UTF8.GetBytes(message);
+        GLchar[] messageBytes = ManagedStringToNullTerminatedUTF8(message);
         fixed (GLchar* p_messageBytes = messageBytes) { _glPushDebugGroup(source, id, messageBytes.Length, p_messageBytes); }
     }
 #endif
@@ -11605,7 +11614,7 @@ public unsafe static class GL
     /// <param name="label">Specifies a string containing the label to assign to the object.</param>
     public static void glObjectLabel(GLenum identifier, GLuint name, string label)
     {
-        GLchar[] labelBytes = Encoding.UTF8.GetBytes(label);
+        GLchar[] labelBytes = ManagedStringToNullTerminatedUTF8(label);
         fixed (GLchar* p_labelBytes = labelBytes) { _glObjectLabel(identifier, name, labelBytes.Length, p_labelBytes); }
     }
 #endif
@@ -11664,7 +11673,7 @@ public unsafe static class GL
     /// <param name="label">Specifies a string containing the label to assign to the object.</param>
     public static void glObjectPtrLabel(IntPtr ptr, string label)
     {
-        GLchar[] labelBytes = Encoding.UTF8.GetBytes(label);
+        GLchar[] labelBytes = ManagedStringToNullTerminatedUTF8(label);
         fixed (GLchar* p_labelBytes = labelBytes) { _glObjectPtrLabel(ptr.ToPointer(), labelBytes.Length, p_labelBytes); }
     }
 #endif
@@ -14250,7 +14259,7 @@ public unsafe static class GL
     /// <param name="pConstantValue">Specifies the value of each specialization constant to be set.</param>
     public static void glSpecializeShader(GLuint shader, string pEntryPoint, GLuint numSpecializationConstants, GLuint[] pConstantIndex, GLuint[] pConstantValue)
     {
-        GLchar[] pEntryPointBytes = Encoding.UTF8.GetBytes(pEntryPoint);
+        GLchar[] pEntryPointBytes = ManagedStringToNullTerminatedUTF8(pEntryPoint);
         fixed (GLchar* ptr_pEntryPoint = &pEntryPointBytes[0])
         fixed (GLuint* ptr_pConstantIndex = &pConstantIndex[0])
         fixed (GLuint* ptr_pConstantValue = &pConstantValue[0])
